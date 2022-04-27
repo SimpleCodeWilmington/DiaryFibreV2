@@ -1,0 +1,26 @@
+{
+  "diaryFibreApp": {
+    "blogImage": {
+      "home": {
+        "title": "Blog Images",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Blog Image",
+        "createOrEditLabel": "Create or edit a Blog Image",
+        "notFound": "No Blog Images found"
+      },
+      "created": "A new Blog Image is created with identifier {{ param }}",
+      "updated": "A Blog Image is updated with identifier {{ param }}",
+      "deleted": "A Blog Image is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Blog Image {{ id }}?"
+      },
+      "detail": {
+        "title": "Blog Image"
+      },
+      "id": "ID",
+      "blogPostID": "Blog Post ID",
+      "blogImage": "Blog Image",
+      "imageNumber": "Image Number"
+    }
+  }
+}

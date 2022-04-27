@@ -1,0 +1,26 @@
+{
+  "applications": "*",
+  "changelogDate": "20220427203318",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "blog_text",
+  "fields": [
+    {
+      "fieldName": "blogPostID",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "blogText",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BlogText",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

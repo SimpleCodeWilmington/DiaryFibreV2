@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20220427203316",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "blog",
+  "fields": [
+    {
+      "fieldName": "blogName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "blogOwner",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "accessStatus",
+      "fieldType": "AccessType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Public,Private"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Blog",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}
