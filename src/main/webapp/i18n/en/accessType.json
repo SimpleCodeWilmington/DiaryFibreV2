@@ -1,0 +1,9 @@
+{
+  "diaryFibreApp": {
+    "AccessType": {
+      "null": "",
+      "Public": "Public",
+      "Private": "Private"
+    }
+  }
+}

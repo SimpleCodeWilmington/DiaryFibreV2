@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20220427203317",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "blog_post",
+  "fields": [
+    {
+      "fieldName": "blogID",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateTime",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "template",
+      "fieldType": "Template",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "THEDAVID,THEDOLIO,THEKRIS,THEMEREDITH,THEMILES"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BlogPost",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

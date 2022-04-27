@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20220427203319",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "blog_image",
+  "fields": [
+    {
+      "fieldName": "blogPostID",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "blogImage",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "imageNumber",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BlogImage",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}
