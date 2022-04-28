@@ -3,6 +3,7 @@ package com.mycompany.myapp.web.rest;
 import static com.mycompany.myapp.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -10,18 +11,25 @@ import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.BlogPost;
 import com.mycompany.myapp.domain.enumeration.Template;
 import com.mycompany.myapp.repository.BlogPostRepository;
+import com.mycompany.myapp.service.BlogPostService;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,12 +39,10 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link BlogPostResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class BlogPostResourceIT {
-
-    private static final Long DEFAULT_BLOG_ID = 1L;
-    private static final Long UPDATED_BLOG_ID = 2L;
 
     private static final ZonedDateTime DEFAULT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
@@ -53,6 +59,12 @@ class BlogPostResourceIT {
     @Autowired
     private BlogPostRepository blogPostRepository;
 
+    @Mock
+    private BlogPostRepository blogPostRepositoryMock;
+
+    @Mock
+    private BlogPostService blogPostServiceMock;
+
     @Autowired
     private EntityManager em;
 
@@ -68,7 +80,7 @@ class BlogPostResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BlogPost createEntity(EntityManager em) {
-        BlogPost blogPost = new BlogPost().blogID(DEFAULT_BLOG_ID).dateTime(DEFAULT_DATE_TIME).template(DEFAULT_TEMPLATE);
+        BlogPost blogPost = new BlogPost().dateTime(DEFAULT_DATE_TIME).template(DEFAULT_TEMPLATE);
         return blogPost;
     }
 
@@ -79,7 +91,7 @@ class BlogPostResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BlogPost createUpdatedEntity(EntityManager em) {
-        BlogPost blogPost = new BlogPost().blogID(UPDATED_BLOG_ID).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
+        BlogPost blogPost = new BlogPost().dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
         return blogPost;
     }
 
@@ -101,7 +113,6 @@ class BlogPostResourceIT {
         List<BlogPost> blogPostList = blogPostRepository.findAll();
         assertThat(blogPostList).hasSize(databaseSizeBeforeCreate + 1);
         BlogPost testBlogPost = blogPostList.get(blogPostList.size() - 1);
-        assertThat(testBlogPost.getBlogID()).isEqualTo(DEFAULT_BLOG_ID);
         assertThat(testBlogPost.getDateTime()).isEqualTo(DEFAULT_DATE_TIME);
         assertThat(testBlogPost.getTemplate()).isEqualTo(DEFAULT_TEMPLATE);
     }
@@ -122,23 +133,6 @@ class BlogPostResourceIT {
         // Validate the BlogPost in the database
         List<BlogPost> blogPostList = blogPostRepository.findAll();
         assertThat(blogPostList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    void checkBlogIDIsRequired() throws Exception {
-        int databaseSizeBeforeTest = blogPostRepository.findAll().size();
-        // set the field null
-        blogPost.setBlogID(null);
-
-        // Create the BlogPost, which fails.
-
-        restBlogPostMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(blogPost)))
-            .andExpect(status().isBadRequest());
-
-        List<BlogPost> blogPostList = blogPostRepository.findAll();
-        assertThat(blogPostList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -170,9 +164,26 @@ class BlogPostResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(blogPost.getId().intValue())))
-            .andExpect(jsonPath("$.[*].blogID").value(hasItem(DEFAULT_BLOG_ID.intValue())))
             .andExpect(jsonPath("$.[*].dateTime").value(hasItem(sameInstant(DEFAULT_DATE_TIME))))
             .andExpect(jsonPath("$.[*].template").value(hasItem(DEFAULT_TEMPLATE.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllBlogPostsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(blogPostServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restBlogPostMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(blogPostServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllBlogPostsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(blogPostServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restBlogPostMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(blogPostServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -187,7 +198,6 @@ class BlogPostResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(blogPost.getId().intValue()))
-            .andExpect(jsonPath("$.blogID").value(DEFAULT_BLOG_ID.intValue()))
             .andExpect(jsonPath("$.dateTime").value(sameInstant(DEFAULT_DATE_TIME)))
             .andExpect(jsonPath("$.template").value(DEFAULT_TEMPLATE.toString()));
     }
@@ -211,7 +221,7 @@ class BlogPostResourceIT {
         BlogPost updatedBlogPost = blogPostRepository.findById(blogPost.getId()).get();
         // Disconnect from session so that the updates on updatedBlogPost are not directly saved in db
         em.detach(updatedBlogPost);
-        updatedBlogPost.blogID(UPDATED_BLOG_ID).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
+        updatedBlogPost.dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
 
         restBlogPostMockMvc
             .perform(
@@ -225,7 +235,6 @@ class BlogPostResourceIT {
         List<BlogPost> blogPostList = blogPostRepository.findAll();
         assertThat(blogPostList).hasSize(databaseSizeBeforeUpdate);
         BlogPost testBlogPost = blogPostList.get(blogPostList.size() - 1);
-        assertThat(testBlogPost.getBlogID()).isEqualTo(UPDATED_BLOG_ID);
         assertThat(testBlogPost.getDateTime()).isEqualTo(UPDATED_DATE_TIME);
         assertThat(testBlogPost.getTemplate()).isEqualTo(UPDATED_TEMPLATE);
     }
@@ -298,7 +307,7 @@ class BlogPostResourceIT {
         BlogPost partialUpdatedBlogPost = new BlogPost();
         partialUpdatedBlogPost.setId(blogPost.getId());
 
-        partialUpdatedBlogPost.blogID(UPDATED_BLOG_ID).template(UPDATED_TEMPLATE);
+        partialUpdatedBlogPost.dateTime(UPDATED_DATE_TIME);
 
         restBlogPostMockMvc
             .perform(
@@ -312,9 +321,8 @@ class BlogPostResourceIT {
         List<BlogPost> blogPostList = blogPostRepository.findAll();
         assertThat(blogPostList).hasSize(databaseSizeBeforeUpdate);
         BlogPost testBlogPost = blogPostList.get(blogPostList.size() - 1);
-        assertThat(testBlogPost.getBlogID()).isEqualTo(UPDATED_BLOG_ID);
-        assertThat(testBlogPost.getDateTime()).isEqualTo(DEFAULT_DATE_TIME);
-        assertThat(testBlogPost.getTemplate()).isEqualTo(UPDATED_TEMPLATE);
+        assertThat(testBlogPost.getDateTime()).isEqualTo(UPDATED_DATE_TIME);
+        assertThat(testBlogPost.getTemplate()).isEqualTo(DEFAULT_TEMPLATE);
     }
 
     @Test
@@ -329,7 +337,7 @@ class BlogPostResourceIT {
         BlogPost partialUpdatedBlogPost = new BlogPost();
         partialUpdatedBlogPost.setId(blogPost.getId());
 
-        partialUpdatedBlogPost.blogID(UPDATED_BLOG_ID).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
+        partialUpdatedBlogPost.dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
 
         restBlogPostMockMvc
             .perform(
@@ -343,7 +351,6 @@ class BlogPostResourceIT {
         List<BlogPost> blogPostList = blogPostRepository.findAll();
         assertThat(blogPostList).hasSize(databaseSizeBeforeUpdate);
         BlogPost testBlogPost = blogPostList.get(blogPostList.size() - 1);
-        assertThat(testBlogPost.getBlogID()).isEqualTo(UPDATED_BLOG_ID);
         assertThat(testBlogPost.getDateTime()).isEqualTo(UPDATED_DATE_TIME);
         assertThat(testBlogPost.getTemplate()).isEqualTo(UPDATED_TEMPLATE);
     }

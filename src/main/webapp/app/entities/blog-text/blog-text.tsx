@@ -51,9 +51,6 @@ export const BlogText = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="diaryFibreApp.blogText.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="diaryFibreApp.blogText.blogPostID">Blog Post ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="diaryFibreApp.blogText.blogText">Blog Text</Translate>
                 </th>
                 <th />
@@ -67,7 +64,6 @@ export const BlogText = (props: RouteComponentProps<{ url: string }>) => {
                       {blogText.id}
                     </Button>
                   </td>
-                  <td>{blogText.blogPostID}</td>
                   <td>
                     {blogText.blogText ? (
                       <div>

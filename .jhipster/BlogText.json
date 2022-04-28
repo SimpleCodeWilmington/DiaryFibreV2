@@ -6,11 +6,6 @@
   "entityTableName": "blog_text",
   "fields": [
     {
-      "fieldName": "blogPostID",
-      "fieldType": "Long",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "blogText",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "any"
@@ -21,6 +16,15 @@
   "name": "BlogText",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "blogPost",
+      "otherEntityRelationshipName": "blogtext",
+      "ownerSide": false,
+      "relationshipName": "blogpost",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceImpl"
 }

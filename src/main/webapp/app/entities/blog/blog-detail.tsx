@@ -48,6 +48,10 @@ export const BlogDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{blogEntity.accessStatus}</dd>
+          <dt>
+            <Translate contentKey="diaryFibreApp.blog.user">User</Translate>
+          </dt>
+          <dd>{blogEntity.user ? blogEntity.user.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/blog" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

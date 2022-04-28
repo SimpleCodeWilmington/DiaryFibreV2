@@ -20,7 +20,8 @@
       "id": "ID",
       "blogName": "Blog Name",
       "blogOwner": "Blog Owner",
-      "accessStatus": "Access Status"
+      "accessStatus": "Access Status",
+      "user": "User"
     }
   }
 }

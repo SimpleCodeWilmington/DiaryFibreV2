@@ -14,9 +14,6 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="blog_post_id" type="bigint">
-                <constraints nullable="false" />
-            </column>
             <column name="blog_image" type="longblob">
                 <constraints nullable="false" />
             </column>
@@ -25,6 +22,9 @@
             </column>
             <column name="image_number" type="integer">
                 <constraints nullable="false" />
+            </column>
+            <column name="blogpost_id" type="bigint">
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -47,7 +47,6 @@
                   tableName="blog_image"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="blog_post_id" type="numeric"/>
             <column name="blog_image" type="blob"/>
             <column name="blog_image_content_type" type="string"/>
             <column name="image_number" type="numeric"/>

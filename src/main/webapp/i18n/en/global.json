@@ -12,6 +12,7 @@
         "blogText": "Blog Text",
         "blogImage": "Blog Image",
         "tag": "Tag",
+        "blogComment": "Blog Comment",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

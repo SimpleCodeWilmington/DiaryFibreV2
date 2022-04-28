@@ -8,6 +8,12 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IBlogText } from 'app/shared/model/blog-text.model';
+import { getEntities as getBlogTexts } from 'app/entities/blog-text/blog-text.reducer';
+import { IBlog } from 'app/shared/model/blog.model';
+import { getEntities as getBlogs } from 'app/entities/blog/blog.reducer';
+import { ITag } from 'app/shared/model/tag.model';
+import { getEntities as getTags } from 'app/entities/tag/tag.reducer';
 import { IBlogPost } from 'app/shared/model/blog-post.model';
 import { Template } from 'app/shared/model/enumerations/template.model';
 import { getEntity, updateEntity, createEntity, reset } from './blog-post.reducer';
@@ -17,6 +23,9 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const blogTexts = useAppSelector(state => state.blogText.entities);
+  const blogs = useAppSelector(state => state.blog.entities);
+  const tags = useAppSelector(state => state.tag.entities);
   const blogPostEntity = useAppSelector(state => state.blogPost.entity);
   const loading = useAppSelector(state => state.blogPost.loading);
   const updating = useAppSelector(state => state.blogPost.updating);
@@ -32,6 +41,10 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getBlogTexts({}));
+    dispatch(getBlogs({}));
+    dispatch(getTags({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +59,9 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...blogPostEntity,
       ...values,
+      tags: mapIdList(values.tags),
+      blogtext: blogTexts.find(it => it.id.toString() === values.blogtext.toString()),
+      blog: blogs.find(it => it.id.toString() === values.blog.toString()),
     };
 
     if (isNew) {
@@ -64,6 +80,9 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
           template: 'THEDAVID',
           ...blogPostEntity,
           dateTime: convertDateTimeFromServer(blogPostEntity.dateTime),
+          blogtext: blogPostEntity?.blogtext?.id,
+          blog: blogPostEntity?.blog?.id,
+          tags: blogPostEntity?.tags?.map(e => e.id.toString()),
         };
 
   return (
@@ -92,17 +111,6 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField
-                label={translate('diaryFibreApp.blogPost.blogID')}
-                id="blog-post-blogID"
-                name="blogID"
-                data-cy="blogID"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
-              <ValidatedField
                 label={translate('diaryFibreApp.blogPost.dateTime')}
                 id="blog-post-dateTime"
                 name="dateTime"
@@ -122,6 +130,49 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     {translate('diaryFibreApp.Template.' + template)}
                   </option>
                 ))}
+              </ValidatedField>
+              <ValidatedField
+                id="blog-post-blogtext"
+                name="blogtext"
+                data-cy="blogtext"
+                label={translate('diaryFibreApp.blogPost.blogtext')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {blogTexts
+                  ? blogTexts.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField id="blog-post-blog" name="blog" data-cy="blog" label={translate('diaryFibreApp.blogPost.blog')} type="select">
+                <option value="" key="0" />
+                {blogs
+                  ? blogs.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                label={translate('diaryFibreApp.blogPost.tag')}
+                id="blog-post-tag"
+                data-cy="tag"
+                type="select"
+                multiple
+                name="tags"
+              >
+                <option value="" key="0" />
+                {tags
+                  ? tags.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
               </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/blog-post" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />

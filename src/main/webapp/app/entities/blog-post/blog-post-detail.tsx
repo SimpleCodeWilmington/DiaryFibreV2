@@ -31,12 +31,6 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{blogPostEntity.id}</dd>
           <dt>
-            <span id="blogID">
-              <Translate contentKey="diaryFibreApp.blogPost.blogID">Blog ID</Translate>
-            </span>
-          </dt>
-          <dd>{blogPostEntity.blogID}</dd>
-          <dt>
             <span id="dateTime">
               <Translate contentKey="diaryFibreApp.blogPost.dateTime">Date Time</Translate>
             </span>
@@ -48,6 +42,27 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{blogPostEntity.template}</dd>
+          <dt>
+            <Translate contentKey="diaryFibreApp.blogPost.blogtext">Blogtext</Translate>
+          </dt>
+          <dd>{blogPostEntity.blogtext ? blogPostEntity.blogtext.id : ''}</dd>
+          <dt>
+            <Translate contentKey="diaryFibreApp.blogPost.blog">Blog</Translate>
+          </dt>
+          <dd>{blogPostEntity.blog ? blogPostEntity.blog.id : ''}</dd>
+          <dt>
+            <Translate contentKey="diaryFibreApp.blogPost.tag">Tag</Translate>
+          </dt>
+          <dd>
+            {blogPostEntity.tags
+              ? blogPostEntity.tags.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.id}</a>
+                    {blogPostEntity.tags && i === blogPostEntity.tags.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
         </dl>
         <Button tag={Link} to="/blog-post" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

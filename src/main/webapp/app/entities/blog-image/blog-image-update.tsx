@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IBlogPost } from 'app/shared/model/blog-post.model';
+import { getEntities as getBlogPosts } from 'app/entities/blog-post/blog-post.reducer';
 import { IBlogImage } from 'app/shared/model/blog-image.model';
 import { getEntity, updateEntity, createEntity, reset } from './blog-image.reducer';
 
@@ -16,6 +18,7 @@ export const BlogImageUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const blogPosts = useAppSelector(state => state.blogPost.entities);
   const blogImageEntity = useAppSelector(state => state.blogImage.entity);
   const loading = useAppSelector(state => state.blogImage.loading);
   const updating = useAppSelector(state => state.blogImage.updating);
@@ -30,6 +33,8 @@ export const BlogImageUpdate = (props: RouteComponentProps<{ id: string }>) => {
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getBlogPosts({}));
   }, []);
 
   useEffect(() => {
@@ -42,6 +47,7 @@ export const BlogImageUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...blogImageEntity,
       ...values,
+      blogpost: blogPosts.find(it => it.id.toString() === values.blogpost.toString()),
     };
 
     if (isNew) {
@@ -56,6 +62,7 @@ export const BlogImageUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ? {}
       : {
           ...blogImageEntity,
+          blogpost: blogImageEntity?.blogpost?.id,
         };
 
   return (
@@ -83,17 +90,6 @@ export const BlogImageUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('diaryFibreApp.blogImage.blogPostID')}
-                id="blog-image-blogPostID"
-                name="blogPostID"
-                data-cy="blogPostID"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
               <ValidatedBlobField
                 label={translate('diaryFibreApp.blogImage.blogImage')}
                 id="blog-image-blogImage"
@@ -116,6 +112,22 @@ export const BlogImageUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField
+                id="blog-image-blogpost"
+                name="blogpost"
+                data-cy="blogpost"
+                label={translate('diaryFibreApp.blogImage.blogpost')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {blogPosts
+                  ? blogPosts.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/blog-image" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

@@ -31,12 +31,6 @@ export const BlogTextDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{blogTextEntity.id}</dd>
           <dt>
-            <span id="blogPostID">
-              <Translate contentKey="diaryFibreApp.blogText.blogPostID">Blog Post ID</Translate>
-            </span>
-          </dt>
-          <dd>{blogTextEntity.blogPostID}</dd>
-          <dt>
             <span id="blogText">
               <Translate contentKey="diaryFibreApp.blogText.blogText">Blog Text</Translate>
             </span>

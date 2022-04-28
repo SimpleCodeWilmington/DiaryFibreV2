@@ -18,7 +18,8 @@
         "title": "Tag"
       },
       "id": "ID",
-      "tagName": "Tag Name"
+      "tagName": "Tag Name",
+      "blogpost": "Blogpost"
     }
   }
 }

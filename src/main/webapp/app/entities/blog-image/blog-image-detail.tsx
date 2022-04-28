@@ -31,12 +31,6 @@ export const BlogImageDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{blogImageEntity.id}</dd>
           <dt>
-            <span id="blogPostID">
-              <Translate contentKey="diaryFibreApp.blogImage.blogPostID">Blog Post ID</Translate>
-            </span>
-          </dt>
-          <dd>{blogImageEntity.blogPostID}</dd>
-          <dt>
             <span id="blogImage">
               <Translate contentKey="diaryFibreApp.blogImage.blogImage">Blog Image</Translate>
             </span>
@@ -64,6 +58,10 @@ export const BlogImageDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{blogImageEntity.imageNumber}</dd>
+          <dt>
+            <Translate contentKey="diaryFibreApp.blogImage.blogpost">Blogpost</Translate>
+          </dt>
+          <dd>{blogImageEntity.blogpost ? blogImageEntity.blogpost.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/blog-image" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

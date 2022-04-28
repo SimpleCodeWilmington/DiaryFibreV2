@@ -1,8 +1,11 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.Template;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -23,10 +26,6 @@ public class BlogPost implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
-    @Column(name = "blog_id", nullable = false)
-    private Long blogID;
-
     @Column(name = "date_time")
     private ZonedDateTime dateTime;
 
@@ -34,6 +33,30 @@ public class BlogPost implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "template", nullable = false)
     private Template template;
+
+    @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private BlogText blogtext;
+
+    @OneToMany(mappedBy = "blogpost")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
+    private Set<BlogImage> blogImages = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    private Blog blog;
+
+    @ManyToMany
+    @JoinTable(
+        name = "rel_blog_post__tag",
+        joinColumns = @JoinColumn(name = "blog_post_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "blogposts" }, allowSetters = true)
+    private Set<Tag> tags = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -48,19 +71,6 @@ public class BlogPost implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getBlogID() {
-        return this.blogID;
-    }
-
-    public BlogPost blogID(Long blogID) {
-        this.setBlogID(blogID);
-        return this;
-    }
-
-    public void setBlogID(Long blogID) {
-        this.blogID = blogID;
     }
 
     public ZonedDateTime getDateTime() {
@@ -89,6 +99,88 @@ public class BlogPost implements Serializable {
         this.template = template;
     }
 
+    public BlogText getBlogtext() {
+        return this.blogtext;
+    }
+
+    public void setBlogtext(BlogText blogText) {
+        this.blogtext = blogText;
+    }
+
+    public BlogPost blogtext(BlogText blogText) {
+        this.setBlogtext(blogText);
+        return this;
+    }
+
+    public Set<BlogImage> getBlogImages() {
+        return this.blogImages;
+    }
+
+    public void setBlogImages(Set<BlogImage> blogImages) {
+        if (this.blogImages != null) {
+            this.blogImages.forEach(i -> i.setBlogpost(null));
+        }
+        if (blogImages != null) {
+            blogImages.forEach(i -> i.setBlogpost(this));
+        }
+        this.blogImages = blogImages;
+    }
+
+    public BlogPost blogImages(Set<BlogImage> blogImages) {
+        this.setBlogImages(blogImages);
+        return this;
+    }
+
+    public BlogPost addBlogImage(BlogImage blogImage) {
+        this.blogImages.add(blogImage);
+        blogImage.setBlogpost(this);
+        return this;
+    }
+
+    public BlogPost removeBlogImage(BlogImage blogImage) {
+        this.blogImages.remove(blogImage);
+        blogImage.setBlogpost(null);
+        return this;
+    }
+
+    public Blog getBlog() {
+        return this.blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
+
+    public BlogPost blog(Blog blog) {
+        this.setBlog(blog);
+        return this;
+    }
+
+    public Set<Tag> getTags() {
+        return this.tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public BlogPost tags(Set<Tag> tags) {
+        this.setTags(tags);
+        return this;
+    }
+
+    public BlogPost addTag(Tag tag) {
+        this.tags.add(tag);
+        tag.getBlogposts().add(this);
+        return this;
+    }
+
+    public BlogPost removeTag(Tag tag) {
+        this.tags.remove(tag);
+        tag.getBlogposts().remove(this);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -113,7 +205,6 @@ public class BlogPost implements Serializable {
     public String toString() {
         return "BlogPost{" +
             "id=" + getId() +
-            ", blogID=" + getBlogID() +
             ", dateTime='" + getDateTime() + "'" +
             ", template='" + getTemplate() + "'" +
             "}";

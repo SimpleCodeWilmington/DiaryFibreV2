@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -21,10 +22,6 @@ public class BlogImage implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
-    @Column(name = "blog_post_id", nullable = false)
-    private Long blogPostID;
-
     @Lob
     @Column(name = "blog_image", nullable = false)
     private byte[] blogImage;
@@ -36,6 +33,10 @@ public class BlogImage implements Serializable {
     @NotNull
     @Column(name = "image_number", nullable = false)
     private Integer imageNumber;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "blogtext", "blogImages", "blog", "tags" }, allowSetters = true)
+    private BlogPost blogpost;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -50,19 +51,6 @@ public class BlogImage implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getBlogPostID() {
-        return this.blogPostID;
-    }
-
-    public BlogImage blogPostID(Long blogPostID) {
-        this.setBlogPostID(blogPostID);
-        return this;
-    }
-
-    public void setBlogPostID(Long blogPostID) {
-        this.blogPostID = blogPostID;
     }
 
     public byte[] getBlogImage() {
@@ -104,6 +92,19 @@ public class BlogImage implements Serializable {
         this.imageNumber = imageNumber;
     }
 
+    public BlogPost getBlogpost() {
+        return this.blogpost;
+    }
+
+    public void setBlogpost(BlogPost blogPost) {
+        this.blogpost = blogPost;
+    }
+
+    public BlogImage blogpost(BlogPost blogPost) {
+        this.setBlogpost(blogPost);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -128,7 +129,6 @@ public class BlogImage implements Serializable {
     public String toString() {
         return "BlogImage{" +
             "id=" + getId() +
-            ", blogPostID=" + getBlogPostID() +
             ", blogImage='" + getBlogImage() + "'" +
             ", blogImageContentType='" + getBlogImageContentType() + "'" +
             ", imageNumber=" + getImageNumber() +

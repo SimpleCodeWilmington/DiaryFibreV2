@@ -38,6 +38,12 @@ public interface BlogTextService {
      * @return the list of entities.
      */
     List<BlogText> findAll();
+    /**
+     * Get all the BlogText where Blogpost is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<BlogText> findAllWhereBlogpostIsNull();
 
     /**
      * Get the "id" blogText.

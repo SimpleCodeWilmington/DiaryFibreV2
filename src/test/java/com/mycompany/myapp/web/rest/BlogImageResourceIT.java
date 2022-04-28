@@ -30,9 +30,6 @@ import org.springframework.util.Base64Utils;
 @WithMockUser
 class BlogImageResourceIT {
 
-    private static final Long DEFAULT_BLOG_POST_ID = 1L;
-    private static final Long UPDATED_BLOG_POST_ID = 2L;
-
     private static final byte[] DEFAULT_BLOG_IMAGE = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_BLOG_IMAGE = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_BLOG_IMAGE_CONTENT_TYPE = "image/jpg";
@@ -66,7 +63,6 @@ class BlogImageResourceIT {
      */
     public static BlogImage createEntity(EntityManager em) {
         BlogImage blogImage = new BlogImage()
-            .blogPostID(DEFAULT_BLOG_POST_ID)
             .blogImage(DEFAULT_BLOG_IMAGE)
             .blogImageContentType(DEFAULT_BLOG_IMAGE_CONTENT_TYPE)
             .imageNumber(DEFAULT_IMAGE_NUMBER);
@@ -81,7 +77,6 @@ class BlogImageResourceIT {
      */
     public static BlogImage createUpdatedEntity(EntityManager em) {
         BlogImage blogImage = new BlogImage()
-            .blogPostID(UPDATED_BLOG_POST_ID)
             .blogImage(UPDATED_BLOG_IMAGE)
             .blogImageContentType(UPDATED_BLOG_IMAGE_CONTENT_TYPE)
             .imageNumber(UPDATED_IMAGE_NUMBER);
@@ -106,7 +101,6 @@ class BlogImageResourceIT {
         List<BlogImage> blogImageList = blogImageRepository.findAll();
         assertThat(blogImageList).hasSize(databaseSizeBeforeCreate + 1);
         BlogImage testBlogImage = blogImageList.get(blogImageList.size() - 1);
-        assertThat(testBlogImage.getBlogPostID()).isEqualTo(DEFAULT_BLOG_POST_ID);
         assertThat(testBlogImage.getBlogImage()).isEqualTo(DEFAULT_BLOG_IMAGE);
         assertThat(testBlogImage.getBlogImageContentType()).isEqualTo(DEFAULT_BLOG_IMAGE_CONTENT_TYPE);
         assertThat(testBlogImage.getImageNumber()).isEqualTo(DEFAULT_IMAGE_NUMBER);
@@ -128,23 +122,6 @@ class BlogImageResourceIT {
         // Validate the BlogImage in the database
         List<BlogImage> blogImageList = blogImageRepository.findAll();
         assertThat(blogImageList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    void checkBlogPostIDIsRequired() throws Exception {
-        int databaseSizeBeforeTest = blogImageRepository.findAll().size();
-        // set the field null
-        blogImage.setBlogPostID(null);
-
-        // Create the BlogImage, which fails.
-
-        restBlogImageMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(blogImage)))
-            .andExpect(status().isBadRequest());
-
-        List<BlogImage> blogImageList = blogImageRepository.findAll();
-        assertThat(blogImageList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -176,7 +153,6 @@ class BlogImageResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(blogImage.getId().intValue())))
-            .andExpect(jsonPath("$.[*].blogPostID").value(hasItem(DEFAULT_BLOG_POST_ID.intValue())))
             .andExpect(jsonPath("$.[*].blogImageContentType").value(hasItem(DEFAULT_BLOG_IMAGE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].blogImage").value(hasItem(Base64Utils.encodeToString(DEFAULT_BLOG_IMAGE))))
             .andExpect(jsonPath("$.[*].imageNumber").value(hasItem(DEFAULT_IMAGE_NUMBER)));
@@ -194,7 +170,6 @@ class BlogImageResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(blogImage.getId().intValue()))
-            .andExpect(jsonPath("$.blogPostID").value(DEFAULT_BLOG_POST_ID.intValue()))
             .andExpect(jsonPath("$.blogImageContentType").value(DEFAULT_BLOG_IMAGE_CONTENT_TYPE))
             .andExpect(jsonPath("$.blogImage").value(Base64Utils.encodeToString(DEFAULT_BLOG_IMAGE)))
             .andExpect(jsonPath("$.imageNumber").value(DEFAULT_IMAGE_NUMBER));
@@ -220,7 +195,6 @@ class BlogImageResourceIT {
         // Disconnect from session so that the updates on updatedBlogImage are not directly saved in db
         em.detach(updatedBlogImage);
         updatedBlogImage
-            .blogPostID(UPDATED_BLOG_POST_ID)
             .blogImage(UPDATED_BLOG_IMAGE)
             .blogImageContentType(UPDATED_BLOG_IMAGE_CONTENT_TYPE)
             .imageNumber(UPDATED_IMAGE_NUMBER);
@@ -237,7 +211,6 @@ class BlogImageResourceIT {
         List<BlogImage> blogImageList = blogImageRepository.findAll();
         assertThat(blogImageList).hasSize(databaseSizeBeforeUpdate);
         BlogImage testBlogImage = blogImageList.get(blogImageList.size() - 1);
-        assertThat(testBlogImage.getBlogPostID()).isEqualTo(UPDATED_BLOG_POST_ID);
         assertThat(testBlogImage.getBlogImage()).isEqualTo(UPDATED_BLOG_IMAGE);
         assertThat(testBlogImage.getBlogImageContentType()).isEqualTo(UPDATED_BLOG_IMAGE_CONTENT_TYPE);
         assertThat(testBlogImage.getImageNumber()).isEqualTo(UPDATED_IMAGE_NUMBER);
@@ -311,10 +284,7 @@ class BlogImageResourceIT {
         BlogImage partialUpdatedBlogImage = new BlogImage();
         partialUpdatedBlogImage.setId(blogImage.getId());
 
-        partialUpdatedBlogImage
-            .blogImage(UPDATED_BLOG_IMAGE)
-            .blogImageContentType(UPDATED_BLOG_IMAGE_CONTENT_TYPE)
-            .imageNumber(UPDATED_IMAGE_NUMBER);
+        partialUpdatedBlogImage.imageNumber(UPDATED_IMAGE_NUMBER);
 
         restBlogImageMockMvc
             .perform(
@@ -328,9 +298,8 @@ class BlogImageResourceIT {
         List<BlogImage> blogImageList = blogImageRepository.findAll();
         assertThat(blogImageList).hasSize(databaseSizeBeforeUpdate);
         BlogImage testBlogImage = blogImageList.get(blogImageList.size() - 1);
-        assertThat(testBlogImage.getBlogPostID()).isEqualTo(DEFAULT_BLOG_POST_ID);
-        assertThat(testBlogImage.getBlogImage()).isEqualTo(UPDATED_BLOG_IMAGE);
-        assertThat(testBlogImage.getBlogImageContentType()).isEqualTo(UPDATED_BLOG_IMAGE_CONTENT_TYPE);
+        assertThat(testBlogImage.getBlogImage()).isEqualTo(DEFAULT_BLOG_IMAGE);
+        assertThat(testBlogImage.getBlogImageContentType()).isEqualTo(DEFAULT_BLOG_IMAGE_CONTENT_TYPE);
         assertThat(testBlogImage.getImageNumber()).isEqualTo(UPDATED_IMAGE_NUMBER);
     }
 
@@ -347,7 +316,6 @@ class BlogImageResourceIT {
         partialUpdatedBlogImage.setId(blogImage.getId());
 
         partialUpdatedBlogImage
-            .blogPostID(UPDATED_BLOG_POST_ID)
             .blogImage(UPDATED_BLOG_IMAGE)
             .blogImageContentType(UPDATED_BLOG_IMAGE_CONTENT_TYPE)
             .imageNumber(UPDATED_IMAGE_NUMBER);
@@ -364,7 +332,6 @@ class BlogImageResourceIT {
         List<BlogImage> blogImageList = blogImageRepository.findAll();
         assertThat(blogImageList).hasSize(databaseSizeBeforeUpdate);
         BlogImage testBlogImage = blogImageList.get(blogImageList.size() - 1);
-        assertThat(testBlogImage.getBlogPostID()).isEqualTo(UPDATED_BLOG_POST_ID);
         assertThat(testBlogImage.getBlogImage()).isEqualTo(UPDATED_BLOG_IMAGE);
         assertThat(testBlogImage.getBlogImageContentType()).isEqualTo(UPDATED_BLOG_IMAGE_CONTENT_TYPE);
         assertThat(testBlogImage.getImageNumber()).isEqualTo(UPDATED_IMAGE_NUMBER);
