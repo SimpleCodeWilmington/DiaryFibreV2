@@ -18,9 +18,9 @@
         "title": "Blog Image"
       },
       "id": "ID",
-      "blogPostID": "Blog Post ID",
       "blogImage": "Blog Image",
-      "imageNumber": "Image Number"
+      "imageNumber": "Image Number",
+      "blogpost": "Blogpost"
     }
   }
 }

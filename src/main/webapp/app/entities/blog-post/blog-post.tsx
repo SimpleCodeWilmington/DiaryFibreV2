@@ -104,14 +104,17 @@ export const BlogPost = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('id')}>
                   <Translate contentKey="diaryFibreApp.blogPost.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('blogID')}>
-                  <Translate contentKey="diaryFibreApp.blogPost.blogID">Blog ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={sort('dateTime')}>
                   <Translate contentKey="diaryFibreApp.blogPost.dateTime">Date Time</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={sort('template')}>
                   <Translate contentKey="diaryFibreApp.blogPost.template">Template</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="diaryFibreApp.blogPost.blogtext">Blogtext</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="diaryFibreApp.blogPost.blog">Blog</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -124,11 +127,12 @@ export const BlogPost = (props: RouteComponentProps<{ url: string }>) => {
                       {blogPost.id}
                     </Button>
                   </td>
-                  <td>{blogPost.blogID}</td>
                   <td>{blogPost.dateTime ? <TextFormat type="date" value={blogPost.dateTime} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>
                     <Translate contentKey={`diaryFibreApp.Template.${blogPost.template}`} />
                   </td>
+                  <td>{blogPost.blogtext ? <Link to={`/blog-text/${blogPost.blogtext.id}`}>{blogPost.blogtext.id}</Link> : ''}</td>
+                  <td>{blogPost.blog ? <Link to={`/blog/${blogPost.blog.id}`}>{blogPost.blog.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/blog-post/${blogPost.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -14,9 +14,6 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="blog_post_id" type="bigint">
-                <constraints nullable="false" />
-            </column>
             <column name="blog_text" type="longblob">
                 <constraints nullable="true" />
             </column>
@@ -44,7 +41,6 @@
                   tableName="blog_text"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="blog_post_id" type="numeric"/>
             <column name="blog_text" type="blob"/>
             <column name="blog_text_content_type" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

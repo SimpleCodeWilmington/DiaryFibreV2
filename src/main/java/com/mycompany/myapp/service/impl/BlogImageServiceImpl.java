@@ -44,9 +44,6 @@ public class BlogImageServiceImpl implements BlogImageService {
         return blogImageRepository
             .findById(blogImage.getId())
             .map(existingBlogImage -> {
-                if (blogImage.getBlogPostID() != null) {
-                    existingBlogImage.setBlogPostID(blogImage.getBlogPostID());
-                }
                 if (blogImage.getBlogImage() != null) {
                     existingBlogImage.setBlogImage(blogImage.getBlogImage());
                 }

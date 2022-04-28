@@ -113,6 +113,9 @@ export const Blog = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('accessStatus')}>
                   <Translate contentKey="diaryFibreApp.blog.accessStatus">Access Status</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  <Translate contentKey="diaryFibreApp.blog.user">User</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -129,6 +132,7 @@ export const Blog = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     <Translate contentKey={`diaryFibreApp.AccessType.${blog.accessStatus}`} />
                   </td>
+                  <td>{blog.user ? blog.user.id : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/blog/${blog.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -14,18 +14,35 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="blog_id" type="bigint">
-                <constraints nullable="false" />
-            </column>
             <column name="date_time" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
             <column name="template" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="blogtext_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_blog_post__blogtext_id" />
+            </column>
+            <column name="blog_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="blog_post" columnName="date_time" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20220427203317-1-relations" author="jhipster">
+
+        <createTable tableName="rel_blog_post__tag">
+            <column name="tag_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blog_post_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="blog_post_id, tag_id" tableName="rel_blog_post__tag"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -45,7 +62,6 @@
                   tableName="blog_post"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="blog_id" type="numeric"/>
             <column name="date_time" type="date"/>
             <column name="template" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

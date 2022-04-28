@@ -51,13 +51,13 @@ export const BlogImage = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="diaryFibreApp.blogImage.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="diaryFibreApp.blogImage.blogPostID">Blog Post ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="diaryFibreApp.blogImage.blogImage">Blog Image</Translate>
                 </th>
                 <th>
                   <Translate contentKey="diaryFibreApp.blogImage.imageNumber">Image Number</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="diaryFibreApp.blogImage.blogpost">Blogpost</Translate>
                 </th>
                 <th />
               </tr>
@@ -70,7 +70,6 @@ export const BlogImage = (props: RouteComponentProps<{ url: string }>) => {
                       {blogImage.id}
                     </Button>
                   </td>
-                  <td>{blogImage.blogPostID}</td>
                   <td>
                     {blogImage.blogImage ? (
                       <div>
@@ -90,6 +89,7 @@ export const BlogImage = (props: RouteComponentProps<{ url: string }>) => {
                     ) : null}
                   </td>
                   <td>{blogImage.imageNumber}</td>
+                  <td>{blogImage.blogpost ? <Link to={`/blog-post/${blogImage.blogpost.id}`}>{blogImage.blogpost.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/blog-image/${blogImage.id}`} color="info" size="sm" data-cy="entityDetailsButton">

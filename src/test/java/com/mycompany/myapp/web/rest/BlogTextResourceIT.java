@@ -30,9 +30,6 @@ import org.springframework.util.Base64Utils;
 @WithMockUser
 class BlogTextResourceIT {
 
-    private static final Long DEFAULT_BLOG_POST_ID = 1L;
-    private static final Long UPDATED_BLOG_POST_ID = 2L;
-
     private static final byte[] DEFAULT_BLOG_TEXT = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_BLOG_TEXT = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_BLOG_TEXT_CONTENT_TYPE = "image/jpg";
@@ -62,10 +59,7 @@ class BlogTextResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BlogText createEntity(EntityManager em) {
-        BlogText blogText = new BlogText()
-            .blogPostID(DEFAULT_BLOG_POST_ID)
-            .blogText(DEFAULT_BLOG_TEXT)
-            .blogTextContentType(DEFAULT_BLOG_TEXT_CONTENT_TYPE);
+        BlogText blogText = new BlogText().blogText(DEFAULT_BLOG_TEXT).blogTextContentType(DEFAULT_BLOG_TEXT_CONTENT_TYPE);
         return blogText;
     }
 
@@ -76,10 +70,7 @@ class BlogTextResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BlogText createUpdatedEntity(EntityManager em) {
-        BlogText blogText = new BlogText()
-            .blogPostID(UPDATED_BLOG_POST_ID)
-            .blogText(UPDATED_BLOG_TEXT)
-            .blogTextContentType(UPDATED_BLOG_TEXT_CONTENT_TYPE);
+        BlogText blogText = new BlogText().blogText(UPDATED_BLOG_TEXT).blogTextContentType(UPDATED_BLOG_TEXT_CONTENT_TYPE);
         return blogText;
     }
 
@@ -101,7 +92,6 @@ class BlogTextResourceIT {
         List<BlogText> blogTextList = blogTextRepository.findAll();
         assertThat(blogTextList).hasSize(databaseSizeBeforeCreate + 1);
         BlogText testBlogText = blogTextList.get(blogTextList.size() - 1);
-        assertThat(testBlogText.getBlogPostID()).isEqualTo(DEFAULT_BLOG_POST_ID);
         assertThat(testBlogText.getBlogText()).isEqualTo(DEFAULT_BLOG_TEXT);
         assertThat(testBlogText.getBlogTextContentType()).isEqualTo(DEFAULT_BLOG_TEXT_CONTENT_TYPE);
     }
@@ -126,23 +116,6 @@ class BlogTextResourceIT {
 
     @Test
     @Transactional
-    void checkBlogPostIDIsRequired() throws Exception {
-        int databaseSizeBeforeTest = blogTextRepository.findAll().size();
-        // set the field null
-        blogText.setBlogPostID(null);
-
-        // Create the BlogText, which fails.
-
-        restBlogTextMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(blogText)))
-            .andExpect(status().isBadRequest());
-
-        List<BlogText> blogTextList = blogTextRepository.findAll();
-        assertThat(blogTextList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllBlogTexts() throws Exception {
         // Initialize the database
         blogTextRepository.saveAndFlush(blogText);
@@ -153,7 +126,6 @@ class BlogTextResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(blogText.getId().intValue())))
-            .andExpect(jsonPath("$.[*].blogPostID").value(hasItem(DEFAULT_BLOG_POST_ID.intValue())))
             .andExpect(jsonPath("$.[*].blogTextContentType").value(hasItem(DEFAULT_BLOG_TEXT_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].blogText").value(hasItem(Base64Utils.encodeToString(DEFAULT_BLOG_TEXT))));
     }
@@ -170,7 +142,6 @@ class BlogTextResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(blogText.getId().intValue()))
-            .andExpect(jsonPath("$.blogPostID").value(DEFAULT_BLOG_POST_ID.intValue()))
             .andExpect(jsonPath("$.blogTextContentType").value(DEFAULT_BLOG_TEXT_CONTENT_TYPE))
             .andExpect(jsonPath("$.blogText").value(Base64Utils.encodeToString(DEFAULT_BLOG_TEXT)));
     }
@@ -194,7 +165,7 @@ class BlogTextResourceIT {
         BlogText updatedBlogText = blogTextRepository.findById(blogText.getId()).get();
         // Disconnect from session so that the updates on updatedBlogText are not directly saved in db
         em.detach(updatedBlogText);
-        updatedBlogText.blogPostID(UPDATED_BLOG_POST_ID).blogText(UPDATED_BLOG_TEXT).blogTextContentType(UPDATED_BLOG_TEXT_CONTENT_TYPE);
+        updatedBlogText.blogText(UPDATED_BLOG_TEXT).blogTextContentType(UPDATED_BLOG_TEXT_CONTENT_TYPE);
 
         restBlogTextMockMvc
             .perform(
@@ -208,7 +179,6 @@ class BlogTextResourceIT {
         List<BlogText> blogTextList = blogTextRepository.findAll();
         assertThat(blogTextList).hasSize(databaseSizeBeforeUpdate);
         BlogText testBlogText = blogTextList.get(blogTextList.size() - 1);
-        assertThat(testBlogText.getBlogPostID()).isEqualTo(UPDATED_BLOG_POST_ID);
         assertThat(testBlogText.getBlogText()).isEqualTo(UPDATED_BLOG_TEXT);
         assertThat(testBlogText.getBlogTextContentType()).isEqualTo(UPDATED_BLOG_TEXT_CONTENT_TYPE);
     }
@@ -281,8 +251,6 @@ class BlogTextResourceIT {
         BlogText partialUpdatedBlogText = new BlogText();
         partialUpdatedBlogText.setId(blogText.getId());
 
-        partialUpdatedBlogText.blogText(UPDATED_BLOG_TEXT).blogTextContentType(UPDATED_BLOG_TEXT_CONTENT_TYPE);
-
         restBlogTextMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedBlogText.getId())
@@ -295,9 +263,8 @@ class BlogTextResourceIT {
         List<BlogText> blogTextList = blogTextRepository.findAll();
         assertThat(blogTextList).hasSize(databaseSizeBeforeUpdate);
         BlogText testBlogText = blogTextList.get(blogTextList.size() - 1);
-        assertThat(testBlogText.getBlogPostID()).isEqualTo(DEFAULT_BLOG_POST_ID);
-        assertThat(testBlogText.getBlogText()).isEqualTo(UPDATED_BLOG_TEXT);
-        assertThat(testBlogText.getBlogTextContentType()).isEqualTo(UPDATED_BLOG_TEXT_CONTENT_TYPE);
+        assertThat(testBlogText.getBlogText()).isEqualTo(DEFAULT_BLOG_TEXT);
+        assertThat(testBlogText.getBlogTextContentType()).isEqualTo(DEFAULT_BLOG_TEXT_CONTENT_TYPE);
     }
 
     @Test
@@ -312,10 +279,7 @@ class BlogTextResourceIT {
         BlogText partialUpdatedBlogText = new BlogText();
         partialUpdatedBlogText.setId(blogText.getId());
 
-        partialUpdatedBlogText
-            .blogPostID(UPDATED_BLOG_POST_ID)
-            .blogText(UPDATED_BLOG_TEXT)
-            .blogTextContentType(UPDATED_BLOG_TEXT_CONTENT_TYPE);
+        partialUpdatedBlogText.blogText(UPDATED_BLOG_TEXT).blogTextContentType(UPDATED_BLOG_TEXT_CONTENT_TYPE);
 
         restBlogTextMockMvc
             .perform(
@@ -329,7 +293,6 @@ class BlogTextResourceIT {
         List<BlogText> blogTextList = blogTextRepository.findAll();
         assertThat(blogTextList).hasSize(databaseSizeBeforeUpdate);
         BlogText testBlogText = blogTextList.get(blogTextList.size() - 1);
-        assertThat(testBlogText.getBlogPostID()).isEqualTo(UPDATED_BLOG_POST_ID);
         assertThat(testBlogText.getBlogText()).isEqualTo(UPDATED_BLOG_TEXT);
         assertThat(testBlogText.getBlogTextContentType()).isEqualTo(UPDATED_BLOG_TEXT_CONTENT_TYPE);
     }

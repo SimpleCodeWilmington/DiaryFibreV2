@@ -18,9 +18,12 @@
         "title": "Blog Post"
       },
       "id": "ID",
-      "blogID": "Blog ID",
       "dateTime": "Date Time",
-      "template": "Template"
+      "template": "Template",
+      "blogtext": "Blogtext",
+      "blogImage": "Blog Image",
+      "blog": "Blog",
+      "tag": "Tag"
     }
   }
 }

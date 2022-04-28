@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IBlog } from 'app/shared/model/blog.model';
 import { AccessType } from 'app/shared/model/enumerations/access-type.model';
 import { getEntity, updateEntity, createEntity, reset } from './blog.reducer';
@@ -17,6 +19,7 @@ export const BlogUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const users = useAppSelector(state => state.userManagement.users);
   const blogEntity = useAppSelector(state => state.blog.entity);
   const loading = useAppSelector(state => state.blog.loading);
   const updating = useAppSelector(state => state.blog.updating);
@@ -32,6 +35,8 @@ export const BlogUpdate = (props: RouteComponentProps<{ id: string }>) => {
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getUsers({}));
   }, []);
 
   useEffect(() => {
@@ -44,6 +49,7 @@ export const BlogUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...blogEntity,
       ...values,
+      user: users.find(it => it.id.toString() === values.user.toString()),
     };
 
     if (isNew) {
@@ -59,6 +65,7 @@ export const BlogUpdate = (props: RouteComponentProps<{ id: string }>) => {
       : {
           accessStatus: 'Public',
           ...blogEntity,
+          user: blogEntity?.user?.id,
         };
 
   return (
@@ -118,6 +125,16 @@ export const BlogUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     {translate('diaryFibreApp.AccessType.' + accessType)}
                   </option>
                 ))}
+              </ValidatedField>
+              <ValidatedField id="blog-user" name="user" data-cy="user" label={translate('diaryFibreApp.blog.user')} type="select">
+                <option value="" key="0" />
+                {users
+                  ? users.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
               </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/blog" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />

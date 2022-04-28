@@ -16,6 +16,14 @@
   "name": "Tag",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "blogPost",
+      "otherEntityRelationshipName": "tag",
+      "ownerSide": false,
+      "relationshipName": "blogpost",
+      "relationshipType": "many-to-many"
+    }
+  ],
   "service": "serviceImpl"
 }

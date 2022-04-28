@@ -6,11 +6,6 @@
   "entityTableName": "blog_image",
   "fields": [
     {
-      "fieldName": "blogPostID",
-      "fieldType": "Long",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "blogImage",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "image",
@@ -27,6 +22,14 @@
   "name": "BlogImage",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "blogPost",
+      "otherEntityRelationshipName": "blogImage",
+      "relationshipName": "blogpost",
+      "relationshipType": "many-to-one"
+    }
+  ],
   "service": "serviceImpl"
 }

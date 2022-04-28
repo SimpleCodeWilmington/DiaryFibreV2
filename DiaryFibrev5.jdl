@@ -6,26 +6,32 @@ entity Blog {
 }
 
 entity BlogPost {
-           // id is auto-generated
-   blogID Long required,
+        // id is auto-generated
+   		//blogID Long required,
    dateTime ZonedDateTime, // auto?
    template Template required
 
 }
+
+entity BlogComment{
+    comment String required,
+  	dateTime ZonedDateTime
+}
+
 entity BlogText {
-           // id is auto-generated
-           blogPostID Long required,
-           blogText Blob
+    // id is auto-generated
+  	//blogPostID Long required,
+  	blogText Blob
 }
 entity BlogImage {
-           // id is auto-generated
-           blogPostID Long required,
-   blogImage ImageBlob required,
-   imageNumber Integer required
+  	// id is auto-generated
+   	//blogPostID Long required,
+   	blogImage ImageBlob required,
+   	imageNumber Integer required
 }
 entity Tag {
-           // id is auto-generated
-   tagName String required
+    // id is auto-generated
+   	tagName String required
 }
 enum Template {
    THEDAVID, THEDOLIO, THEKRIS, THEMEREDITH, THEMILES
@@ -35,7 +41,24 @@ enum AccessType {
 	Public, Private
 }
 
+relationship ManyToMany {
+   BlogPost{Tag} to Tag{blogpost}
+}
+
+relationship ManyToOne{
+	Blog{user(id)} to User
+    BlogPost{blog(id)} to Blog
+    BlogComment{blog(id)} to BlogPost
+    BlogComment{user(id)} to User
+}
+
+relationship OneToMany {
+   BlogPost to BlogImage{blogpost(id)}
+}
+relationship OneToOne {
+   BlogPost{blogtext(id)} to BlogText{blogpost(id)}
+}
 // Set pagination options
 paginate Blog, BlogPost with pagination
-
+// Set service options to all except few
 service all with serviceImpl

@@ -7,6 +7,7 @@ import BlogPost from './blog-post';
 import BlogText from './blog-text';
 import BlogImage from './blog-image';
 import Tag from './tag';
+import BlogComment from './blog-comment';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default ({ match }) => {
@@ -19,6 +20,7 @@ export default ({ match }) => {
         <ErrorBoundaryRoute path={`${match.url}blog-text`} component={BlogText} />
         <ErrorBoundaryRoute path={`${match.url}blog-image`} component={BlogImage} />
         <ErrorBoundaryRoute path={`${match.url}tag`} component={Tag} />
+        <ErrorBoundaryRoute path={`${match.url}blog-comment`} component={BlogComment} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </Switch>
     </div>

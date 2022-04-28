@@ -27,6 +27,14 @@
   "name": "Blog",
   "pagination": "pagination",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "blog",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    }
+  ],
   "service": "serviceImpl"
 }

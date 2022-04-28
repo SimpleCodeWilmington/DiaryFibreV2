@@ -45,9 +45,6 @@ public class BlogPostServiceImpl implements BlogPostService {
         return blogPostRepository
             .findById(blogPost.getId())
             .map(existingBlogPost -> {
-                if (blogPost.getBlogID() != null) {
-                    existingBlogPost.setBlogID(blogPost.getBlogID());
-                }
                 if (blogPost.getDateTime() != null) {
                     existingBlogPost.setDateTime(blogPost.getDateTime());
                 }
@@ -67,11 +64,15 @@ public class BlogPostServiceImpl implements BlogPostService {
         return blogPostRepository.findAll(pageable);
     }
 
+    public Page<BlogPost> findAllWithEagerRelationships(Pageable pageable) {
+        return blogPostRepository.findAllWithEagerRelationships(pageable);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<BlogPost> findOne(Long id) {
         log.debug("Request to get BlogPost : {}", id);
-        return blogPostRepository.findById(id);
+        return blogPostRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

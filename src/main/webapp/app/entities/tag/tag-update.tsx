@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IBlogPost } from 'app/shared/model/blog-post.model';
+import { getEntities as getBlogPosts } from 'app/entities/blog-post/blog-post.reducer';
 import { ITag } from 'app/shared/model/tag.model';
 import { getEntity, updateEntity, createEntity, reset } from './tag.reducer';
 
@@ -16,6 +18,7 @@ export const TagUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const blogPosts = useAppSelector(state => state.blogPost.entities);
   const tagEntity = useAppSelector(state => state.tag.entity);
   const loading = useAppSelector(state => state.tag.loading);
   const updating = useAppSelector(state => state.tag.updating);
@@ -30,6 +33,8 @@ export const TagUpdate = (props: RouteComponentProps<{ id: string }>) => {
     } else {
       dispatch(getEntity(props.match.params.id));
     }
+
+    dispatch(getBlogPosts({}));
   }, []);
 
   useEffect(() => {

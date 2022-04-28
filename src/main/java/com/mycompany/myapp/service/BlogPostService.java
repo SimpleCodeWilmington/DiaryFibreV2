@@ -42,6 +42,14 @@ public interface BlogPostService {
     Page<BlogPost> findAll(Pageable pageable);
 
     /**
+     * Get all the blogPosts with eager load of many-to-many relationships.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<BlogPost> findAllWithEagerRelationships(Pageable pageable);
+
+    /**
      * Get the "id" blogPost.
      *
      * @param id the id of the entity.
