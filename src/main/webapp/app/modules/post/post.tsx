@@ -16,9 +16,7 @@ export const Post = () => {
         <span className="hipster rounded" />
       </Col>
       <Col md="9">
-        <h2>
-          <Translate contentKey="post.title">Welcome, Java Hipster!</Translate>
-        </h2>
+        <h2>This page is for making blog posts!</h2>
         <p className="lead">
           <Translate contentKey="post.subtitle">This is your postpage</Translate>
         </p>
