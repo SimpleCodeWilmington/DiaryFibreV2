@@ -32,3 +32,14 @@ export const Home = () => (
     </NavLink>
   </NavItem>
 );
+
+export const Post = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/post" className="d-flex align-items-center">
+      <FontAwesomeIcon icon="home" />
+      <span>
+        <Translate contentKey="global.menu.home">POST</Translate>
+      </span>
+    </NavLink>
+  </NavItem>
+);
