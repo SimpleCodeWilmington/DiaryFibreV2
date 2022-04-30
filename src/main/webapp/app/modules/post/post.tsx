@@ -7,7 +7,7 @@ import { Row, Col, Alert, Button } from 'reactstrap';
 
 import { useAppSelector } from 'app/config/store';
 
-// import { BlogTextAdd } from 'app/entities/blog-text/blog-text-add';
+import { BlogTextAdd } from 'app/entities/blog-text/blog-text-add';
 
 export const Post = () => {
   const account = useAppSelector(state => state.authentication.account);
@@ -64,7 +64,7 @@ export const Post = () => {
       </Col>
       <Col md="5" className="pad">
         <div className="blog-text-add">
-{/*           <BlogTextAdd /> */}
+          <BlogTextAdd />
         </div>
       </Col>
     </Row>
