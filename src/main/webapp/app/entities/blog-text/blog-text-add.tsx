@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IBlog } from 'app/shared/model/blog.model';
+import { getEntities as getBlogs } from 'app/entities/blog/blog.reducer';
 import { AccessType } from 'app/shared/model/enumerations/access-type.model';
 import { getEntity, updateEntity, createEntity, reset } from 'app/entities/blog/blog.reducer';
 
@@ -21,6 +22,10 @@ export const BlogTextAdd = () => {
     const users = useAppSelector(state => state.userManagement.users);
     const blogs = useAppSelector(state => state.blog.entities);
     const blogEntity = useAppSelector(state => state.blog.entity);
+
+      useEffect(() => {
+        dispatch(getBlogs({}));
+      }, []);
 
     const saveEntity = values => {
       const entity = {
@@ -40,8 +45,8 @@ export const BlogTextAdd = () => {
                 <option value="" key="0" />
                 {blogs
                   ? blogs.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                      <option value={otherEntity.blogName} key={otherEntity.id}>
+                        {otherEntity.blogName}
                       </option>
                     ))
                   : null}
