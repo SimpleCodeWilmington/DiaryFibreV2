@@ -17,7 +17,8 @@ export const Home = () => {
       </Col>
       <Col md="9">
         <h2>
-          <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
+          <Translate contentKey="home.title" interpolate={{ username: account.firstName }}>
+            Welcome, test {account.firstName}</Translate>
         </h2>
         <p className="lead">
           <Translate contentKey="home.subtitle">This is your homepage</Translate>
