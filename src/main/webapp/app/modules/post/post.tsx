@@ -14,7 +14,12 @@ export const Post = () => {
 
   return (
     <Row>
-      <Col md="6">
+      <Col md="7" className="pad">
+        <div className="blog-text-add">
+          <BlogTextAdd />
+        </div>
+      </Col>
+      <Col md="5">
         <h2>This page is for making blog posts!</h2>
         <Link to="/post">
             <Button type="button">Simple</Button>
@@ -27,11 +32,6 @@ export const Post = () => {
         <h3>Text</h3>
         <h3>Import Images</h3>
         <h3>Tags</h3>
-      </Col>
-      <Col md="6" className="pad">
-        <div className="blog-text-add">
-          <BlogTextAdd />
-        </div>
       </Col>
     </Row>
   );

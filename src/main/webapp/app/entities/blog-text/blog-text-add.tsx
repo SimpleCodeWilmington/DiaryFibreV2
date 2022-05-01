@@ -1,3 +1,5 @@
+import './blog-text-add.scss';
+
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, FormText } from 'reactstrap';
@@ -39,22 +41,22 @@ export const BlogTextAdd = () => {
   return (
     <div>
       <Row className="justify-content-center">
-        <Col md="8">
-            <ValidatedForm onSubmit={saveEntity}>
-              <ValidatedField id="blog-post-blog" name="blog" data-cy="blog" label={translate('diaryFibreApp.blogPost.blog')} type="select">
-                <option value="" key="0" />
-                {blogs
-                  ? blogs.map(otherEntity => (
-                      <option value={otherEntity.blogName} key={otherEntity.id}>
-                        {otherEntity.blogName}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-            </ValidatedForm>
-            <textarea id="blogtitle" name="blogtitle" rows={1} cols={50}>
+        <Col md="12">
+            <select name="blog" id="blog" style={{width: '659px'}}>
+              <option value="" key="0" />
+              {blogs
+                ? blogs.map(otherEntity => (
+                    <option value={otherEntity.blogName} key={otherEntity.id}>
+                      {otherEntity.blogName}
+                    </option>
+                  ))
+                : null}
+            </select>
+            <textarea id="post-title" name="post-title" placeholder="Title" rows={1} cols={75}>
             </textarea>
-            <textarea id="blogtext" name="blogtext" rows={10} cols={50}>
+            <textarea id="post-tags" name="post-tags" placeholder="Tags" rows={2} cols={75} autoComplete="on">
+            </textarea>
+            <textarea id="post-text" name="post-text" placeholder="Body" rows={10} cols={75}>
             </textarea>
         </Col>
       </Row>
