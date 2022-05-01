@@ -42,8 +42,8 @@ export const BlogTextAdd = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="12">
-            <select name="blog" id="blog" style={{width: '659px'}}>
-              <option value="" key="0" />
+            <select name="blog" id="blog" style={{height: '30px', width: '659px', margin: '6px 0'}}>
+              <option value="" key="0" disabled selected>Blog</option>
               {blogs
                 ? blogs.map(otherEntity => (
                     <option value={otherEntity.blogName} key={otherEntity.id}>
