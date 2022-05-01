@@ -14,7 +14,7 @@ export const Post = () => {
 
   return (
     <Row>
-      <Col md="7">
+      <Col md="6">
         <h2>This page is for making blog posts!</h2>
         <Link to="/post">
             <Button type="button">Simple</Button>
@@ -28,7 +28,7 @@ export const Post = () => {
         <h3>Import Images</h3>
         <h3>Tags</h3>
       </Col>
-      <Col md="5" className="pad">
+      <Col md="6" className="pad">
         <div className="blog-text-add">
           <BlogTextAdd />
         </div>

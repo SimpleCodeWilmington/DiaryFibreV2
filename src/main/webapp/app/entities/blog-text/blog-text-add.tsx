@@ -19,6 +19,7 @@ export const BlogTextAdd = () => {
     const dispatch = useAppDispatch();
 
     const users = useAppSelector(state => state.userManagement.users);
+    const blogs = useAppSelector(state => state.blog.entities);
     const blogEntity = useAppSelector(state => state.blog.entity);
 
     const saveEntity = values => {
@@ -34,18 +35,22 @@ export const BlogTextAdd = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-           <ValidatedForm onSubmit={saveEntity}>
-              <ValidatedField
-                label={translate('diaryFibreApp.blog.blogName')}
-                id="blog-blogName"
-                name="blogName"
-                data-cy="blogName"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
+            <ValidatedForm onSubmit={saveEntity}>
+              <ValidatedField id="blog-post-blog" name="blog" data-cy="blog" label={translate('diaryFibreApp.blogPost.blog')} type="select">
+                <option value="" key="0" />
+                {blogs
+                  ? blogs.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
             </ValidatedForm>
+            <textarea id="blogtitle" name="blogtitle" rows={1} cols={50}>
+            </textarea>
+            <textarea id="blogtext" name="blogtext" rows={10} cols={50}>
+            </textarea>
         </Col>
       </Row>
     </div>
