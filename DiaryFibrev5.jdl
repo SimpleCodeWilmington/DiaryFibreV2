@@ -1,13 +1,10 @@
 entity Blog {
-           // id is auto-generated
    blogName String required,
    blogOwner String required,
    accessStatus AccessType required
 }
 
 entity BlogPost {
-        // id is auto-generated
-   		//blogID Long required,
    dateTime ZonedDateTime, // auto?
    template Template required
 
@@ -19,10 +16,9 @@ entity BlogComment{
 }
 
 entity BlogText {
-    // id is auto-generated
-  	//blogPostID Long required,
   	blogText Blob
 }
+
 entity BlogImage {
   	// id is auto-generated
    	//blogPostID Long required,

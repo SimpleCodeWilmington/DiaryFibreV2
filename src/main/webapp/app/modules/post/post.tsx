@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { Row, Col, Alert, Button } from 'reactstrap';
-
+import AddComment from 'app/modules/comments/add-comment';
 import { useAppSelector } from 'app/config/store';
 
 import { BlogTextAdd } from 'app/entities/blog-text/blog-text-add';
@@ -17,6 +17,9 @@ export const Post = () => {
       <Col md="7" className="pad">
         <div className="blog-text-add">
           <BlogTextAdd />
+        </div>
+        <div className="add-comment">
+          <AddComment />
         </div>
       </Col>
       <Col md="5">
