@@ -3,8 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 
-//lalala just for commiting purpose, please work
-
 
 export const AddComment = () => {
   return (
