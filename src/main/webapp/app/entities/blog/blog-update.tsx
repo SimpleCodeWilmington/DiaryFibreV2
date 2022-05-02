@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IBlog } from 'app/shared/model/blog.model';
+import { Template } from 'app/shared/model/enumerations/template.model';
 import { AccessType } from 'app/shared/model/enumerations/access-type.model';
 import { getEntity, updateEntity, createEntity, reset } from './blog.reducer';
 
@@ -24,6 +25,7 @@ export const BlogUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const loading = useAppSelector(state => state.blog.loading);
   const updating = useAppSelector(state => state.blog.updating);
   const updateSuccess = useAppSelector(state => state.blog.updateSuccess);
+  const templateValues = Object.keys(Template);
   const accessTypeValues = Object.keys(AccessType);
   const handleClose = () => {
     props.history.push('/blog' + props.location.search);
@@ -63,6 +65,7 @@ export const BlogUpdate = (props: RouteComponentProps<{ id: string }>) => {
     isNew
       ? {}
       : {
+          template: 'THEDAVID',
           accessStatus: 'Public',
           ...blogEntity,
           user: blogEntity?.user?.id,
@@ -113,6 +116,19 @@ export const BlogUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
+              <ValidatedField
+                label={translate('diaryFibreApp.blog.template')}
+                id="blog-template"
+                name="template"
+                data-cy="template"
+                type="select"
+              >
+                {templateValues.map(template => (
+                  <option value={template} key={template}>
+                    {translate('diaryFibreApp.Template.' + template)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
                 label={translate('diaryFibreApp.blog.accessStatus')}
                 id="blog-accessStatus"

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Blog;
 import com.mycompany.myapp.domain.enumeration.AccessType;
+import com.mycompany.myapp.domain.enumeration.Template;
 import com.mycompany.myapp.repository.BlogRepository;
 import java.util.List;
 import java.util.Random;
@@ -36,6 +37,9 @@ class BlogResourceIT {
     private static final String DEFAULT_BLOG_OWNER = "AAAAAAAAAA";
     private static final String UPDATED_BLOG_OWNER = "BBBBBBBBBB";
 
+    private static final Template DEFAULT_TEMPLATE = Template.THEDAVID;
+    private static final Template UPDATED_TEMPLATE = Template.THEDOLIO;
+
     private static final AccessType DEFAULT_ACCESS_STATUS = AccessType.Public;
     private static final AccessType UPDATED_ACCESS_STATUS = AccessType.Private;
 
@@ -63,7 +67,11 @@ class BlogResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Blog createEntity(EntityManager em) {
-        Blog blog = new Blog().blogName(DEFAULT_BLOG_NAME).blogOwner(DEFAULT_BLOG_OWNER).accessStatus(DEFAULT_ACCESS_STATUS);
+        Blog blog = new Blog()
+            .blogName(DEFAULT_BLOG_NAME)
+            .blogOwner(DEFAULT_BLOG_OWNER)
+            .template(DEFAULT_TEMPLATE)
+            .accessStatus(DEFAULT_ACCESS_STATUS);
         return blog;
     }
 
@@ -74,7 +82,11 @@ class BlogResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Blog createUpdatedEntity(EntityManager em) {
-        Blog blog = new Blog().blogName(UPDATED_BLOG_NAME).blogOwner(UPDATED_BLOG_OWNER).accessStatus(UPDATED_ACCESS_STATUS);
+        Blog blog = new Blog()
+            .blogName(UPDATED_BLOG_NAME)
+            .blogOwner(UPDATED_BLOG_OWNER)
+            .template(UPDATED_TEMPLATE)
+            .accessStatus(UPDATED_ACCESS_STATUS);
         return blog;
     }
 
@@ -98,6 +110,7 @@ class BlogResourceIT {
         Blog testBlog = blogList.get(blogList.size() - 1);
         assertThat(testBlog.getBlogName()).isEqualTo(DEFAULT_BLOG_NAME);
         assertThat(testBlog.getBlogOwner()).isEqualTo(DEFAULT_BLOG_OWNER);
+        assertThat(testBlog.getTemplate()).isEqualTo(DEFAULT_TEMPLATE);
         assertThat(testBlog.getAccessStatus()).isEqualTo(DEFAULT_ACCESS_STATUS);
     }
 
@@ -184,6 +197,7 @@ class BlogResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(blog.getId().intValue())))
             .andExpect(jsonPath("$.[*].blogName").value(hasItem(DEFAULT_BLOG_NAME)))
             .andExpect(jsonPath("$.[*].blogOwner").value(hasItem(DEFAULT_BLOG_OWNER)))
+            .andExpect(jsonPath("$.[*].template").value(hasItem(DEFAULT_TEMPLATE.toString())))
             .andExpect(jsonPath("$.[*].accessStatus").value(hasItem(DEFAULT_ACCESS_STATUS.toString())));
     }
 
@@ -201,6 +215,7 @@ class BlogResourceIT {
             .andExpect(jsonPath("$.id").value(blog.getId().intValue()))
             .andExpect(jsonPath("$.blogName").value(DEFAULT_BLOG_NAME))
             .andExpect(jsonPath("$.blogOwner").value(DEFAULT_BLOG_OWNER))
+            .andExpect(jsonPath("$.template").value(DEFAULT_TEMPLATE.toString()))
             .andExpect(jsonPath("$.accessStatus").value(DEFAULT_ACCESS_STATUS.toString()));
     }
 
@@ -223,7 +238,11 @@ class BlogResourceIT {
         Blog updatedBlog = blogRepository.findById(blog.getId()).get();
         // Disconnect from session so that the updates on updatedBlog are not directly saved in db
         em.detach(updatedBlog);
-        updatedBlog.blogName(UPDATED_BLOG_NAME).blogOwner(UPDATED_BLOG_OWNER).accessStatus(UPDATED_ACCESS_STATUS);
+        updatedBlog
+            .blogName(UPDATED_BLOG_NAME)
+            .blogOwner(UPDATED_BLOG_OWNER)
+            .template(UPDATED_TEMPLATE)
+            .accessStatus(UPDATED_ACCESS_STATUS);
 
         restBlogMockMvc
             .perform(
@@ -239,6 +258,7 @@ class BlogResourceIT {
         Blog testBlog = blogList.get(blogList.size() - 1);
         assertThat(testBlog.getBlogName()).isEqualTo(UPDATED_BLOG_NAME);
         assertThat(testBlog.getBlogOwner()).isEqualTo(UPDATED_BLOG_OWNER);
+        assertThat(testBlog.getTemplate()).isEqualTo(UPDATED_TEMPLATE);
         assertThat(testBlog.getAccessStatus()).isEqualTo(UPDATED_ACCESS_STATUS);
     }
 
@@ -310,7 +330,7 @@ class BlogResourceIT {
         Blog partialUpdatedBlog = new Blog();
         partialUpdatedBlog.setId(blog.getId());
 
-        partialUpdatedBlog.blogName(UPDATED_BLOG_NAME);
+        partialUpdatedBlog.blogName(UPDATED_BLOG_NAME).accessStatus(UPDATED_ACCESS_STATUS);
 
         restBlogMockMvc
             .perform(
@@ -326,7 +346,8 @@ class BlogResourceIT {
         Blog testBlog = blogList.get(blogList.size() - 1);
         assertThat(testBlog.getBlogName()).isEqualTo(UPDATED_BLOG_NAME);
         assertThat(testBlog.getBlogOwner()).isEqualTo(DEFAULT_BLOG_OWNER);
-        assertThat(testBlog.getAccessStatus()).isEqualTo(DEFAULT_ACCESS_STATUS);
+        assertThat(testBlog.getTemplate()).isEqualTo(DEFAULT_TEMPLATE);
+        assertThat(testBlog.getAccessStatus()).isEqualTo(UPDATED_ACCESS_STATUS);
     }
 
     @Test
@@ -341,7 +362,11 @@ class BlogResourceIT {
         Blog partialUpdatedBlog = new Blog();
         partialUpdatedBlog.setId(blog.getId());
 
-        partialUpdatedBlog.blogName(UPDATED_BLOG_NAME).blogOwner(UPDATED_BLOG_OWNER).accessStatus(UPDATED_ACCESS_STATUS);
+        partialUpdatedBlog
+            .blogName(UPDATED_BLOG_NAME)
+            .blogOwner(UPDATED_BLOG_OWNER)
+            .template(UPDATED_TEMPLATE)
+            .accessStatus(UPDATED_ACCESS_STATUS);
 
         restBlogMockMvc
             .perform(
@@ -357,6 +382,7 @@ class BlogResourceIT {
         Blog testBlog = blogList.get(blogList.size() - 1);
         assertThat(testBlog.getBlogName()).isEqualTo(UPDATED_BLOG_NAME);
         assertThat(testBlog.getBlogOwner()).isEqualTo(UPDATED_BLOG_OWNER);
+        assertThat(testBlog.getTemplate()).isEqualTo(UPDATED_TEMPLATE);
         assertThat(testBlog.getAccessStatus()).isEqualTo(UPDATED_ACCESS_STATUS);
     }
 
