@@ -20,11 +20,13 @@ export const MyBlogs = () => {
 
         <div className = "editor">
           <TextEditor />
-
-
         </div>
 
+    </Row>
+  );
+};
 
+export default MyBlogs;
 
 
       {/* <Col md="3" className="pad">
@@ -109,8 +111,3 @@ export const MyBlogs = () => {
           !
         </p>
       </Col> */}
-    </Row>
-  );
-};
-
-export default MyBlogs;
