@@ -10,12 +10,13 @@ import PasswordResetFinish from 'app/modules/account/password-reset/finish/passw
 import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
 import Post from 'app/modules/post/post';
+import MyBlogs from './modules/myblogs/myblogs';
 import EntitiesRoutes from 'app/entities/routes';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
-import MyBlogs from './modules/myblogs/myblogs';
+
 
 const loading = <div>loading ...</div>;
 
