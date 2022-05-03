@@ -20,7 +20,8 @@ export const MyBlogs = () => {
 
         <div className = "editor">
           <TextEditor />
-          
+
+
         </div>
 
 
