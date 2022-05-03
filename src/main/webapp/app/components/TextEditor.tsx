@@ -4,7 +4,7 @@ import { EditorState } from 'draft-js';
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-export default class TextEditor extends Component {
+export class TextEditor extends Component {
 
 
 
@@ -39,3 +39,5 @@ export default class TextEditor extends Component {
     );
   }
 }
+
+export default TextEditor;

@@ -5,7 +5,7 @@ import Blog from 'app/entities/blog/blog';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { Row, Col, Alert } from 'reactstrap';
-
+import { TextEditor } from 'app/components/TextEditor'
 
 import { useAppSelector } from 'app/config/store';
 
@@ -18,6 +18,10 @@ export const MyBlogs = () => {
         <h2>Temporary Psuedo Home Page</h2>
         <p>Task 1, show a list of blogs created by user</p>
 
+        <div className = "editor">
+          <TextEditor />
+          
+        </div>
 
 
 
