@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect } from 'react';
+import { Translate } from 'react-jhipster';
 import moment from 'moment';
 import { sortCommentsByDate } from '../../modules/sortCommentsByDate';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import AddComment from '../../modules/comments/add-comment';
-import { IBlogComment } from 'app/shared/model/blog-comment.model';
-import { getEntities } from './blog-comment.reducer';
+import { getEntities } from 'app/entities/blog-comment/blog-comment.reducer';
+import AddComment from './add-comment';
 
-export const BlogComment = (props: RouteComponentProps<{ url: string }>) => {
+export const BlogComment = () => {
   const dispatch = useAppDispatch();
   const account = useAppSelector(state => state.authentication.account);
   const blogCommentList = useAppSelector(state => state.blogComment.entities);
@@ -20,12 +15,6 @@ export const BlogComment = (props: RouteComponentProps<{ url: string }>) => {
   useEffect(() => {
     dispatch(getEntities({}));
   }, []);
-
-  const handleSyncList = () => {
-    dispatch(getEntities({}));
-  };
-
-  const { match } = props;
 
   return (
     <div>
