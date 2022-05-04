@@ -19,9 +19,7 @@ export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) =>
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
-  const today = new Date();
-  const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-  const date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+
   const blogPosts = useAppSelector(state => state.blogPost.entities);
   const users = useAppSelector(state => state.userManagement.users);
   const blogCommentEntity = useAppSelector(state => state.blogComment.entity);
@@ -104,21 +102,23 @@ export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) =>
                 />
               ) : null}
               <ValidatedField
-                id="blog-comment-user"
-                name="user"
-                data-cy="user"
-                label={translate('diaryFibreApp.blogComment.user')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {users
-                  ? users.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
+                label={translate('diaryFibreApp.blogComment.comment')}
+                id="blog-comment-comment"
+                name="comment"
+                data-cy="comment"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                }}
+              />
+              <ValidatedField
+                label={translate('diaryFibreApp.blogComment.dateTime')}
+                id="blog-comment-dateTime"
+                name="dateTime"
+                data-cy="dateTime"
+                type="datetime-local"
+                placeholder="YYYY-MM-DD HH:mm"
+              />
               <ValidatedField
                 id="blog-comment-blog"
                 name="blog"
@@ -136,29 +136,22 @@ export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) =>
                   : null}
               </ValidatedField>
               <ValidatedField
-                label={translate('diaryFibreApp.blogComment.comment')}
-                id="blog-comment-comment"
-                name="comment"
-                data-cy="comment"
-                type="textarea"
-                placeholder="Comment cannot exceed 250 characters!"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  // maxLength: {
-                  //   value: 300,
-                  //   message: translate('entity.validation.maxlength', { max: 300 }),
-                  // },
-                }}
-              />
-              {/* <ValidatedField
-                label={translate('diaryFibreApp.blogComment.dateTime')}
-                id="blog-comment-dateTime"
-                name="dateTime"
-                data-cy="dateTime"
-                type="datetime-local"
-                // {...date}{...time}
-              /> */}
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/post" replace color="info">
+                id="blog-comment-user"
+                name="user"
+                data-cy="user"
+                label={translate('diaryFibreApp.blogComment.user')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {users
+                  ? users.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/blog-comment" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -167,7 +160,9 @@ export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) =>
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
-                <Translate contentKey="entity.action.submit">Submit</Translate>
+                <FontAwesomeIcon icon="save" />
+                &nbsp;
+                <Translate contentKey="entity.action.save">Save</Translate>
               </Button>
             </ValidatedForm>
           )}

@@ -20,6 +20,9 @@
             <column name="blog_owner" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="template" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="access_status" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -49,6 +52,7 @@
             <column name="id" type="numeric"/>
             <column name="blog_name" type="string"/>
             <column name="blog_owner" type="string"/>
+            <column name="template" type="string"/>
             <column name="access_status" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

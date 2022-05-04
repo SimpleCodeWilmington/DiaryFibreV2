@@ -1,18 +1,35 @@
-import './home.scss';
+import './myblogs.scss';
 
 import React from 'react';
+import Blog from 'app/entities/blog/blog';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { Row, Col, Alert } from 'reactstrap';
+import { TextEditor } from 'app/components/TextEditor'
 
 import { useAppSelector } from 'app/config/store';
 
-export const Home = () => {
+export const MyBlogs = () => {
   const account = useAppSelector(state => state.authentication.account);
 
   return (
     <Row>
-      <Col md="3" className="pad">
+
+        <h2>Temporary Psuedo Home Page</h2>
+        <p>Task 1, show a list of blogs created by user</p>
+
+        <div className = "editor">
+          <TextEditor />
+        </div>
+
+    </Row>
+  );
+};
+
+export default MyBlogs;
+
+
+      {/* <Col md="3" className="pad">
         <span className="hipster rounded" />
       </Col>
       <Col md="9">
@@ -21,7 +38,7 @@ export const Home = () => {
             Welcome, test {account.firstName}</Translate>
         </h2>
         <p className="lead">
-          <Translate contentKey="home.subtitle">This is your doom</Translate>
+          <Translate contentKey="home.subtitle">This is your doom stop</Translate>
         </p>
         {account?.login ? (
           <div>
@@ -93,9 +110,4 @@ export const Home = () => {
           </a>
           !
         </p>
-      </Col>
-    </Row>
-  );
-};
-
-export default Home;
+      </Col> */}

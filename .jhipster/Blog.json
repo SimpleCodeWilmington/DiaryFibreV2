@@ -16,6 +16,11 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "template",
+      "fieldType": "Template",
+      "fieldValues": "THEDAVID,THEDOLIO,THEKRIS,THEMEREDITH,THEMILES"
+    },
+    {
       "fieldName": "accessStatus",
       "fieldType": "AccessType",
       "fieldValidateRules": ["required"],
