@@ -7,8 +7,9 @@ import { Template } from 'app/shared/model/enumerations/template.model';
 
 export interface IBlogPost {
   id?: number;
+  title?: string;
   dateTime?: string | null;
-  template?: Template;
+  template?: Template | null;
   blogtext?: IBlogText | null;
   blogImages?: IBlogImage[] | null;
   blog?: IBlog | null;

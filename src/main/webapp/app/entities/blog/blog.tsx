@@ -110,6 +110,9 @@ export const Blog = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('blogOwner')}>
                   <Translate contentKey="diaryFibreApp.blog.blogOwner">Blog Owner</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={sort('template')}>
+                  <Translate contentKey="diaryFibreApp.blog.template">Template</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('accessStatus')}>
                   <Translate contentKey="diaryFibreApp.blog.accessStatus">Access Status</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -129,6 +132,9 @@ export const Blog = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{blog.blogName}</td>
                   <td>{blog.blogOwner}</td>
+                  <td>
+                    <Translate contentKey={`diaryFibreApp.Template.${blog.template}`} />
+                  </td>
                   <td>
                     <Translate contentKey={`diaryFibreApp.AccessType.${blog.accessStatus}`} />
                   </td>

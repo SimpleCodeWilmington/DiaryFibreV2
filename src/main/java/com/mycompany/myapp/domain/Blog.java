@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import com.mycompany.myapp.domain.enumeration.AccessType;
+import com.mycompany.myapp.domain.enumeration.Template;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -29,6 +30,10 @@ public class Blog implements Serializable {
     @NotNull
     @Column(name = "blog_owner", nullable = false)
     private String blogOwner;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "template")
+    private Template template;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -77,6 +82,19 @@ public class Blog implements Serializable {
 
     public void setBlogOwner(String blogOwner) {
         this.blogOwner = blogOwner;
+    }
+
+    public Template getTemplate() {
+        return this.template;
+    }
+
+    public Blog template(Template template) {
+        this.setTemplate(template);
+        return this;
+    }
+
+    public void setTemplate(Template template) {
+        this.template = template;
     }
 
     public AccessType getAccessStatus() {
@@ -131,6 +149,7 @@ public class Blog implements Serializable {
             "id=" + getId() +
             ", blogName='" + getBlogName() + "'" +
             ", blogOwner='" + getBlogOwner() + "'" +
+            ", template='" + getTemplate() + "'" +
             ", accessStatus='" + getAccessStatus() + "'" +
             "}";
     }

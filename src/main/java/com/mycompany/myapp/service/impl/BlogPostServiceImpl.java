@@ -45,6 +45,9 @@ public class BlogPostServiceImpl implements BlogPostService {
         return blogPostRepository
             .findById(blogPost.getId())
             .map(existingBlogPost -> {
+                if (blogPost.getTitle() != null) {
+                    existingBlogPost.setTitle(blogPost.getTitle());
+                }
                 if (blogPost.getDateTime() != null) {
                     existingBlogPost.setDateTime(blogPost.getDateTime());
                 }

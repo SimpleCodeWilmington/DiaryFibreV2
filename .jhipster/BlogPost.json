@@ -6,13 +6,17 @@
   "entityTableName": "blog_post",
   "fields": [
     {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "dateTime",
       "fieldType": "ZonedDateTime"
     },
     {
       "fieldName": "template",
       "fieldType": "Template",
-      "fieldValidateRules": ["required"],
       "fieldValues": "THEDAVID,THEDOLIO,THEKRIS,THEMEREDITH,THEMILES"
     }
   ],
