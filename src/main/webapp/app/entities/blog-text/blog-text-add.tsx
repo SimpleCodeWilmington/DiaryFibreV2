@@ -56,8 +56,6 @@ export const BlogTextAdd = () => {
             </select>
             <textarea id="post-title" name="post-title" placeholder="Title" rows={1} cols={75}>
             </textarea>
-            <textarea id="post-tags" name="post-tags" placeholder="Tags" rows={2} cols={75} autoComplete="on">
-            </textarea>
             <Tags />
             <textarea id="post-text" name="post-text" placeholder="Body" rows={10} cols={75}>
             </textarea>
