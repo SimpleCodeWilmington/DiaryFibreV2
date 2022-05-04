@@ -17,7 +17,7 @@ import { getEntities as getBlogs } from 'app/entities/blog/blog.reducer';
 import { AccessType } from 'app/shared/model/enumerations/access-type.model';
 import { getEntity, updateEntity, createEntity, reset } from 'app/entities/blog/blog.reducer';
 
-import { Tags2 } from 'app/modules/tags/tags2'
+import { Tags } from 'app/modules/tags/tags'
 
 export const BlogTextAdd = () => {
   const account = useAppSelector(state => state.authentication.account);
@@ -58,7 +58,7 @@ export const BlogTextAdd = () => {
             </textarea>
             <textarea id="post-tags" name="post-tags" placeholder="Tags" rows={2} cols={75} autoComplete="on">
             </textarea>
-            <Tags2 />
+            <Tags />
             <textarea id="post-text" name="post-text" placeholder="Body" rows={10} cols={75}>
             </textarea>
         </Col>
