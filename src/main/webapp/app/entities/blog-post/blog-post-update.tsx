@@ -111,6 +111,16 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField
+                label={translate('diaryFibreApp.blogPost.title')}
+                id="blog-post-title"
+                name="title"
+                data-cy="title"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                }}
+              />
+              <ValidatedField
                 label={translate('diaryFibreApp.blogPost.dateTime')}
                 id="blog-post-dateTime"
                 name="dateTime"

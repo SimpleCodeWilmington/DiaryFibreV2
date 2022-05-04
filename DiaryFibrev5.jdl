@@ -1,15 +1,14 @@
 entity Blog {
-           // id is auto-generated
    blogName String required,
    blogOwner String required,
+   template Template,
    accessStatus AccessType required
 }
 
 entity BlogPost {
-        // id is auto-generated
-   		//blogID Long required,
+   title String required,
    dateTime ZonedDateTime, // auto?
-   template Template required
+   template Template
 
 }
 
@@ -19,18 +18,15 @@ entity BlogComment{
 }
 
 entity BlogText {
-    // id is auto-generated
-  	//blogPostID Long required,
   	blogText Blob
 }
+
 entity BlogImage {
-  	// id is auto-generated
-   	//blogPostID Long required,
    	blogImage ImageBlob required,
    	imageNumber Integer required
 }
 entity Tag {
-    // id is auto-generated
+
    	tagName String required
 }
 enum Template {

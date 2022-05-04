@@ -26,12 +26,15 @@ public class BlogPost implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Column(name = "title", nullable = false)
+    private String title;
+
     @Column(name = "date_time")
     private ZonedDateTime dateTime;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "template", nullable = false)
+    @Column(name = "template")
     private Template template;
 
     @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
@@ -71,6 +74,19 @@ public class BlogPost implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public BlogPost title(String title) {
+        this.setTitle(title);
+        return this;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public ZonedDateTime getDateTime() {
@@ -205,6 +221,7 @@ public class BlogPost implements Serializable {
     public String toString() {
         return "BlogPost{" +
             "id=" + getId() +
+            ", title='" + getTitle() + "'" +
             ", dateTime='" + getDateTime() + "'" +
             ", template='" + getTemplate() + "'" +
             "}";
