@@ -39,4 +39,13 @@ export const Post = () => (
       <span>POST</span>
     </NavLink>
   </NavItem>
+
+);
+
+export const MyBlogs = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/myblogs" className="d-flex align-items-center">
+      <span>MyBlogs</span>
+    </NavLink>
+  </NavItem>
 );

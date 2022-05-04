@@ -51,6 +51,9 @@ public class BlogServiceImpl implements BlogService {
                 if (blog.getBlogOwner() != null) {
                     existingBlog.setBlogOwner(blog.getBlogOwner());
                 }
+                if (blog.getTemplate() != null) {
+                    existingBlog.setTemplate(blog.getTemplate());
+                }
                 if (blog.getAccessStatus() != null) {
                     existingBlog.setAccessStatus(blog.getAccessStatus());
                 }

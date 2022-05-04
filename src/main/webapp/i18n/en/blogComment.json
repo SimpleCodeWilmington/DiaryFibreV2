@@ -4,7 +4,7 @@
       "home": {
         "title": "Blog Comments",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Leave a Reply!",
+        "createLabel": "Create a new Blog Comment",
         "createOrEditLabel": "Create or edit a Blog Comment",
         "notFound": "No Blog Comments found"
       },

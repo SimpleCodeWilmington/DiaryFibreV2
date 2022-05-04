@@ -18,6 +18,7 @@
         "title": "Blog Post"
       },
       "id": "ID",
+      "title": "Title",
       "dateTime": "Date Time",
       "template": "Template",
       "blogtext": "Blogtext",

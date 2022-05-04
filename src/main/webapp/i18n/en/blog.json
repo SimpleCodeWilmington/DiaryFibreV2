@@ -20,6 +20,7 @@
       "id": "ID",
       "blogName": "Blog Name",
       "blogOwner": "Blog Owner",
+      "template": "Template",
       "accessStatus": "Access Status",
       "user": "User"
     }
