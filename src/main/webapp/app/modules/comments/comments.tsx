@@ -4,6 +4,7 @@ import moment from 'moment';
 import { sortCommentsByDate } from '../../modules/sortCommentsByDate';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntities } from 'app/entities/blog-comment/blog-comment.reducer';
+import AddComment from './add-comment';
 
 export const BlogComment = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,9 @@ export const BlogComment = () => {
 
   return (
     <div>
+      <AddComment />
+      <br></br>
+      <br></br>
       <div className="table-responsive">
         {blogCommentList && blogCommentList.length > 0 ? (
           <div>

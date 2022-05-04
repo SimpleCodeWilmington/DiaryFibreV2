@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, FormText } from 'reactstrap';
-import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
+import { Button, Row, Col } from 'reactstrap';
+import { Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IBlogPost } from 'app/shared/model/blog-post.model';
 import { getEntities as getBlogPosts } from 'app/entities/blog-post/blog-post.reducer';
-import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { IBlogComment } from 'app/shared/model/blog-comment.model';
 import { getEntity, updateEntity, createEntity, reset } from './blog-comment.reducer';
 
 export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) => {
@@ -66,18 +62,6 @@ export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) =>
     }
   };
 
-  const defaultValues = () =>
-    isNew
-      ? {
-          dateTime: displayDefaultDateTime(),
-        }
-      : {
-          ...blogCommentEntity,
-          dateTime: convertDateTimeFromServer(blogCommentEntity.dateTime),
-          blog: blogCommentEntity?.blog?.id,
-          user: blogCommentEntity?.user?.id,
-        };
-
   return (
     <div>
       <Row className="justify-content-center">
@@ -92,7 +76,7 @@ export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) =>
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
+            <ValidatedForm onSubmit={saveEntity}>
               {!isNew ? (
                 <ValidatedField
                   name="id"
@@ -150,14 +134,6 @@ export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) =>
                   // },
                 }}
               />
-              {/* <ValidatedField
-                label={translate('diaryFibreApp.blogComment.dateTime')}
-                id="blog-comment-dateTime"
-                name="dateTime"
-                data-cy="dateTime"
-                type="datetime-local"
-                // {...date}{...time}
-              /> */}
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/post" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

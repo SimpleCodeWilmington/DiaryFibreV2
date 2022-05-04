@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Table } from 'reactstrap';
+import { Button, Col, Row, Table } from 'reactstrap';
 import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
@@ -29,6 +29,9 @@ export const BlogComment = (props: RouteComponentProps<{ url: string }>) => {
 
   return (
     <div>
+      <AddComment />
+      <br></br>
+      <br></br>
       <div className="table-responsive">
         {blogCommentList && blogCommentList.length > 0 ? (
           <div>
