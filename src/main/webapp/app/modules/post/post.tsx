@@ -19,14 +19,6 @@ export const Post = () => {
         <div className="blog-text-add">
           <BlogTextAdd />
         </div>
-        <br></br>
-        <div className="add-comment">
-          <AddComment />
-        </div>
-        <br></br>
-        <div className="comments">
-          <BlogComment />
-        </div>
       </Col>
       <Col md="5">
         <div className="flex-parent jc-center" style={{ margin: '15px 0' }}>
