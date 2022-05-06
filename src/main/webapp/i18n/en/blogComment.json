@@ -5,7 +5,7 @@
         "title": "Blog Comments",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Blog Comment",
-        "createOrEditLabel": "Create a Blog Comment",
+        "createOrEditLabel": "Create or edit a Blog Comment",
         "notFound": "No Blog Comments found"
       },
       "created": "A new Blog Comment is created with identifier {{ param }}",

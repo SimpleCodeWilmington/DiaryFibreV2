@@ -1,11 +1,11 @@
-id;blog_text;blog_text_content_type
-1;../fake-data/blob/hipster.png;image/png
-2;../fake-data/blob/hipster.png;image/png
-3;../fake-data/blob/hipster.png;image/png
-4;../fake-data/blob/hipster.png;image/png
-5;../fake-data/blob/hipster.png;image/png
-6;../fake-data/blob/hipster.png;image/png
-7;../fake-data/blob/hipster.png;image/png
-8;../fake-data/blob/hipster.png;image/png
-9;../fake-data/blob/hipster.png;image/png
-10;../fake-data/blob/hipster.png;image/png
+id;text;blog_text;blog_text_content_type
+1;calculating mindshare;../fake-data/blob/hipster.png;image/png
+2;Engineer Yen;../fake-data/blob/hipster.png;image/png
+3;hardware;../fake-data/blob/hipster.png;image/png
+4;Spur Unions methodologies;../fake-data/blob/hipster.png;image/png
+5;Account Wisconsin;../fake-data/blob/hipster.png;image/png
+6;Rustic;../fake-data/blob/hipster.png;image/png
+7;withdrawal Direct;../fake-data/blob/hipster.png;image/png
+8;optimizing;../fake-data/blob/hipster.png;image/png
+9;Administrator;../fake-data/blob/hipster.png;image/png
+10;Gorgeous;../fake-data/blob/hipster.png;image/png

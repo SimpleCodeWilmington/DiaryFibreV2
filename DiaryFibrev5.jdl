@@ -18,6 +18,7 @@ entity BlogComment{
 }
 
 entity BlogText {
+    text String required,
   	blogText Blob
 }
 

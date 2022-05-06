@@ -46,6 +46,9 @@ public class BlogTextServiceImpl implements BlogTextService {
         return blogTextRepository
             .findById(blogText.getId())
             .map(existingBlogText -> {
+                if (blogText.getText() != null) {
+                    existingBlogText.setText(blogText.getText());
+                }
                 if (blogText.getBlogText() != null) {
                     existingBlogText.setBlogText(blogText.getBlogText());
                 }
