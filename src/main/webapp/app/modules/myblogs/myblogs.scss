@@ -9,8 +9,13 @@ Main page styles
     background-size: contain;
 }
   
-.App .editor{
-  width: 900px;
-  margin-left: 20%;
-  margin-top: 50px
+
+#container {
+  position: absolute;
+  top:0;left: 0;
+  font-family: Arial, Helvetica, sans;
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  z-index:9999999;
 }

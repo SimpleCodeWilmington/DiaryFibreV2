@@ -17,11 +17,15 @@ export const MyBlogs = () => {
 
         <h2>Temporary Psuedo Home Page</h2>
         <p>Task 1, show a list of blogs created by user</p>
-
-        <div className = "editor">
-          <TextEditor />
+        {/* <div className='container'> */}
+        <div>
+            <div>
+                <TextEditor />
+            </div>
         </div>
 
+
+        
     </Row>
   );
 };
