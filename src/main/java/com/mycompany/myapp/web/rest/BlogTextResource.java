@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.BlogText;
 import com.mycompany.myapp.repository.BlogTextRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.BlogTextService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -141,12 +142,17 @@ public class BlogTextResource {
      */
     @GetMapping("/blog-texts")
     public List<BlogText> getAllBlogTexts(@RequestParam(required = false) String filter) {
+
         if ("blogpost-is-null".equals(filter)) {
             log.debug("REST request to get all BlogTexts where blogpost is null");
             return blogTextService.findAllWhereBlogpostIsNull();
         }
         log.debug("REST request to get all BlogTexts");
         return blogTextService.findAll();
+
+//        log.debug("REST request to get all BlogTexts associated with User");
+//        return blogTextRepository.findByBlogUserLoginOrderByDateTimeDesc(SecurityUtils.getCurrentUserLogin().orElse(null));
+
     }
 
     /**

@@ -5,7 +5,7 @@ import Blog from 'app/entities/blog/blog';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { Row, Col, Alert } from 'reactstrap';
-import { TextEditor } from 'app/components/TextEditor'
+import { TextEditor } from 'app/components/text-editor/text-editor'
 
 import { useAppSelector } from 'app/config/store';
 

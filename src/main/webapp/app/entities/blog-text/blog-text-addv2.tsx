@@ -16,7 +16,7 @@ import { IBlog } from 'app/shared/model/blog.model';
 import { getEntities as getBlogs } from 'app/entities/blog/blog.reducer';
 import { AccessType } from 'app/shared/model/enumerations/access-type.model';
 import { getEntity, updateEntity, createEntity, reset } from 'app/entities/blog/blog.reducer';
-import { TextEditor } from 'app/components/TextEditor'
+import { TextEditor } from 'app/components/text-editor/text-editor'
 
 import { Tags } from 'app/modules/tags/tags'
 
