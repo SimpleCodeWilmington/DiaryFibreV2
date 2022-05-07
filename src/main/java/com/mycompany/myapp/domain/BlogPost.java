@@ -30,6 +30,10 @@ public class BlogPost implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @NotNull
+    @Column(name = "text", nullable = false)
+    private String text;
+
     @Column(name = "date_time")
     private ZonedDateTime dateTime;
 
@@ -87,6 +91,19 @@ public class BlogPost implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public BlogPost text(String text) {
+        this.setText(text);
+        return this;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public ZonedDateTime getDateTime() {
@@ -222,6 +239,7 @@ public class BlogPost implements Serializable {
         return "BlogPost{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
+            ", text='" + getText() + "'" +
             ", dateTime='" + getDateTime() + "'" +
             ", template='" + getTemplate() + "'" +
             "}";

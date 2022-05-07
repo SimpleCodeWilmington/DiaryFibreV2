@@ -47,6 +47,9 @@ class BlogPostResourceIT {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_TEXT = "AAAAAAAAAA";
+    private static final String UPDATED_TEXT = "BBBBBBBBBB";
+
     private static final ZonedDateTime DEFAULT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
@@ -83,7 +86,7 @@ class BlogPostResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BlogPost createEntity(EntityManager em) {
-        BlogPost blogPost = new BlogPost().title(DEFAULT_TITLE).dateTime(DEFAULT_DATE_TIME).template(DEFAULT_TEMPLATE);
+        BlogPost blogPost = new BlogPost().title(DEFAULT_TITLE).text(DEFAULT_TEXT).dateTime(DEFAULT_DATE_TIME).template(DEFAULT_TEMPLATE);
         return blogPost;
     }
 
@@ -94,7 +97,7 @@ class BlogPostResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BlogPost createUpdatedEntity(EntityManager em) {
-        BlogPost blogPost = new BlogPost().title(UPDATED_TITLE).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
+        BlogPost blogPost = new BlogPost().title(UPDATED_TITLE).text(UPDATED_TEXT).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
         return blogPost;
     }
 
@@ -117,6 +120,7 @@ class BlogPostResourceIT {
         assertThat(blogPostList).hasSize(databaseSizeBeforeCreate + 1);
         BlogPost testBlogPost = blogPostList.get(blogPostList.size() - 1);
         assertThat(testBlogPost.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testBlogPost.getText()).isEqualTo(DEFAULT_TEXT);
         assertThat(testBlogPost.getDateTime()).isEqualTo(DEFAULT_DATE_TIME);
         assertThat(testBlogPost.getTemplate()).isEqualTo(DEFAULT_TEMPLATE);
     }
@@ -158,6 +162,23 @@ class BlogPostResourceIT {
 
     @Test
     @Transactional
+    void checkTextIsRequired() throws Exception {
+        int databaseSizeBeforeTest = blogPostRepository.findAll().size();
+        // set the field null
+        blogPost.setText(null);
+
+        // Create the BlogPost, which fails.
+
+        restBlogPostMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(blogPost)))
+            .andExpect(status().isBadRequest());
+
+        List<BlogPost> blogPostList = blogPostRepository.findAll();
+        assertThat(blogPostList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllBlogPosts() throws Exception {
         // Initialize the database
         blogPostRepository.saveAndFlush(blogPost);
@@ -169,6 +190,7 @@ class BlogPostResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(blogPost.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
+            .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT)))
             .andExpect(jsonPath("$.[*].dateTime").value(hasItem(sameInstant(DEFAULT_DATE_TIME))))
             .andExpect(jsonPath("$.[*].template").value(hasItem(DEFAULT_TEMPLATE.toString())));
     }
@@ -204,6 +226,7 @@ class BlogPostResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(blogPost.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
+            .andExpect(jsonPath("$.text").value(DEFAULT_TEXT))
             .andExpect(jsonPath("$.dateTime").value(sameInstant(DEFAULT_DATE_TIME)))
             .andExpect(jsonPath("$.template").value(DEFAULT_TEMPLATE.toString()));
     }
@@ -227,7 +250,7 @@ class BlogPostResourceIT {
         BlogPost updatedBlogPost = blogPostRepository.findById(blogPost.getId()).get();
         // Disconnect from session so that the updates on updatedBlogPost are not directly saved in db
         em.detach(updatedBlogPost);
-        updatedBlogPost.title(UPDATED_TITLE).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
+        updatedBlogPost.title(UPDATED_TITLE).text(UPDATED_TEXT).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
 
         restBlogPostMockMvc
             .perform(
@@ -242,6 +265,7 @@ class BlogPostResourceIT {
         assertThat(blogPostList).hasSize(databaseSizeBeforeUpdate);
         BlogPost testBlogPost = blogPostList.get(blogPostList.size() - 1);
         assertThat(testBlogPost.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testBlogPost.getText()).isEqualTo(UPDATED_TEXT);
         assertThat(testBlogPost.getDateTime()).isEqualTo(UPDATED_DATE_TIME);
         assertThat(testBlogPost.getTemplate()).isEqualTo(UPDATED_TEMPLATE);
     }
@@ -314,7 +338,7 @@ class BlogPostResourceIT {
         BlogPost partialUpdatedBlogPost = new BlogPost();
         partialUpdatedBlogPost.setId(blogPost.getId());
 
-        partialUpdatedBlogPost.title(UPDATED_TITLE).template(UPDATED_TEMPLATE);
+        partialUpdatedBlogPost.title(UPDATED_TITLE).dateTime(UPDATED_DATE_TIME);
 
         restBlogPostMockMvc
             .perform(
@@ -329,8 +353,9 @@ class BlogPostResourceIT {
         assertThat(blogPostList).hasSize(databaseSizeBeforeUpdate);
         BlogPost testBlogPost = blogPostList.get(blogPostList.size() - 1);
         assertThat(testBlogPost.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testBlogPost.getDateTime()).isEqualTo(DEFAULT_DATE_TIME);
-        assertThat(testBlogPost.getTemplate()).isEqualTo(UPDATED_TEMPLATE);
+        assertThat(testBlogPost.getText()).isEqualTo(DEFAULT_TEXT);
+        assertThat(testBlogPost.getDateTime()).isEqualTo(UPDATED_DATE_TIME);
+        assertThat(testBlogPost.getTemplate()).isEqualTo(DEFAULT_TEMPLATE);
     }
 
     @Test
@@ -345,7 +370,7 @@ class BlogPostResourceIT {
         BlogPost partialUpdatedBlogPost = new BlogPost();
         partialUpdatedBlogPost.setId(blogPost.getId());
 
-        partialUpdatedBlogPost.title(UPDATED_TITLE).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
+        partialUpdatedBlogPost.title(UPDATED_TITLE).text(UPDATED_TEXT).dateTime(UPDATED_DATE_TIME).template(UPDATED_TEMPLATE);
 
         restBlogPostMockMvc
             .perform(
@@ -360,6 +385,7 @@ class BlogPostResourceIT {
         assertThat(blogPostList).hasSize(databaseSizeBeforeUpdate);
         BlogPost testBlogPost = blogPostList.get(blogPostList.size() - 1);
         assertThat(testBlogPost.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testBlogPost.getText()).isEqualTo(UPDATED_TEXT);
         assertThat(testBlogPost.getDateTime()).isEqualTo(UPDATED_DATE_TIME);
         assertThat(testBlogPost.getTemplate()).isEqualTo(UPDATED_TEMPLATE);
     }

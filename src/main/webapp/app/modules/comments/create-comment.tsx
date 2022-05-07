@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntities as getBlogPosts } from 'app/entities/blog-post/blog-post.reducer';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './blog-comment.reducer';
+import { getEntity, updateEntity, createEntity, reset } from 'app/entities/blog-comment/blog-comment.reducer';
 
 export const BlogCommentUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
