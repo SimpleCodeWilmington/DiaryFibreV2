@@ -2,10 +2,11 @@
   "diaryFibreApp": {
     "blogComment": {
       "home": {
-        "title": "Blog Comments",
+        "title": "Comments",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Blog Comment",
-        "createOrEditLabel": "Create or edit a Blog Comment",
+        "createLabel": "Leave A Reply!",
+        "createOrEditLabel": "Create a Comment!",
+        "editLabel": "Edit your reply",
         "notFound": "No Blog Comments found"
       },
       "created": "A new Blog Comment is created with identifier {{ param }}",

@@ -49,3 +49,12 @@ export const MyBlogs = () => (
     </NavLink>
   </NavItem>
 );
+
+export const Comments = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/comments" className="d-flex align-items-center">
+      <span>Comments</span>
+    </NavLink>
+  </NavItem>
+
+);

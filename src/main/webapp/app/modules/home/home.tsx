@@ -25,7 +25,7 @@ export const Home = () => {
         </p>
         {account?.login ? (
           <div>
-            <Alert color="success">
+            <Alert color="info">
               <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
                 You are logged in as user {account.login}.
               </Translate>
@@ -33,7 +33,7 @@ export const Home = () => {
           </div>
         ) : (
           <div>
-            <Alert color="warning">
+            <Alert color="info">
               <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
 
               <Link to="/login" className="alert-link">
@@ -46,7 +46,7 @@ export const Home = () => {
               </Translate>
             </Alert>
 
-            <Alert color="warning">
+            <Alert color="info">
               <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>&nbsp;
               <Link to="/account/register" className="alert-link">
                 <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
@@ -85,14 +85,6 @@ export const Home = () => {
             </a>
           </li>
         </ul>
-
-        <p>
-          <Translate contentKey="home.like">If you like JHipster, do not forget to give us a star on</Translate>{' '}
-          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          !
-        </p>
       </Col>
     </Row>
   );
