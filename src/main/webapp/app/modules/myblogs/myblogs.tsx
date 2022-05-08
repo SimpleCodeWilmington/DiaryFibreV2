@@ -90,7 +90,8 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
     <Row>
     <div>
       <h2 id="blog-post-heading" data-cy="BlogPostHeading">
-        <Translate contentKey="diaryFibreApp.blogPost.home.title">Blog Posts</Translate>
+        <div> BLOG POSTSss</div>
+        {/* <Translate contentKey="diaryFibreApp.blogPost.home.title">Tests</Translate> */}
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
@@ -114,6 +115,11 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                 <th />
               </tr>
             </thead>
+
+            <br></br>
+            <br></br>
+
+            
             <tbody>
               {blogPostList.map((blogPost, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
