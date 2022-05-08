@@ -10,7 +10,7 @@ import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-u
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IBlogPost } from 'app/shared/model/blog-post.model';
-import { getEntities, getEntity } from 'app/entities/blog-post/blog-post.reducer';
+import { getEntities, getEntity } from './myblogs.reducer';
 import { size } from 'lodash';
 
 export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
