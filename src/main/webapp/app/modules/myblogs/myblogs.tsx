@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IBlogPost } from 'app/shared/model/blog-post.model';
 import { getEntities, getEntity } from 'app/entities/blog-post/blog-post.reducer';
+import { size } from 'lodash';
 
 export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
 
@@ -93,12 +94,12 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="diaryFibreApp.blogPost.home.refreshListLabel">Refresh List</Translate>
+            <Translate contentKey="diaryFibreApp.blogPost.home.refreshListLabel">Refresh</Translate>
           </Button>
           <Link to="/blog-post/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="diaryFibreApp.blogPost.home.createLabel">Create new Blog Post</Translate>
+            <Translate contentKey="diaryFibreApp.blogPost.home.createLabel">New Post</Translate>
           </Link>
         </div>
       </h2>
@@ -116,11 +117,6 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
             <tbody>
               {blogPostList.map((blogPost, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/blog-post/${blogPost.id}`} color="link" size="sm">
-                      {blogPost.id}
-                    </Button>
-                  </td>
 
                   <li>{blogPost.dateTime ? <TextFormat type="date" value={blogPost.dateTime} format={APP_DATE_FORMAT} /> : null}</li>
                   <li>{blogPost.title}</li>
@@ -128,7 +124,7 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
 
                   {/* <td>{blogPost.blogtext ? <Link to={`/blog-text/${blogPost.blogtext.id}`}>{blogPost.blogtext.tex}</Link> : ''}</td> */}
                   {/* <td>{blogPost.blog ? <Link to={`/blog/${blogPost.blog.id}`}>{blogPost.blog.id}</Link> : ''}</td> */}
-                  <li className="text-end">
+
                     <div className="btn-group flex-btn-group-container">
   
                       <Button
@@ -156,26 +152,22 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                         </span>
                       </Button>
                     </div>
-                  </li>
+  
+
+  
+                  <hr
+                    style={{
+                        color: "darkcyan",
+                        height: 10,
+                    }}  
+                  />
+
+                  <br></br>
                   <br></br>
                 </tr>
               ))}
             </tbody>
-            
-            <tbody>
-              {blogPostList.map((blogPost, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable">
-
-                 <td>
-                    <Button tag={Link} to={`/blog-post/${blogPost.id}`} color="link" size="sm">
-                      {blogPost.id}
-                    </Button>
-                  </td>
-
-                </tr>
-              )) }
-
-            </tbody>
+      
           </Row>
 
         ) : (
