@@ -1,4 +1,4 @@
-import './TextEditor.scss';
+import './text-editor.scss';
 import React, { Component } from 'react'
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from 'draft-js';

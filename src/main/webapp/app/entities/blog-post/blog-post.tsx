@@ -107,6 +107,9 @@ export const BlogPost = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('title')}>
                   <Translate contentKey="diaryFibreApp.blogPost.title">Title</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={sort('text')}>
+                  <Translate contentKey="diaryFibreApp.blogPost.text">Text</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('dateTime')}>
                   <Translate contentKey="diaryFibreApp.blogPost.dateTime">Date Time</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -131,6 +134,7 @@ export const BlogPost = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{blogPost.title}</td>
+                  <td>{blogPost.text}</td>
                   <td>{blogPost.dateTime ? <TextFormat type="date" value={blogPost.dateTime} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>
                     <Translate contentKey={`diaryFibreApp.Template.${blogPost.template}`} />

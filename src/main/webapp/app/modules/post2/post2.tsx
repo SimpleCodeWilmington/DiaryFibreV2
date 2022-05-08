@@ -6,7 +6,7 @@ import { Translate } from 'react-jhipster';
 import { Row, Col, Alert, Button } from 'reactstrap';
 import BlogComment from 'app/modules/comments/comments';
 import { useAppSelector } from 'app/config/store';
-import { TextEditor } from 'app/components/TextEditor'
+import { TextEditor } from 'app/components/text-editor/text-editor'
 
 import { BlogTextAdd } from 'app/entities/blog-text/blog-text-add';
 

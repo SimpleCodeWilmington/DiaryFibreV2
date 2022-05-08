@@ -25,4 +25,6 @@ public interface BlogPostRepository extends BlogPostRepositoryWithBagRelationshi
     default Page<BlogPost> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAll(pageable));
     }
+
+    Page<BlogPost> findByBlogUserLoginOrderByDateTimeDesc(String currentUserLogin, Pageable pageable);
 }
