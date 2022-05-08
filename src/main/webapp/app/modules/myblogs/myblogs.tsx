@@ -90,7 +90,7 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
     <Row>
     <div>
       <h2 id="blog-post-heading" data-cy="BlogPostHeading">
-        <div> BLOG POSTSss</div>
+        <div> BLOG POSTS</div>
         {/* <Translate contentKey="diaryFibreApp.blogPost.home.title">Tests</Translate> */}
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
