@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Translate } from 'react-jhipster';
+import { Translate, TextFormat } from 'react-jhipster';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import moment from 'moment';
 import { sortCommentsByDate } from '../../modules/sortCommentsByDate';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
@@ -12,8 +13,6 @@ export const Comments = () => {
   const account = useAppSelector(state => state.authentication.account);
   const blogCommentList = useAppSelector(state => state.blogComment.entities);
   const loading = useAppSelector(state => state.blogComment.loading);
-  const currentDate = new Date();
-  const timestamp = currentDate.getTime();
 
   useEffect(() => {
     dispatch(getEntities({}));
@@ -34,12 +33,15 @@ export const Comments = () => {
             {blogCommentList && blogCommentList.length > 0 ? (
               <div>
                 {sortCommentsByDate(blogCommentList).map((comments, i) => (
-                  <li className="list-group-item pl-0" key={comments._id}>
-                    <p className="text-muted mb-1">
-                      Posted by {account.firstName} on {moment(timestamp).format('MM-DD-YY [at] HH:mm')}
-                    </p>
-                    <p className="mb-1">{comments.comment}</p>
-                  </li>
+                  <tr key={`entity-${i}`} data-cy="entityTable">
+                    <li className="list-group-item pl-0" key={comments._id} >
+                      <p className="text-muted mb-1" >
+                        Posted by {comments.user ? comments.user.firstName : ''} on{' '}
+                        {comments.dateTime ? <TextFormat type="date" value={comments.dateTime} format={APP_DATE_FORMAT} /> : null}
+                      </p>
+                      <p className="mb-1">{comments.comment}</p>
+                    </li>
+                  </tr>
                 ))}
               </div>
             ) : (
@@ -52,7 +54,7 @@ export const Comments = () => {
           </Col>
         </Row>
       </div>
-       <div className="comment-button">
+      <div className="comment-button">
         <Row className="justify-content-center">
           <Col md="8">
             <AddComment />
