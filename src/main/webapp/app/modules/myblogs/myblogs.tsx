@@ -119,14 +119,14 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
             <br></br>
             <br></br>
 
-            
+
             <tbody>
               {blogPostList.map((blogPost, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
 
-                  <li>{blogPost.dateTime ? <TextFormat type="date" value={blogPost.dateTime} format={APP_DATE_FORMAT} /> : null}</li>
-                  <li>{blogPost.title}</li>
-                  <li>{blogPost.text}</li>
+                  <p>{blogPost.dateTime ? <TextFormat type="date" value={blogPost.dateTime} format={APP_DATE_FORMAT} /> : null}</p>
+                  <h3>{blogPost.title}</h3>
+                  <p>{blogPost.text}</p>
 
                   {/* <td>{blogPost.blogtext ? <Link to={`/blog-text/${blogPost.blogtext.id}`}>{blogPost.blogtext.tex}</Link> : ''}</td> */}
                   {/* <td>{blogPost.blog ? <Link to={`/blog/${blogPost.blog.id}`}>{blogPost.blog.id}</Link> : ''}</td> */}
