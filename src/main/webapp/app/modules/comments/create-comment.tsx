@@ -46,7 +46,7 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
   }, [updateSuccess]);
 
   const saveEntity = values => {
-    values.dateTime = convertDateTimeToServer(values.dateTime);
+    values.dateTime = convertDateTimeToServer(Date());
 
     const entity = {
       ...blogCommentEntity,
@@ -121,14 +121,14 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
-              <ValidatedField
+              {/* <ValidatedField
                 label={translate('diaryFibreApp.blogComment.dateTime')}
                 id="blog-comment-dateTime"
                 name="dateTime"
                 data-cy="dateTime"
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
-              />
+              /> */}
               <ValidatedField
                 label={translate('diaryFibreApp.blogComment.comment')}
                 id="blog-comment-comment"
