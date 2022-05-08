@@ -46,7 +46,7 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
   }, [updateSuccess]);
 
   const saveEntity = values => {
-    values.dateTime = convertDateTimeToServer(values.datetimelocal);
+    values.dateTime = convertDateTimeToServer(values.dateTime);
 
     const entity = {
       ...blogCommentEntity,
@@ -77,7 +77,7 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
             <p>Loading...</p>
           ) : (
             <ValidatedForm onSubmit={saveEntity}>
-              {!isNew ? (
+              {/* {!isNew ? (
                 <ValidatedField
                   name="id"
                   required
@@ -86,7 +86,8 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                   label={translate('global.field.id')}
                   validate={{ required: true }}
                 />
-              ) : null}
+              ) : null} */}
+
               <ValidatedField
                 id="blog-comment-user"
                 name="user"
@@ -103,6 +104,7 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
+              
               <ValidatedField
                 id="blog-comment-blog"
                 name="blog"
@@ -119,6 +121,14 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
+              <ValidatedField
+                label={translate('diaryFibreApp.blogComment.dateTime')}
+                id="blog-comment-dateTime"
+                name="dateTime"
+                data-cy="dateTime"
+                type="datetime-local"
+                placeholder="YYYY-MM-DD HH:mm"
+              />
               <ValidatedField
                 label={translate('diaryFibreApp.blogComment.comment')}
                 id="blog-comment-comment"
