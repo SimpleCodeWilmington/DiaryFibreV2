@@ -117,9 +117,6 @@ export const BlogPost = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="diaryFibreApp.blogPost.template">Template</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="diaryFibreApp.blogPost.blogtext">Blogtext</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
                   <Translate contentKey="diaryFibreApp.blogPost.blog">Blog</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
@@ -139,7 +136,6 @@ export const BlogPost = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     <Translate contentKey={`diaryFibreApp.Template.${blogPost.template}`} />
                   </td>
-                  <td>{blogPost.blogtext ? <Link to={`/blog-text/${blogPost.blogtext.id}`}>{blogPost.blogtext.id}</Link> : ''}</td>
                   <td>{blogPost.blog ? <Link to={`/blog/${blogPost.blog.id}`}>{blogPost.blog.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

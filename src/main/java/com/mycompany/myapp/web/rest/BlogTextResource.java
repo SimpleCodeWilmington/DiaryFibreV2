@@ -9,7 +9,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -134,15 +133,10 @@ public class BlogTextResource {
     /**
      * {@code GET  /blog-texts} : get all the blogTexts.
      *
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of blogTexts in body.
      */
     @GetMapping("/blog-texts")
-    public List<BlogText> getAllBlogTexts(@RequestParam(required = false) String filter) {
-        if ("blogpost-is-null".equals(filter)) {
-            log.debug("REST request to get all BlogTexts where blogpost is null");
-            return blogTextService.findAllWhereBlogpostIsNull();
-        }
+    public List<BlogText> getAllBlogTexts() {
         log.debug("REST request to get all BlogTexts");
         return blogTextService.findAll();
     }

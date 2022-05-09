@@ -2,6 +2,7 @@ import './tags.scss';
 
 import React, { useState } from 'react';
 import { useAppSelector } from 'app/config/store';
+import axios from 'axios';
 
 export const Tags = () => {
   const account = useAppSelector(state => state.authentication.account);
@@ -45,6 +46,24 @@ export const Tags = () => {
     setIsKeyReleased(true);
   };
 
+  // data is not being sent in correct format -- maybe send one by one instead of array
+  function handleSubmit (event) {
+    event.preventDefault();
+    tags.forEach(function (value) {
+      axios.post('/api/tags', {
+        tagName: value, // or tag_name
+      })
+      .then(function(response) {
+        // eslint-disable-next-line no-console
+        console.log(response);
+      })
+      .catch(function(error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      })
+    });
+  };
+
   return (
     <div className="container">
     {tags.map((tag) => <div className="tag" key="tag">{tag}</div>)}
@@ -62,6 +81,7 @@ export const Tags = () => {
         <button onClick={() => deleteTag(index)}>x</button>
       </div>
     ))}
+      <button onClick={handleSubmit}>SUBMIT</button>
     </div>
   );
 };
@@ -69,6 +89,12 @@ export const Tags = () => {
 export default Tags;
 
 // resource: https://blog.logrocket.com/building-a-tag-input-field-component-for-react/
+
+// enter tags - DONE
+// if new, create tags
+// link entered tags to blog post
+
+// should primary key be tag name not ID?
 
 
 

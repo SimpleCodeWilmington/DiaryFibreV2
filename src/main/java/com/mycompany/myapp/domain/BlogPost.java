@@ -41,11 +41,6 @@ public class BlogPost implements Serializable {
     @Column(name = "template")
     private Template template;
 
-    @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private BlogText blogtext;
-
     @OneToMany(mappedBy = "blogpost")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
@@ -130,19 +125,6 @@ public class BlogPost implements Serializable {
 
     public void setTemplate(Template template) {
         this.template = template;
-    }
-
-    public BlogText getBlogtext() {
-        return this.blogtext;
-    }
-
-    public void setBlogtext(BlogText blogText) {
-        this.blogtext = blogText;
-    }
-
-    public BlogPost blogtext(BlogText blogText) {
-        this.setBlogtext(blogText);
-        return this;
     }
 
     public Set<BlogImage> getBlogImages() {

@@ -18,6 +18,8 @@ import { IBlogPost } from 'app/shared/model/blog-post.model';
 import { Template } from 'app/shared/model/enumerations/template.model';
 import { getEntity, updateEntity, createEntity, reset } from 'app/entities/blog-post/blog-post.reducer';
 
+import { Tags } from 'app/modules/tags/tags'
+
 export const Post = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
@@ -45,8 +47,7 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
       ...blogPostEntity,
       ...values,
       tags: mapIdList(values.tags),
-      blogtext: blogTexts.find(it => it.id.toString() === values.blogtext.toString()),
-      blog: blogs.find(it => it.id.toString() === values.blog.toString()),
+      blog: blogs.find(it => it.blogName.toString() === values.blog.toString()),
     };
 
     dispatch(createEntity(entity));
@@ -81,6 +82,16 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
             <p>Loading...</p>
           ) : (
             <ValidatedForm onSubmit={saveEntity}>
+              <ValidatedField id="blog-post-blog" name="blog" data-cy="blog" label={translate('diaryFibreApp.blogPost.blog')} type="select">
+                <option value="" key="0" />
+                {blogs
+                  ? blogs.map(otherEntity => (
+                      <option value={otherEntity.blogName} key={otherEntity.id}>
+                        {otherEntity.blogName}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <ValidatedField
                 label={translate('diaryFibreApp.blogPost.title')}
                 id="blog-post-title"
@@ -101,32 +112,6 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedField
-                id="blog-post-blogtext"
-                name="blogtext"
-                data-cy="blogtext"
-                label={translate('diaryFibreApp.blogPost.blogtext')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {blogTexts
-                  ? blogTexts.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField id="blog-post-blog" name="blog" data-cy="blog" label={translate('diaryFibreApp.blogPost.blog')} type="select">
-                <option value="" key="0" />
-                {blogs
-                  ? blogs.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <ValidatedField
                 label={translate('diaryFibreApp.blogPost.tag')}
                 id="blog-post-tag"
@@ -159,6 +144,7 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
               </Button>
             </ValidatedForm>
           )}
+          <div><Tags /></div>
         </Col>
       </Row>
     </div>

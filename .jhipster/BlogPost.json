@@ -32,14 +32,6 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "id",
-      "otherEntityName": "blogText",
-      "otherEntityRelationshipName": "blogpost",
-      "ownerSide": true,
-      "relationshipName": "blogtext",
-      "relationshipType": "one-to-one"
-    },
-    {
       "otherEntityName": "blogImage",
       "otherEntityRelationshipName": "blogpost",
       "relationshipName": "blogImage",
