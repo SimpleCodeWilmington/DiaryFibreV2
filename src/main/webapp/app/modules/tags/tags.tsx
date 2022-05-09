@@ -46,7 +46,6 @@ export const Tags = () => {
     setIsKeyReleased(true);
   };
 
-  // data is not being sent in correct format -- maybe send one by one instead of array
   function handleSubmit (event) {
     event.preventDefault();
     tags.forEach(function (value) {
@@ -90,11 +89,7 @@ export default Tags;
 
 // resource: https://blog.logrocket.com/building-a-tag-input-field-component-for-react/
 
-// enter tags - DONE
-// if new, create tags
-// link entered tags to blog post
-
-// should primary key be tag name not ID?
+// on save -> create tags, link entered tags to blog post
 
 
 

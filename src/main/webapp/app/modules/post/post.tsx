@@ -20,12 +20,13 @@ import { getEntity, updateEntity, createEntity, reset } from 'app/entities/blog-
 
 import { Tags } from 'app/modules/tags/tags'
 
+import axios from 'axios';
+
 export const Post = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const blogTexts = useAppSelector(state => state.blogText.entities);
   const blogs = useAppSelector(state => state.blog.entities);
-  const tags = useAppSelector(state => state.tag.entities);
   const blogPostEntity = useAppSelector(state => state.blogPost.entity);
   const loading = useAppSelector(state => state.blogPost.loading);
   const updating = useAppSelector(state => state.blogPost.updating);
@@ -40,18 +41,79 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
   }, []);
 
   const saveEntity = values => {
+      event.preventDefault();
+      tags.forEach(function (val) {
+        axios.post('/api/tags', {
+          tagName: val,
+        })
+        .then(function(response) {
+          // eslint-disable-next-line no-console
+          console.log(response);
+        })
+        .catch(function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        })
+      });
+
     values.dateTime = convertDateTimeToServer(Date());
-    values.template = "THEMEREDITH"
+    values.template = "THEMEREDITH";
+    // for each String in tags:
+    // create, if new (DONE)
+    // locate tag by name
+    // add tag to values.tags
+    // ?maybe get id and map using id per blog-post-update?
+
 
     const entity = {
       ...blogPostEntity,
       ...values,
-      tags: mapIdList(values.tags),
       blog: blogs.find(it => it.blogName.toString() === values.blog.toString()),
     };
 
     dispatch(createEntity(entity));
   };
+
+  // Tags
+    const [input, setInput] = useState('');
+    const [tags, setTags] = useState([]);
+    const [isKeyReleased, setIsKeyReleased] = useState(false);
+
+    const deleteTag = (index) => {
+      setTags(prevState => prevState.filter((tag, i) => i !== index))
+    };
+
+    const onChange = (e) => {
+      const { value } = e.target;
+      setInput(value);
+    };
+
+    const onKeyDown = (e) => {
+      const { key } = e;
+      const trimmedInput = input.trim();
+
+      if (key === 'Enter' && trimmedInput.length && !tags.includes(trimmedInput)) {
+          e.preventDefault();
+          setTags(prevState => [...prevState, trimmedInput]);
+          setInput('');
+      }
+
+      if (key === 'Backspace' && !input.length && tags.length && isKeyReleased) {
+        e.preventDefault();
+        const tagsCopy = [...tags];
+        const poppedTag = tagsCopy.pop();
+
+        setTags(tagsCopy);
+        setInput(poppedTag);
+      }
+
+      setIsKeyReleased(false);
+
+    };
+
+    const onKeyUp = (e) => {
+      setIsKeyReleased(true);
+    };
 
 //   const defaultValues = () =>
 //     isNew
@@ -112,23 +174,23 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedField
-                label={translate('diaryFibreApp.blogPost.tag')}
-                id="blog-post-tag"
-                data-cy="tag"
-                type="select"
-                multiple
-                name="tags"
-              >
-                <option value="" key="0" />
-                {tags
-                  ? tags.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
+    <div className="container">
+    {tags.map((tag) => <div className="tag" key="tag">{tag}</div>)}
+    <input
+      value={input}
+      placeholder="Tags"
+      onKeyDown={onKeyDown}
+      onKeyUp={onKeyUp}
+      onChange={onChange}
+    >
+    </input>
+    {tags.map((tag, index) => (
+      <div className="tag" key="tag">
+        {tag}
+        <button onClick={() => deleteTag(index)}>x</button>
+      </div>
+    ))}
+    </div>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/blog-post" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -144,7 +206,6 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
               </Button>
             </ValidatedForm>
           )}
-          <div><Tags /></div>
         </Col>
       </Row>
     </div>
