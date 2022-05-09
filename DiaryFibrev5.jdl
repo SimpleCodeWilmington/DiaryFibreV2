@@ -46,7 +46,7 @@ relationship ManyToMany {
 relationship ManyToOne{
 	Blog{user(id)} to User
     BlogPost{blog(id)} to Blog
-    BlogComment{blog(id)} to BlogPost
+    BlogComment to BlogPost
     BlogComment{user(id)} to User
 }
 
