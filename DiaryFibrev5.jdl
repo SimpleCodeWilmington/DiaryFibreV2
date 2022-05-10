@@ -53,9 +53,7 @@ relationship ManyToOne{
 relationship OneToMany {
    BlogPost to BlogImage{blogpost(id)}
 }
-relationship OneToOne {
-   BlogPost{blogtext(id)} to BlogText{blogpost(id)}
-}
+
 // Set pagination options
 paginate Blog, BlogPost with pagination
 // Set service options to all except few

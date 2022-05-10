@@ -18,9 +18,7 @@
         "title": "Blog Text"
       },
       "id": "ID",
-      "text": "Text",
-      "blogText": "Blog Text",
-      "blogpost": "Blogpost"
+      "blogText": "Blog Text"
     }
   }
 }

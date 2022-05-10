@@ -1,6 +1,5 @@
 package com.mycompany.myapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -32,10 +31,6 @@ public class BlogText implements Serializable {
 
     @Column(name = "blog_text_content_type")
     private String blogTextContentType;
-
-    @JsonIgnoreProperties(value = { "blogtext", "blogImages", "blog", "tags" }, allowSetters = true)
-    @OneToOne(mappedBy = "blogtext")
-    private BlogPost blogpost;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -89,25 +84,6 @@ public class BlogText implements Serializable {
 
     public void setBlogTextContentType(String blogTextContentType) {
         this.blogTextContentType = blogTextContentType;
-    }
-
-    public BlogPost getBlogpost() {
-        return this.blogpost;
-    }
-
-    public void setBlogpost(BlogPost blogPost) {
-        if (this.blogpost != null) {
-            this.blogpost.setBlogtext(null);
-        }
-        if (blogPost != null) {
-            blogPost.setBlogtext(this);
-        }
-        this.blogpost = blogPost;
-    }
-
-    public BlogText blogpost(BlogPost blogPost) {
-        this.setBlogpost(blogPost);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

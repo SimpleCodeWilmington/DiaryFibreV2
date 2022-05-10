@@ -49,10 +49,30 @@ public class TagResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new tag, or with status {@code 400 (Bad Request)} if the tag has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+//    @PostMapping("/tags")
+//    public ResponseEntity<Tag> createTag(@Valid @RequestBody Tag tag) throws URISyntaxException {
+//        log.debug("REST request to save Tag : {}", tag);
+//        if (tag.getId() != null) {
+//            throw new BadRequestAlertException("A new tag cannot already have an ID", ENTITY_NAME, "idexists");
+//        }
+//        Tag result = tagService.save(tag);
+//        return ResponseEntity
+//            .created(new URI("/api/tags/" + result.getId()))
+//            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+//            .body(result);
+//    }
+
     @PostMapping("/tags")
     public ResponseEntity<Tag> createTag(@Valid @RequestBody Tag tag) throws URISyntaxException {
         log.debug("REST request to save Tag : {}", tag);
-        if (tag.getId() != null) {
+        boolean alreadyExists = false;
+        List<Tag> allTags = getAllTags();
+        for (Tag t : allTags) {
+            if (t.getTagName().equals(tag.getTagName())) {
+                alreadyExists = true;
+            }
+        }
+        if (tag.getId() != null || alreadyExists == true) { // check here that tag name doesn't already exist
             throw new BadRequestAlertException("A new tag cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Tag result = tagService.save(tag);

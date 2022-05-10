@@ -31,7 +31,7 @@ public class BlogComment implements Serializable {
     private ZonedDateTime dateTime;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "blogtext", "blogImages", "blog", "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "blogImages", "blog", "tags" }, allowSetters = true)
     private BlogPost blog;
 
     @ManyToOne
