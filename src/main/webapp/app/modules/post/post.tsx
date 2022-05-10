@@ -41,6 +41,7 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
   }, []);
 
   const saveEntity = values => {
+      const tagArray = [];
       event.preventDefault();
       tags.forEach(function (val) {
         axios.post('/api/tags', {
@@ -49,6 +50,12 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
         .then(function(response) {
           // eslint-disable-next-line no-console
           console.log(response);
+          const { data } = response;
+          tagArray.push(data.id); // data is not being added to the array, even if manual - why?
+                       // const data = response.json();
+                       // values.tags.add(data.id);
+          // eslint-disable-next-line no-console
+          console.log(data.id);
         })
         .catch(function(error) {
           // eslint-disable-next-line no-console
@@ -58,16 +65,12 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
 
     values.dateTime = convertDateTimeToServer(Date());
     values.template = "THEMEREDITH";
-    // for each String in tags:
-    // create, if new (DONE)
-    // locate tag by name
-    // add tag to values.tags
-    // ?maybe get id and map using id per blog-post-update?
-
+    values.tags = tagArray;
 
     const entity = {
       ...blogPostEntity,
       ...values,
+      tags: mapIdList(values.tags), // this part works
       blog: blogs.find(it => it.blogName.toString() === values.blog.toString()),
     };
 
