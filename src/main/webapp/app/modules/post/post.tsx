@@ -32,6 +32,7 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
   const updating = useAppSelector(state => state.blogPost.updating);
   const updateSuccess = useAppSelector(state => state.blogPost.updateSuccess);
   const templateValues = Object.keys(Template);
+  const [tagArray, setTagArray] = useState([]);
 
   useEffect(() => {
     dispatch(reset());
@@ -41,21 +42,29 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
   }, []);
 
   const saveEntity = values => {
-      const tagArray = [];
       event.preventDefault();
       tags.forEach(function (val) {
         axios.post('/api/tags', {
           tagName: val,
         })
         .then(function(response) {
-          // eslint-disable-next-line no-console
-          console.log(response);
           const { data } = response;
-          tagArray.push(data.id); // data is not being added to the array, even if manual - why?
+          // tagArray.push(data.id); // data is not being added to the array, even if manual - why?
                        // const data = response.json();
                        // values.tags.add(data.id);
           // eslint-disable-next-line no-console
+          console.log(response);
+          return {data};
+        })
+        .then(function({data}) {
+          // eslint-disable-next-line no-console
           console.log(data.id);
+          tagArray.push(data.id);
+          // setTagArray(prevState => [...prevState, data.id]);
+        })
+        .then(function() {
+          // eslint-disable-next-line no-console
+          console.log(tagArray[0]); // undefined - why is this showing first?
         })
         .catch(function(error) {
           // eslint-disable-next-line no-console
@@ -63,18 +72,22 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
         })
       });
 
-    values.dateTime = convertDateTimeToServer(Date());
-    values.template = "THEMEREDITH";
-    values.tags = tagArray;
-
-    const entity = {
-      ...blogPostEntity,
-      ...values,
-      tags: mapIdList(values.tags), // this part works
-      blog: blogs.find(it => it.blogName.toString() === values.blog.toString()),
-    };
-
-    dispatch(createEntity(entity));
+    setTimeout(function afterTwoSeconds() {
+      values.dateTime = convertDateTimeToServer(Date());
+      values.template = "THEMEREDITH";
+      values.tags = tagArray;
+  
+      const entity = {
+        ...blogPostEntity,
+        ...values,
+        tags: mapIdList(values.tags), // this part works
+        blog: blogs.find(it => it.blogName.toString() === values.blog.toString()),
+      };
+  
+      dispatch(createEntity(entity));
+        // eslint-disable-next-line no-console
+        console.log(tagArray[0]); // undefined - why is this showing first?
+    }, 2000)  
   };
 
   // Tags
