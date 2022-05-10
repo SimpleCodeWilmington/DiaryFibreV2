@@ -15,9 +15,6 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
-  const today = new Date();
-  const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-  const date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
   const blogPosts = useAppSelector(state => state.blogPost.entities);
   const users = useAppSelector(state => state.userManagement.users);
   const blogCommentEntity = useAppSelector(state => state.blogComment.entity);
@@ -25,7 +22,7 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
   const updating = useAppSelector(state => state.blogComment.updating);
   const updateSuccess = useAppSelector(state => state.blogComment.updateSuccess);
   const handleClose = () => {
-    props.history.push('/comments');
+    props.history.push('/commentspage');
   };
 
   useEffect(() => {
@@ -77,16 +74,16 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
             <p>Loading...</p>
           ) : (
             <ValidatedForm onSubmit={saveEntity}>
-              {/* {!isNew ? (
+              {!isNew ? (
                 <ValidatedField
                   name="id"
                   required
                   readOnly
-                  id="blog-comment-id"
+                  id="create-comment-id"
                   label={translate('global.field.id')}
                   validate={{ required: true }}
                 />
-              ) : null} */}
+              ) : null}
 
               <ValidatedField
                 id="blog-comment-user"
@@ -121,14 +118,6 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
-              {/* <ValidatedField
-                label={translate('diaryFibreApp.blogComment.dateTime')}
-                id="blog-comment-dateTime"
-                name="dateTime"
-                data-cy="dateTime"
-                type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
-              /> */}
               <ValidatedField
                 label={translate('diaryFibreApp.blogComment.comment')}
                 id="blog-comment-comment"
@@ -144,7 +133,7 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                   // },
                 }}
               />
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/comments" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/commentspage" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
