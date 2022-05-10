@@ -10,6 +10,8 @@ import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 import { useAppDispatch } from 'app/config/store';
 import { setLocale } from 'app/shared/reducers/locale';
 
+import { SearchBar } from 'app/modules/search/search-bar'
+
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -53,6 +55,7 @@ const Header = (props: IHeaderProps) => {
           <Nav id="header-tabs" className="ms-auto" navbar>
             <Post />
             <Comments />
+            <SearchBar />
             <Home />
             
             {props.isAuthenticated && <EntitiesMenu />}
