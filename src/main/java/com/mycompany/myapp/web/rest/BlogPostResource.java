@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.BlogPost;
 import com.mycompany.myapp.repository.BlogPostRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.BlogPostService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -152,11 +153,13 @@ public class BlogPostResource {
     ) {
         log.debug("REST request to get a page of BlogPosts");
         Page<BlogPost> page;
-        if (eagerload) {
-            page = blogPostService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = blogPostService.findAll(pageable);
-        }
+
+        page = blogPostRepository.findByBlogUserLoginOrderByDateTimeDesc(SecurityUtils.getCurrentUserLogin().orElse(null), pageable);
+//        if (eagerload) {
+//            page = blogPostService.findAllWithEagerRelationships(pageable);
+//        } else {
+//            page = blogPostService.findAll(pageable);
+//        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

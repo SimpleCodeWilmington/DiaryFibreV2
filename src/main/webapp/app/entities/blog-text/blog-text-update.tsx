@@ -83,6 +83,16 @@ export const BlogTextUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField
+                label={translate('diaryFibreApp.blogText.text')}
+                id="blog-text-text"
+                name="text"
+                data-cy="text"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                }}
+              />
               <ValidatedBlobField
                 label={translate('diaryFibreApp.blogText.blogText')}
                 id="blog-text-blogText"

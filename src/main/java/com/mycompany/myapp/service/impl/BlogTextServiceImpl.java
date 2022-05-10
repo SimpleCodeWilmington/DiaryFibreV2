@@ -2,6 +2,7 @@ package com.mycompany.myapp.service.impl;
 
 import com.mycompany.myapp.domain.BlogText;
 import com.mycompany.myapp.repository.BlogTextRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.BlogTextService;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,9 @@ public class BlogTextServiceImpl implements BlogTextService {
         return blogTextRepository
             .findById(blogText.getId())
             .map(existingBlogText -> {
+                if (blogText.getText() != null) {
+                    existingBlogText.setText(blogText.getText());
+                }
                 if (blogText.getBlogText() != null) {
                     existingBlogText.setBlogText(blogText.getBlogText());
                 }
@@ -60,6 +64,7 @@ public class BlogTextServiceImpl implements BlogTextService {
     @Transactional(readOnly = true)
     public List<BlogText> findAll() {
         log.debug("Request to get all BlogTexts");
+        //return blogTextRepository.findByBlogUserLoginOrderByDateTimeDesc(SecurityUtils.getCurrentUserLogin().orElse (null));
         return blogTextRepository.findAll();
     }
 

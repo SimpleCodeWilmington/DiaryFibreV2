@@ -2,6 +2,7 @@ package com.mycompany.myapp.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -19,6 +20,10 @@ public class BlogText implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @NotNull
+    @Column(name = "text", nullable = false)
+    private String text;
 
     @Lob
     @Column(name = "blog_text")
@@ -40,6 +45,19 @@ public class BlogText implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public BlogText text(String text) {
+        this.setText(text);
+        return this;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public byte[] getBlogText() {
@@ -92,6 +110,7 @@ public class BlogText implements Serializable {
     public String toString() {
         return "BlogText{" +
             "id=" + getId() +
+            ", text='" + getText() + "'" +
             ", blogText='" + getBlogText() + "'" +
             ", blogTextContentType='" + getBlogTextContentType() + "'" +
             "}";

@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const BrandIcon = props => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
     <div {...props} className="brand-icon">
-      <img src="content/images/DiaryFibreBlackText.png" alt="Logo" />
+      <img src="content/images/Diary Fibre (500 × 200 px) (2).png" alt="Logo" />
     </div>
   </NavbarBrand>
 );
@@ -48,4 +48,13 @@ export const MyBlogs = () => (
       <span>MyBlogs</span>
     </NavLink>
   </NavItem>
+);
+
+export const Comments = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/comments" className="d-flex align-items-center">
+      <span>Comments</span>
+    </NavLink>
+  </NavItem>
+
 );

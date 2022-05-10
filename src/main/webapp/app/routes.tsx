@@ -10,12 +10,15 @@ import PasswordResetFinish from 'app/modules/account/password-reset/finish/passw
 import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
 import Post from 'app/modules/post/post';
+import BlogComment from './modules/comments/comments'; 
+import Post2 from 'app/modules/post2/post2';
 import MyBlogs from './modules/myblogs/myblogs';
 import EntitiesRoutes from 'app/entities/routes';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
+import CreateComment from './modules/comments/create-comment';
 
 
 const loading = <div>loading ...</div>;
@@ -43,6 +46,9 @@ const Routes = () => {
         <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
         <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
         <ErrorBoundaryRoute path="/post" exact component={Post} />
+        <ErrorBoundaryRoute path="/post2" exact component={Post2} />
+        <ErrorBoundaryRoute path="/comments" exact component={BlogComment} />
+        <ErrorBoundaryRoute path="/create-comment" exact component={CreateComment} />
         <ErrorBoundaryRoute path="/myblogs" exact component={MyBlogs} />
         <ErrorBoundaryRoute path="/" exact component={Home} />
         <PrivateRoute path="/" component={EntitiesRoutes} hasAnyAuthorities={[AUTHORITIES.USER]} />
