@@ -11,6 +11,8 @@ import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
 import Post from 'app/modules/post/post';
 import CommentsPage from './modules/comments/comments-page'; 
+import SearchResults from 'app/modules/search/search-results';
+import BlogComment from './modules/comments/comments'; 
 import Post2 from 'app/modules/post2/post2';
 import MyBlogs from './modules/myblogs/myblogs';
 import EntitiesRoutes from 'app/entities/routes';
@@ -48,6 +50,8 @@ const Routes = () => {
         <ErrorBoundaryRoute path="/post" exact component={Post} />
         <ErrorBoundaryRoute path="/post2" exact component={Post2} />
         <ErrorBoundaryRoute path="/commentsPage" exact component={CommentsPage} />
+        <ErrorBoundaryRoute path="/search-results" exact component={SearchResults} />
+        <ErrorBoundaryRoute path="/comments" exact component={BlogComment} />
         <ErrorBoundaryRoute path="/create-comment" exact component={CreateComment} />
         <ErrorBoundaryRoute path="/myblogs" exact component={MyBlogs} />
         <ErrorBoundaryRoute path="/" exact component={Home} />
