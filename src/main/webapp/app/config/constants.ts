@@ -8,6 +8,7 @@ export const messages = {
 };
 
 export const APP_DATE_FORMAT = 'MM/DD/YY HH:mm';
+export const POST_DATE_FORMAT = 'MM/DD/YY';
 export const APP_TIMESTAMP_FORMAT = 'MM/DD/YY HH:mm:ss';
 export const APP_LOCAL_DATE_FORMAT = 'MM/DD/YYYY';
 export const APP_LOCAL_DATETIME_FORMAT = 'YYYY-MM-DDTHH:mm';

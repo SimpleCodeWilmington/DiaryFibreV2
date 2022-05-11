@@ -24,9 +24,9 @@ export const Comments = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h1>
+          <h3>
             <Translate contentKey="diaryFibreApp.blogComment.home.title">Create or edit a BlogComment</Translate>
-          </h1>
+          </h3>
         </Col>
       </Row>
       <div className="table-responsive">
