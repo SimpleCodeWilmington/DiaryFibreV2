@@ -65,12 +65,27 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
             {blogPostEntity.tags
               ? blogPostEntity.tags.map((val, i) => (
                   <span key={val.id}>
-                    <a>{val.id}</a>
-                    {blogPostEntity.tags && i === blogPostEntity.tags.length - 1 ? '' : ', '}
+                  {blogPostEntity.tags && i === blogPostEntity.tags.length ? ' ' : ' #'}
+                    <a>{val.tagName}</a>
+                   
                   </span>
                 ))
               : null}
           </dd>
+          <dt> 
+            <Translate contentKey="diaryFibreApp.blogPost.blogComment">Comments</Translate>
+          </dt>
+          <dd>
+            {blogPostEntity.blogComments
+              ? blogPostEntity.blogComments.map((val, j) => (
+                  <span key={val.id}>
+                    <a>{val.id}</a>
+                    {blogPostEntity.blogComments && j === blogPostEntity.blogComments.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
+
         </dl>
         <Button tag={Link} to="/blog-post" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
