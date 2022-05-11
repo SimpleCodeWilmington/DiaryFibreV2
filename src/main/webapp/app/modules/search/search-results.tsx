@@ -6,14 +6,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-export const SearchResults = () => {
-  const dispatch = useAppDispatch();
-  
-  return (
-    <div>
-        <h2>SEARCH RESULTS GO HERE</h2>
-    </div>
-  );
-};
+import { SearchBar } from './search-bar';
 
-export default SearchResults;
+export const SearchResults = (props) => {
+    const dispatch = useAppDispatch();
+    const searchState = props.match.params;
+  
+    // eslint-disable-next-line no-console
+    console.log(searchState)
+    
+    return (
+      <div>
+          <h2>SEARCH RESULTS GO HERE</h2>
+          <h3>{props.searchTerm}</h3>
+      </div>
+    );
+  };
+  
+  export default SearchResults;
+
