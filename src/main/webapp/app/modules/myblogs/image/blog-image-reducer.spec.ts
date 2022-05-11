@@ -7,8 +7,8 @@ import sinon from 'sinon';
 import reducer, {
   createEntity,
   deleteEntity,
-  getEntities,
-  getEntity,
+  getImages,
+  getImag,
   updateEntity,
   partialUpdateEntity,
   reset,
@@ -59,7 +59,7 @@ describe('Entities reducer tests', () => {
 
   describe('Requests', () => {
     it('should set state to loading', () => {
-      testMultipleTypes([getEntities.pending.type, getEntity.pending.type], {}, state => {
+      testMultipleTypes([getImages.pending.type, getImag.pending.type], {}, state => {
         expect(state).toMatchObject({
           errorMessage: null,
           updateSuccess: false,
@@ -93,8 +93,8 @@ describe('Entities reducer tests', () => {
     it('should set a message in errorMessage', () => {
       testMultipleTypes(
         [
-          getEntities.rejected.type,
-          getEntity.rejected.type,
+          getImages.rejected.type,
+          getImag.rejected.type,
           createEntity.rejected.type,
           updateEntity.rejected.type,
           partialUpdateEntity.rejected.type,
@@ -120,7 +120,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }] };
       expect(
         reducer(undefined, {
-          type: getEntities.fulfilled.type,
+          type: getImages.fulfilled.type,
           payload,
         })
       ).toEqual({
@@ -134,7 +134,7 @@ describe('Entities reducer tests', () => {
       const payload = { data: { 1: 'fake1' } };
       expect(
         reducer(undefined, {
-          type: getEntity.fulfilled.type,
+          type: getImag.fulfilled.type,
           payload,
         })
       ).toEqual({
@@ -189,14 +189,14 @@ describe('Entities reducer tests', () => {
     it('dispatches FETCH_BLOGIMAGE_LIST actions', async () => {
       const expectedActions = [
         {
-          type: getEntities.pending.type,
+          type: getImages.pending.type,
         },
         {
-          type: getEntities.fulfilled.type,
+          type: getImages.fulfilled.type,
           payload: resolvedObject,
         },
       ];
-      await store.dispatch(getEntities({}));
+      await store.dispatch(getImages({}));
       expect(store.getActions()[0]).toMatchObject(expectedActions[0]);
       expect(store.getActions()[1]).toMatchObject(expectedActions[1]);
     });
@@ -204,14 +204,14 @@ describe('Entities reducer tests', () => {
     it('dispatches FETCH_BLOGIMAGE actions', async () => {
       const expectedActions = [
         {
-          type: getEntity.pending.type,
+          type: getImag.pending.type,
         },
         {
-          type: getEntity.fulfilled.type,
+          type: getImag.fulfilled.type,
           payload: resolvedObject,
         },
       ];
-      await store.dispatch(getEntity(42666));
+      await store.dispatch(getImag(42666));
       expect(store.getActions()[0]).toMatchObject(expectedActions[0]);
       expect(store.getActions()[1]).toMatchObject(expectedActions[1]);
     });
@@ -222,7 +222,7 @@ describe('Entities reducer tests', () => {
           type: createEntity.pending.type,
         },
         {
-          type: getEntities.pending.type,
+          type: getImages.pending.type,
         },
         {
           type: createEntity.fulfilled.type,
@@ -241,7 +241,7 @@ describe('Entities reducer tests', () => {
           type: updateEntity.pending.type,
         },
         {
-          type: getEntities.pending.type,
+          type: getImages.pending.type,
         },
         {
           type: updateEntity.fulfilled.type,
@@ -260,7 +260,7 @@ describe('Entities reducer tests', () => {
           type: partialUpdateEntity.pending.type,
         },
         {
-          type: getEntities.pending.type,
+          type: getImages.pending.type,
         },
         {
           type: partialUpdateEntity.fulfilled.type,
@@ -279,7 +279,7 @@ describe('Entities reducer tests', () => {
           type: deleteEntity.pending.type,
         },
         {
-          type: getEntities.pending.type,
+          type: getImages.pending.type,
         },
         {
           type: deleteEntity.fulfilled.type,

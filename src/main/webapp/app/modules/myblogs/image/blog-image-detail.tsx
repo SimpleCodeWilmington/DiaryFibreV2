@@ -7,13 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntity } from './blog-image.reducer';
+import { getImag } from './blog-image.reducer';
 
 export const BlogImageDetail = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getEntity(props.match.params.id));
+    dispatch(getImag(props.match.params.id));
   }, []);
 
   const blogImageEntity = useAppSelector(state => state.blogImage.entity);

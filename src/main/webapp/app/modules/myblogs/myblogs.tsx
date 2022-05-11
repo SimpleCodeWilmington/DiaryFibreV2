@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IBlogPost } from 'app/shared/model/blog-post.model';
 import { getEntities, getEntity } from './myblogs.reducer';
+import { getImages, getImag } from './image/blog-image.reducer';
 import { size } from 'lodash';
 
 export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
@@ -136,6 +137,9 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                   <p>{blogPost.dateTime ? <TextFormat type="date" value={blogPost.dateTime} format={APP_DATE_FORMAT} /> : null}</p>
                   <h3>{blogPost.title}</h3>
                   <p>{blogPost.text}</p>
+                  
+
+
                   
       <div className="table-responsive">
         {blogImageList && blogImageList.length > 0 ? (

@@ -18,12 +18,12 @@ const apiUrl = 'api/blog-images';
 
 // Actions
 
-export const getEntities = createAsyncThunk('blogImage/fetch_entity_list', async ({ page, size, sort }: IQueryParams) => {
+export const getImages = createAsyncThunk('blogImage/fetch_entity_list', async ({ page, size, sort }: IQueryParams) => {
   const requestUrl = `${apiUrl}?cacheBuster=${new Date().getTime()}`;
   return axios.get<IBlogImage[]>(requestUrl);
 });
 
-export const getEntity = createAsyncThunk(
+export const getImag = createAsyncThunk(
   'blogImage/fetch_entity',
   async (id: string | number) => {
     const requestUrl = `${apiUrl}/${id}`;
@@ -36,7 +36,7 @@ export const createEntity = createAsyncThunk(
   'blogImage/create_entity',
   async (entity: IBlogImage, thunkAPI) => {
     const result = await axios.post<IBlogImage>(apiUrl, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    thunkAPI.dispatch(getImages({}));
     return result;
   },
   { serializeError: serializeAxiosError }
@@ -46,7 +46,7 @@ export const updateEntity = createAsyncThunk(
   'blogImage/update_entity',
   async (entity: IBlogImage, thunkAPI) => {
     const result = await axios.put<IBlogImage>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    thunkAPI.dispatch(getImages({}));
     return result;
   },
   { serializeError: serializeAxiosError }
@@ -56,7 +56,7 @@ export const partialUpdateEntity = createAsyncThunk(
   'blogImage/partial_update_entity',
   async (entity: IBlogImage, thunkAPI) => {
     const result = await axios.patch<IBlogImage>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
-    thunkAPI.dispatch(getEntities({}));
+    thunkAPI.dispatch(getImages({}));
     return result;
   },
   { serializeError: serializeAxiosError }
@@ -67,7 +67,7 @@ export const deleteEntity = createAsyncThunk(
   async (id: string | number, thunkAPI) => {
     const requestUrl = `${apiUrl}/${id}`;
     const result = await axios.delete<IBlogImage>(requestUrl);
-    thunkAPI.dispatch(getEntities({}));
+    thunkAPI.dispatch(getImages({}));
     return result;
   },
   { serializeError: serializeAxiosError }
@@ -80,7 +80,7 @@ export const BlogImageSlice = createEntitySlice({
   initialState,
   extraReducers(builder) {
     builder
-      .addCase(getEntity.fulfilled, (state, action) => {
+      .addCase(getImag.fulfilled, (state, action) => {
         state.loading = false;
         state.entity = action.payload.data;
       })
@@ -89,7 +89,7 @@ export const BlogImageSlice = createEntitySlice({
         state.updateSuccess = true;
         state.entity = {};
       })
-      .addMatcher(isFulfilled(getEntities), (state, action) => {
+      .addMatcher(isFulfilled(getImages), (state, action) => {
         const { data } = action.payload;
 
         return {
@@ -104,7 +104,7 @@ export const BlogImageSlice = createEntitySlice({
         state.updateSuccess = true;
         state.entity = action.payload.data;
       })
-      .addMatcher(isPending(getEntities, getEntity), state => {
+      .addMatcher(isPending(getImages, getImag), state => {
         state.errorMessage = null;
         state.updateSuccess = false;
         state.loading = true;

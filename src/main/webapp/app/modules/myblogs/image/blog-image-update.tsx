@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { IBlogPost } from 'app/shared/model/blog-post.model';
 import { getEntities as getBlogPosts } from 'app/entities/blog-post/blog-post.reducer';
 import { IBlogImage } from 'app/shared/model/blog-image.model';
-import { getEntity, updateEntity, createEntity, reset } from './blog-image.reducer';
+import { getImag, updateEntity, createEntity, reset } from './blog-image.reducer';
 
 export const BlogImageUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ export const BlogImageUpdate = (props: RouteComponentProps<{ id: string }>) => {
     if (isNew) {
       dispatch(reset());
     } else {
-      dispatch(getEntity(props.match.params.id));
+      dispatch(getImag(props.match.params.id));
     }
 
     dispatch(getBlogPosts({}));

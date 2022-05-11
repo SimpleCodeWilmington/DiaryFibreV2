@@ -5,14 +5,14 @@ import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getEntity, deleteEntity } from './blog-image.reducer';
+import { getImag, deleteEntity } from './blog-image.reducer';
 
 export const BlogImageDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
   const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getEntity(props.match.params.id));
+    dispatch(getImag(props.match.params.id));
     setLoadModal(true);
   }, []);
 

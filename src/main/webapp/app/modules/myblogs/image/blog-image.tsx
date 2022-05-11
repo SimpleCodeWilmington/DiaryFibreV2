@@ -8,7 +8,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IBlogImage } from 'app/shared/model/blog-image.model';
-import { getEntities } from './blog-image.reducer';
+import { getImages } from './blog-image.reducer';
 
 export const BlogImage = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
@@ -17,31 +17,17 @@ export const BlogImage = (props: RouteComponentProps<{ url: string }>) => {
   const loadingImages = useAppSelector(state => state.blogImage.loadingImages);
 
   useEffect(() => {
-    dispatch(getEntities({}));
+    dispatch(getImages({}));
   }, []);
 
   const handleSyncList = () => {
-    dispatch(getEntities({}));
+    dispatch(getImages({}));
   };
 
   const { match } = props;
 
   return (
     <div>
-      {/* <h2 id="blog-image-heading" data-cy="BlogImageHeading">
-        <Translate contentKey="diaryFibreApp.blogImage.home.title">Blog Images</Translate>
-        <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loadingImages}>
-            <FontAwesomeIcon icon="sync" spin={loadingImages} />{' '}
-            <Translate contentKey="diaryFibreApp.blogImage.home.refreshListLabel">Refresh List</Translate>
-          </Button>
-          <Link to="/blog-image/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="diaryFibreApp.blogImage.home.createLabel">Create new Blog Image</Translate>
-          </Link>
-        </div>
-      </h2> */}
       <div className="table-responsive">
         {blogImageList && blogImageList.length > 0 ? (
           <Table responsive>
