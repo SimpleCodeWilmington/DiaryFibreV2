@@ -30,17 +30,16 @@ public class BlogPost implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @NotNull
+    @Column(name = "text", nullable = false)
+    private String text;
+
     @Column(name = "date_time")
     private ZonedDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "template")
     private Template template;
-
-    @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private BlogText blogtext;
 
     @OneToMany(mappedBy = "blogpost")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -89,6 +88,19 @@ public class BlogPost implements Serializable {
         this.title = title;
     }
 
+    public String getText() {
+        return this.text;
+    }
+
+    public BlogPost text(String text) {
+        this.setText(text);
+        return this;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public ZonedDateTime getDateTime() {
         return this.dateTime;
     }
@@ -113,19 +125,6 @@ public class BlogPost implements Serializable {
 
     public void setTemplate(Template template) {
         this.template = template;
-    }
-
-    public BlogText getBlogtext() {
-        return this.blogtext;
-    }
-
-    public void setBlogtext(BlogText blogText) {
-        this.blogtext = blogText;
-    }
-
-    public BlogPost blogtext(BlogText blogText) {
-        this.setBlogtext(blogText);
-        return this;
     }
 
     public Set<BlogImage> getBlogImages() {
@@ -222,6 +221,7 @@ public class BlogPost implements Serializable {
         return "BlogPost{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
+            ", text='" + getText() + "'" +
             ", dateTime='" + getDateTime() + "'" +
             ", template='" + getTemplate() + "'" +
             "}";

@@ -17,14 +17,14 @@
             <column name="title" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="text" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
             <column name="date_time" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
             <column name="template" type="varchar(255)">
                 <constraints nullable="true" />
-            </column>
-            <column name="blogtext_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_blog_post__blogtext_id" />
             </column>
             <column name="blog_id" type="bigint">
                 <constraints nullable="true" />
@@ -66,6 +66,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="title" type="string"/>
+            <column name="text" type="string"/>
             <column name="date_time" type="date"/>
             <column name="template" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

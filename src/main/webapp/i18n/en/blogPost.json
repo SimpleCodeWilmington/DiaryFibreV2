@@ -19,9 +19,9 @@
       },
       "id": "ID",
       "title": "Title",
+      "text": "Text",
       "dateTime": "Date Time",
       "template": "Template",
-      "blogtext": "Blogtext",
       "blogImage": "Blog Image",
       "blog": "Blog",
       "tag": "Tag"

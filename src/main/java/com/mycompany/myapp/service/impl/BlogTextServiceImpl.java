@@ -2,11 +2,10 @@ package com.mycompany.myapp.service.impl;
 
 import com.mycompany.myapp.domain.BlogText;
 import com.mycompany.myapp.repository.BlogTextRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.BlogTextService;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,20 +64,8 @@ public class BlogTextServiceImpl implements BlogTextService {
     @Transactional(readOnly = true)
     public List<BlogText> findAll() {
         log.debug("Request to get all BlogTexts");
+        //return blogTextRepository.findByBlogUserLoginOrderByDateTimeDesc(SecurityUtils.getCurrentUserLogin().orElse (null));
         return blogTextRepository.findAll();
-    }
-
-    /**
-     *  Get all the blogTexts where Blogpost is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<BlogText> findAllWhereBlogpostIsNull() {
-        log.debug("Request to get all blogTexts where Blogpost is null");
-        return StreamSupport
-            .stream(blogTextRepository.findAll().spliterator(), false)
-            .filter(blogText -> blogText.getBlogpost() == null)
-            .collect(Collectors.toList());
     }
 
     @Override

@@ -7,6 +7,7 @@ entity Blog {
 
 entity BlogPost {
    title String required,
+   text String required,
    dateTime ZonedDateTime, // auto?
    template Template
 
@@ -45,16 +46,14 @@ relationship ManyToMany {
 relationship ManyToOne{
 	Blog{user(id)} to User
     BlogPost{blog(id)} to Blog
-    BlogComment{blog(id)} to BlogPost
+    BlogComment to BlogPost
     BlogComment{user(id)} to User
 }
 
 relationship OneToMany {
    BlogPost to BlogImage{blogpost(id)}
 }
-relationship OneToOne {
-   BlogPost{blogtext(id)} to BlogText{blogpost(id)}
-}
+
 // Set pagination options
 paginate Blog, BlogPost with pagination
 // Set service options to all except few

@@ -11,6 +11,11 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "text",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "dateTime",
       "fieldType": "ZonedDateTime"
     },
@@ -26,14 +31,6 @@
   "pagination": "pagination",
   "readOnly": false,
   "relationships": [
-    {
-      "otherEntityField": "id",
-      "otherEntityName": "blogText",
-      "otherEntityRelationshipName": "blogpost",
-      "ownerSide": true,
-      "relationshipName": "blogtext",
-      "relationshipType": "one-to-one"
-    },
     {
       "otherEntityName": "blogImage",
       "otherEntityRelationshipName": "blogpost",

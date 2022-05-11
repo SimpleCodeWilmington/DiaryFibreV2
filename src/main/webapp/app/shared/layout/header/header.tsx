@@ -5,10 +5,12 @@ import { Translate, Storage } from 'react-jhipster';
 import { Navbar, Nav, NavbarToggler, Collapse } from 'reactstrap';
 import LoadingBar from 'react-redux-loading-bar';
 
-import { Post, Home, BrandIcon, Comments } from './header-components';
+import { Post, Home, BrandIcon, Comments, MyBlogs } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 import { useAppDispatch } from 'app/config/store';
 import { setLocale } from 'app/shared/reducers/locale';
+
+import { SearchBar } from 'app/modules/search/search-bar'
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -54,6 +56,9 @@ const Header = (props: IHeaderProps) => {
             <Home />
             <Post />
             <Comments />
+
+            <SearchBar />
+            <MyBlogs />
 
             {props.isAuthenticated && <EntitiesMenu />}
             {props.isAuthenticated && props.isAdmin && (
