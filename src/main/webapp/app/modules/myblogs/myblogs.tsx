@@ -140,29 +140,14 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                   
 
 
-                  
+
       <div className="table-responsive">
         {blogImageList && blogImageList.length > 0 ? (
           <Table responsive>
-            <thead>
-              <tr>
-                <th>
-                  <Translate contentKey="diaryFibreApp.blogImage.blogImage">Blog Image</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="diaryFibreApp.blogImage.blogpost">Blogpost</Translate>
-                </th>
-                <th />
-              </tr>
-            </thead>
+
             <tbody>
               {blogImageList.map((blogImage, j) => (
                 <tr key={`entity-${j}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/blog-image/${blogImage.id}`} color="link" size="sm">
-                      {blogImage.id}
-                    </Button>
-                  </td>
                   <td>
                     {blogImage.blogImage ? (
                       <div>
@@ -175,9 +160,6 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                             &nbsp;
                           </a>
                         ) : null}
-                        <span>
-                          {blogImage.blogImageContentType}, {byteSize(blogImage.blogImage)}
-                        </span>
                       </div>
                     ) : null}
                   </td>
