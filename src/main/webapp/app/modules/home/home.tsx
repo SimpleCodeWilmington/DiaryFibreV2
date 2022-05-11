@@ -11,7 +11,7 @@ export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 85, fontFamily: 'Garamond' }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 75, fontFamily: 'Garamond' }}>
       <img src="content/images/DF Home Page.png" />
 
       {account?.login ? (

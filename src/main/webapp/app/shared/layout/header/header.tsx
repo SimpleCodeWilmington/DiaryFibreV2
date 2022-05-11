@@ -10,7 +10,7 @@ import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 import { useAppDispatch } from 'app/config/store';
 import { setLocale } from 'app/shared/reducers/locale';
 
-import { SearchBar } from 'app/modules/search/search-bar'
+import { SearchBar } from 'app/modules/search/search-bar';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -56,9 +56,8 @@ const Header = (props: IHeaderProps) => {
             <Home />
             <Post />
             <Comments />
-
-            <SearchBar />
             <MyBlogs />
+            <SearchBar />
 
             {props.isAuthenticated && <EntitiesMenu />}
             {props.isAuthenticated && props.isAdmin && (
