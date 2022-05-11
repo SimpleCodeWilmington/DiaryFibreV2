@@ -21,8 +21,8 @@
       "id": "ID",
       "comment": "Comment",
       "dateTime": "Date Time",
-      "blog": "Blog",
-      "user": "User"
+      "user": "User",
+      "blogPost": "Blog Post"
     }
   }
 }

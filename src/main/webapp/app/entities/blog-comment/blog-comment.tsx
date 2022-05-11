@@ -57,10 +57,10 @@ export const BlogComment = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="diaryFibreApp.blogComment.dateTime">Date Time</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="diaryFibreApp.blogComment.blog">Blog</Translate>
+                  <Translate contentKey="diaryFibreApp.blogComment.user">User</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="diaryFibreApp.blogComment.user">User</Translate>
+                  <Translate contentKey="diaryFibreApp.blogComment.blogPost">Blog Post</Translate>
                 </th>
                 <th />
               </tr>
@@ -75,8 +75,8 @@ export const BlogComment = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{blogComment.comment}</td>
                   <td>{blogComment.dateTime ? <TextFormat type="date" value={blogComment.dateTime} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{blogComment.blog ? <Link to={`/blog-post/${blogComment.blog.id}`}>{blogComment.blog.id}</Link> : ''}</td>
                   <td>{blogComment.user ? blogComment.user.id : ''}</td>
+                  <td>{blogComment.blogPost ? <Link to={`/blog-post/${blogComment.blogPost.id}`}>{blogComment.blogPost.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/blog-comment/${blogComment.id}`} color="info" size="sm" data-cy="entityDetailsButton">

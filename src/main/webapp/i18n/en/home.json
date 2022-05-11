@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Welcome, to Diary Fibre!",
-    "subtitle": "Welcome, back {{username}}!",
+    "title": "Welcome to Diary Fibre! ",
+    "subtitle": "Welcome, {{username}}!",
     "logged": {
       "message": "You are logged in as user \"{{username}}\"."
     },

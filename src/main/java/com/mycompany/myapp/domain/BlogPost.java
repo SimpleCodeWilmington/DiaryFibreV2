@@ -46,6 +46,11 @@ public class BlogPost implements Serializable {
     @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
     private Set<BlogImage> blogImages = new HashSet<>();
 
+    @OneToMany(mappedBy = "blogPost")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "user", "blogPost" }, allowSetters = true)
+    private Set<BlogComment> blogComments = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
     private Blog blog;
@@ -155,6 +160,37 @@ public class BlogPost implements Serializable {
     public BlogPost removeBlogImage(BlogImage blogImage) {
         this.blogImages.remove(blogImage);
         blogImage.setBlogpost(null);
+        return this;
+    }
+
+    public Set<BlogComment> getBlogComments() {
+        return this.blogComments;
+    }
+
+    public void setBlogComments(Set<BlogComment> blogComments) {
+        if (this.blogComments != null) {
+            this.blogComments.forEach(i -> i.setBlogPost(null));
+        }
+        if (blogComments != null) {
+            blogComments.forEach(i -> i.setBlogPost(this));
+        }
+        this.blogComments = blogComments;
+    }
+
+    public BlogPost blogComments(Set<BlogComment> blogComments) {
+        this.setBlogComments(blogComments);
+        return this;
+    }
+
+    public BlogPost addBlogComment(BlogComment blogComment) {
+        this.blogComments.add(blogComment);
+        blogComment.setBlogPost(this);
+        return this;
+    }
+
+    public BlogPost removeBlogComment(BlogComment blogComment) {
+        this.blogComments.remove(blogComment);
+        blogComment.setBlogPost(null);
         return this;
     }
 
