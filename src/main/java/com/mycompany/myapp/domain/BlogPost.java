@@ -30,6 +30,10 @@ public class BlogPost implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @NotNull
+    @Column(name = "text", nullable = false)
+    private String text;
+
     @Column(name = "date_time")
     private ZonedDateTime dateTime;
 
@@ -37,15 +41,15 @@ public class BlogPost implements Serializable {
     @Column(name = "template")
     private Template template;
 
-    @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private BlogText blogtext;
-
     @OneToMany(mappedBy = "blogpost")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "blogpost" }, allowSetters = true)
     private Set<BlogImage> blogImages = new HashSet<>();
+
+    @OneToMany(mappedBy = "blogPost")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "user", "blogPost" }, allowSetters = true)
+    private Set<BlogComment> blogComments = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
@@ -89,6 +93,19 @@ public class BlogPost implements Serializable {
         this.title = title;
     }
 
+    public String getText() {
+        return this.text;
+    }
+
+    public BlogPost text(String text) {
+        this.setText(text);
+        return this;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public ZonedDateTime getDateTime() {
         return this.dateTime;
     }
@@ -113,19 +130,6 @@ public class BlogPost implements Serializable {
 
     public void setTemplate(Template template) {
         this.template = template;
-    }
-
-    public BlogText getBlogtext() {
-        return this.blogtext;
-    }
-
-    public void setBlogtext(BlogText blogText) {
-        this.blogtext = blogText;
-    }
-
-    public BlogPost blogtext(BlogText blogText) {
-        this.setBlogtext(blogText);
-        return this;
     }
 
     public Set<BlogImage> getBlogImages() {
@@ -156,6 +160,37 @@ public class BlogPost implements Serializable {
     public BlogPost removeBlogImage(BlogImage blogImage) {
         this.blogImages.remove(blogImage);
         blogImage.setBlogpost(null);
+        return this;
+    }
+
+    public Set<BlogComment> getBlogComments() {
+        return this.blogComments;
+    }
+
+    public void setBlogComments(Set<BlogComment> blogComments) {
+        if (this.blogComments != null) {
+            this.blogComments.forEach(i -> i.setBlogPost(null));
+        }
+        if (blogComments != null) {
+            blogComments.forEach(i -> i.setBlogPost(this));
+        }
+        this.blogComments = blogComments;
+    }
+
+    public BlogPost blogComments(Set<BlogComment> blogComments) {
+        this.setBlogComments(blogComments);
+        return this;
+    }
+
+    public BlogPost addBlogComment(BlogComment blogComment) {
+        this.blogComments.add(blogComment);
+        blogComment.setBlogPost(this);
+        return this;
+    }
+
+    public BlogPost removeBlogComment(BlogComment blogComment) {
+        this.blogComments.remove(blogComment);
+        blogComment.setBlogPost(null);
         return this;
     }
 
@@ -222,6 +257,7 @@ public class BlogPost implements Serializable {
         return "BlogPost{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
+            ", text='" + getText() + "'" +
             ", dateTime='" + getDateTime() + "'" +
             ", template='" + getTemplate() + "'" +
             "}";

@@ -107,14 +107,14 @@ export const BlogPost = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('title')}>
                   <Translate contentKey="diaryFibreApp.blogPost.title">Title</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={sort('text')}>
+                  <Translate contentKey="diaryFibreApp.blogPost.text">Text</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('dateTime')}>
                   <Translate contentKey="diaryFibreApp.blogPost.dateTime">Date Time</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={sort('template')}>
                   <Translate contentKey="diaryFibreApp.blogPost.template">Template</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="diaryFibreApp.blogPost.blogtext">Blogtext</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
                   <Translate contentKey="diaryFibreApp.blogPost.blog">Blog</Translate> <FontAwesomeIcon icon="sort" />
@@ -131,11 +131,11 @@ export const BlogPost = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{blogPost.title}</td>
+                  <td>{blogPost.text}</td>
                   <td>{blogPost.dateTime ? <TextFormat type="date" value={blogPost.dateTime} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>
                     <Translate contentKey={`diaryFibreApp.Template.${blogPost.template}`} />
                   </td>
-                  <td>{blogPost.blogtext ? <Link to={`/blog-text/${blogPost.blogtext.id}`}>{blogPost.blogtext.id}</Link> : ''}</td>
                   <td>{blogPost.blog ? <Link to={`/blog/${blogPost.blog.id}`}>{blogPost.blog.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

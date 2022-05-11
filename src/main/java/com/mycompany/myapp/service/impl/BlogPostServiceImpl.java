@@ -48,6 +48,9 @@ public class BlogPostServiceImpl implements BlogPostService {
                 if (blogPost.getTitle() != null) {
                     existingBlogPost.setTitle(blogPost.getTitle());
                 }
+                if (blogPost.getText() != null) {
+                    existingBlogPost.setText(blogPost.getText());
+                }
                 if (blogPost.getDateTime() != null) {
                     existingBlogPost.setDateTime(blogPost.getDateTime());
                 }

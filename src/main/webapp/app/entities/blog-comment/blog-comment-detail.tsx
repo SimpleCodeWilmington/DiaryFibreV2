@@ -45,13 +45,13 @@ export const BlogCommentDetail = (props: RouteComponentProps<{ id: string }>) =>
             {blogCommentEntity.dateTime ? <TextFormat value={blogCommentEntity.dateTime} type="date" format={APP_DATE_FORMAT} /> : null}
           </dd>
           <dt>
-            <Translate contentKey="diaryFibreApp.blogComment.blog">Blog</Translate>
-          </dt>
-          <dd>{blogCommentEntity.blog ? blogCommentEntity.blog.id : ''}</dd>
-          <dt>
             <Translate contentKey="diaryFibreApp.blogComment.user">User</Translate>
           </dt>
           <dd>{blogCommentEntity.user ? blogCommentEntity.user.id : ''}</dd>
+          <dt>
+            <Translate contentKey="diaryFibreApp.blogComment.blogPost">Blog Post</Translate>
+          </dt>
+          <dd>{blogCommentEntity.blogPost ? blogCommentEntity.blogPost.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/blog-comment" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

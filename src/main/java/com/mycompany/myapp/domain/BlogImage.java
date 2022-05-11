@@ -35,7 +35,7 @@ public class BlogImage implements Serializable {
     private Integer imageNumber;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "blogtext", "blogImages", "blog", "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "blogImages", "blogComments", "blog", "tags" }, allowSetters = true)
     private BlogPost blogpost;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

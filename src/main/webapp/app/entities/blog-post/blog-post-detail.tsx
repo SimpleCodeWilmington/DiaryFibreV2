@@ -37,6 +37,12 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{blogPostEntity.title}</dd>
           <dt>
+            <span id="text">
+              <Translate contentKey="diaryFibreApp.blogPost.text">Text</Translate>
+            </span>
+          </dt>
+          <dd>{blogPostEntity.text}</dd>
+          <dt>
             <span id="dateTime">
               <Translate contentKey="diaryFibreApp.blogPost.dateTime">Date Time</Translate>
             </span>
@@ -48,10 +54,6 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{blogPostEntity.template}</dd>
-          <dt>
-            <Translate contentKey="diaryFibreApp.blogPost.blogtext">Blogtext</Translate>
-          </dt>
-          <dd>{blogPostEntity.blogtext ? blogPostEntity.blogtext.id : ''}</dd>
           <dt>
             <Translate contentKey="diaryFibreApp.blogPost.blog">Blog</Translate>
           </dt>

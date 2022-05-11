@@ -1,8 +1,8 @@
 package com.mycompany.myapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -21,16 +21,16 @@ public class BlogText implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Column(name = "text", nullable = false)
+    private String text;
+
     @Lob
     @Column(name = "blog_text")
     private byte[] blogText;
 
     @Column(name = "blog_text_content_type")
     private String blogTextContentType;
-
-    @JsonIgnoreProperties(value = { "blogtext", "blogImages", "blog", "tags" }, allowSetters = true)
-    @OneToOne(mappedBy = "blogtext")
-    private BlogPost blogpost;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -45,6 +45,19 @@ public class BlogText implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public BlogText text(String text) {
+        this.setText(text);
+        return this;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public byte[] getBlogText() {
@@ -73,25 +86,6 @@ public class BlogText implements Serializable {
         this.blogTextContentType = blogTextContentType;
     }
 
-    public BlogPost getBlogpost() {
-        return this.blogpost;
-    }
-
-    public void setBlogpost(BlogPost blogPost) {
-        if (this.blogpost != null) {
-            this.blogpost.setBlogtext(null);
-        }
-        if (blogPost != null) {
-            blogPost.setBlogtext(this);
-        }
-        this.blogpost = blogPost;
-    }
-
-    public BlogText blogpost(BlogPost blogPost) {
-        this.setBlogpost(blogPost);
-        return this;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -116,6 +110,7 @@ public class BlogText implements Serializable {
     public String toString() {
         return "BlogText{" +
             "id=" + getId() +
+            ", text='" + getText() + "'" +
             ", blogText='" + getBlogText() + "'" +
             ", blogTextContentType='" + getBlogTextContentType() + "'" +
             "}";

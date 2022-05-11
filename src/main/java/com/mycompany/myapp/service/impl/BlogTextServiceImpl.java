@@ -5,8 +5,6 @@ import com.mycompany.myapp.repository.BlogTextRepository;
 import com.mycompany.myapp.service.BlogTextService;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -46,6 +44,9 @@ public class BlogTextServiceImpl implements BlogTextService {
         return blogTextRepository
             .findById(blogText.getId())
             .map(existingBlogText -> {
+                if (blogText.getText() != null) {
+                    existingBlogText.setText(blogText.getText());
+                }
                 if (blogText.getBlogText() != null) {
                     existingBlogText.setBlogText(blogText.getBlogText());
                 }
@@ -63,19 +64,6 @@ public class BlogTextServiceImpl implements BlogTextService {
     public List<BlogText> findAll() {
         log.debug("Request to get all BlogTexts");
         return blogTextRepository.findAll();
-    }
-
-    /**
-     *  Get all the blogTexts where Blogpost is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<BlogText> findAllWhereBlogpostIsNull() {
-        log.debug("Request to get all blogTexts where Blogpost is null");
-        return StreamSupport
-            .stream(blogTextRepository.findAll().spliterator(), false)
-            .filter(blogText -> blogText.getBlogpost() == null)
-            .collect(Collectors.toList());
     }
 
     @Override
