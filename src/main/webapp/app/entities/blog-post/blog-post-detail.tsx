@@ -30,6 +30,7 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
 
         <dl className="jh-entity-details">
 
+
           <div className="post-title">
             <dd>{blogPostEntity.title}</dd>
           </div>
@@ -62,6 +63,7 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
   <Comments />
     </div>
   </Col>
+
   );
 };
 
