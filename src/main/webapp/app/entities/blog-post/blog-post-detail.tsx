@@ -25,12 +25,6 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
-            </span>
-          </dt>
-          <dd>{blogPostEntity.id}</dd>
-          <dt>
             <span id="title">
               <Translate contentKey="diaryFibreApp.blogPost.title">Title</Translate>
             </span>
@@ -49,12 +43,6 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{blogPostEntity.dateTime ? <TextFormat value={blogPostEntity.dateTime} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
           <dt>
-            <span id="template">
-              <Translate contentKey="diaryFibreApp.blogPost.template">Template</Translate>
-            </span>
-          </dt>
-          <dd>{blogPostEntity.template}</dd>
-          <dt>
             <Translate contentKey="diaryFibreApp.blogPost.blog">Blog</Translate>
           </dt>
           <dd>{blogPostEntity.blog ? blogPostEntity.blog.id : ''}</dd>
@@ -64,27 +52,14 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
           <dd>
             {blogPostEntity.tags
               ? blogPostEntity.tags.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.id}</a>
+                  <span key={val.tagName}>
+                    <a>{val.tagName}</a>
                     {blogPostEntity.tags && i === blogPostEntity.tags.length - 1 ? '' : ', '}
                   </span>
                 ))
               : null}
           </dd>
         </dl>
-        <Button tag={Link} to="/blog-post" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
-          <span className="d-none d-md-inline">
-            <Translate contentKey="entity.action.back">Back</Translate>
-          </span>
-        </Button>
-        &nbsp;
-        <Button tag={Link} to={`/blog-post/${blogPostEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
-          <span className="d-none d-md-inline">
-            <Translate contentKey="entity.action.edit">Edit</Translate>
-          </span>
-        </Button>
       </Col>
     </Row>
   );
