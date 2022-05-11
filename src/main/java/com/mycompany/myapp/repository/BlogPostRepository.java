@@ -26,5 +26,7 @@ public interface BlogPostRepository extends BlogPostRepositoryWithBagRelationshi
         return this.fetchBagRelationships(this.findAll(pageable));
     }
 
+    Page<BlogPost> findByBlogUserLogin(String currentUserLogin, Pageable pageable);
+
     Page<BlogPost> findByBlogUserLoginOrderByDateTimeDesc(String currentUserLogin, Pageable pageable);
 }
