@@ -1,3 +1,5 @@
+import './blog-post-detail.scss';
+
 import React, { useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
@@ -17,24 +19,26 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
   }, []);
 
   const blogPostEntity = useAppSelector(state => state.blogPost.entity);
+  
   return (
     <Row>
-      
+      <Col md="2"></Col>
       <Col md="8">
+        <div className="blog-post-and-comments">
 
-        <div className="date-time">
-          <dd>{blogPostEntity.dateTime ? <TextFormat value={blogPostEntity.dateTime} type="date" format={POST_DATE_FORMAT} /> : null}</dd>
-        </div>
-
-        <dl className="jh-entity-details">
-
-          <div className="post-title">
-            <dd>{blogPostEntity.title}</dd>
+          <div className="date-time">
+            <dd>{blogPostEntity.dateTime ? <TextFormat value={blogPostEntity.dateTime} type="date" format={POST_DATE_FORMAT} /> : null}</dd>
           </div>
 
-          <div {...props} className="brand-icon">
-            <img src="content/images/ferris-wheel.jpg" />
-          </div>
+          <dl className="jh-entity-details">
+
+            <div className="post-title">
+              <dd>{blogPostEntity.title}</dd>
+            </div>
+
+            <div {...props} className="post-image">
+              <img src="content/images/icecream.jpg" className="centered" />
+            </div>
 
           <div className="post-text">
             <dd>{blogPostEntity.text}</dd>
@@ -60,7 +64,9 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dd>
         </dl>
         <Comments />
+        </div>
       </Col>
+      <Col md="2"></Col>
     </Row>
   );
 };
