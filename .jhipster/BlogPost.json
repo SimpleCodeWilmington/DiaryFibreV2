@@ -38,6 +38,12 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityName": "blogComment",
+      "otherEntityRelationshipName": "blogPost",
+      "relationshipName": "blogComment",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityField": "id",
       "otherEntityName": "blog",
       "otherEntityRelationshipName": "blogPost",
