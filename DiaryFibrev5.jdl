@@ -52,6 +52,7 @@ relationship ManyToOne{
 
 relationship OneToMany {
    BlogPost to BlogImage{blogpost(id)}
+   //Might have to add a many to many comments and blogImages
 }
 
 // Set pagination options
