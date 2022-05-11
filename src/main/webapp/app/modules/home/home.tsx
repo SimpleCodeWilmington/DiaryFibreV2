@@ -16,23 +16,33 @@ export const Home = () => {
         <span className="hipster rounded" />
       </Col>
       <Col md="9">
-        <h2>
+        {/* <h2>
           <Translate contentKey="home.title" interpolate={{ username: account.firstName }}>
-            Welcome, test {account.firstName}</Translate>
-        </h2>
-        <p className="lead">
+            Welcome, to Diary Fibre</Translate>
+        </h2> */}
+        {/* <p className="lead">
           <Translate contentKey="home.subtitle">This is your doom</Translate>
-        </p>
+        </p> */}
         {account?.login ? (
           <div>
-            <Alert color="info">
+            <h2>
+              <Translate contentKey="home.subtitle" interpolate={{ username: account.firstName }}>
+                Welcome, {account.firstName}
+              </Translate>
+            </h2>
+            {/* <Alert color="info">
               <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
                 You are logged in as user {account.login}.
               </Translate>
-            </Alert>
+            </Alert> */}
           </div>
         ) : (
           <div>
+            <h2>
+              <Translate contentKey="home.title" interpolate={{ username: account.firstName }}>
+                Welcome, to Diary Fibre
+              </Translate>
+            </h2>
             <Alert color="info">
               <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
 
@@ -54,7 +64,7 @@ export const Home = () => {
             </Alert>
           </div>
         )}
-        <p>
+        {/* <p>
           <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
         </p>
 
@@ -83,8 +93,8 @@ export const Home = () => {
             <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
               <Translate contentKey="home.link.follow">follow @jhipster on Twitter</Translate>
             </a>
-          </li>
-        </ul>
+          </li> */}
+        {/* </ul> */}
       </Col>
     </Row>
   );
