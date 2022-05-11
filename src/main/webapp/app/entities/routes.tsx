@@ -20,7 +20,7 @@ export default ({ match }) => {
         <ErrorBoundaryRoute path={`${match.url}blog-text`} component={BlogText} />
         <ErrorBoundaryRoute path={`${match.url}blog-image`} component={BlogImage} />
         <ErrorBoundaryRoute path={`${match.url}tag`} component={Tag} />
-        {/* <ErrorBoundaryRoute path={`${match.url}blog-comment`} component={BlogComment} /> */}
+        <ErrorBoundaryRoute path={`${match.url}blog-comment`} component={BlogComment} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </Switch>
     </div>

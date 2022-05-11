@@ -43,6 +43,7 @@ public class BlogResource {
 
     private final BlogRepository blogRepository;
 
+
     public BlogResource(BlogService blogService, BlogRepository blogRepository) {
         this.blogService = blogService;
         this.blogRepository = blogRepository;
@@ -145,7 +146,8 @@ public class BlogResource {
     @GetMapping("/blogs")
     public ResponseEntity<List<Blog>> getAllBlogs(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Blogs");
-        Page<Blog> page = blogService.findAll(pageable);
+        Page<Blog> page = blogRepository.findByUserIscurrentUser(pageable);
+        //Page<Blog> page = blogService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
