@@ -31,11 +31,11 @@ public class BlogComment implements Serializable {
     private ZonedDateTime dateTime;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "blogImages", "blog", "tags" }, allowSetters = true)
-    private BlogPost blog;
+    private User user;
 
     @ManyToOne
-    private User user;
+    @JsonIgnoreProperties(value = { "blogImages", "blogComments", "blog", "tags" }, allowSetters = true)
+    private BlogPost blogPost;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -78,19 +78,6 @@ public class BlogComment implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public BlogPost getBlog() {
-        return this.blog;
-    }
-
-    public void setBlog(BlogPost blogPost) {
-        this.blog = blogPost;
-    }
-
-    public BlogComment blog(BlogPost blogPost) {
-        this.setBlog(blogPost);
-        return this;
-    }
-
     public User getUser() {
         return this.user;
     }
@@ -101,6 +88,19 @@ public class BlogComment implements Serializable {
 
     public BlogComment user(User user) {
         this.setUser(user);
+        return this;
+    }
+
+    public BlogPost getBlogPost() {
+        return this.blogPost;
+    }
+
+    public void setBlogPost(BlogPost blogPost) {
+        this.blogPost = blogPost;
+    }
+
+    public BlogComment blogPost(BlogPost blogPost) {
+        this.setBlogPost(blogPost);
         return this;
     }
 

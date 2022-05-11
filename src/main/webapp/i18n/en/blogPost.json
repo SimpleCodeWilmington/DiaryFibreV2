@@ -23,6 +23,7 @@
       "dateTime": "Date Time",
       "template": "Template",
       "blogImage": "Blog Image",
+      "blogComment": "Blog Comment",
       "blog": "Blog",
       "tag": "Tag"
     }
