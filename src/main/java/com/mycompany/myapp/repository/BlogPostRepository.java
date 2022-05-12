@@ -29,4 +29,8 @@ public interface BlogPostRepository extends BlogPostRepositoryWithBagRelationshi
     Page<BlogPost> findByBlogUserLogin(String currentUserLogin, Pageable pageable);
 
     Page<BlogPost> findByBlogUserLoginOrderByDateTimeDesc(String currentUserLogin, Pageable pageable);
+
+    Page<BlogPost> findByBlogUserLogin(String currentUserLogin, Pageable pageable);
+
+
 }

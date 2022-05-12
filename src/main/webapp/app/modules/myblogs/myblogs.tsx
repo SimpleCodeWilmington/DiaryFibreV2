@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Table } from 'reactstrap';
-import { Translate, TextFormat, getSortState, JhiPagination, JhiItemCount } from 'react-jhipster';
+import { Translate, TextFormat, getSortState, JhiPagination, JhiItemCount, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IBlogPost } from 'app/shared/model/blog-post.model';
 import { getEntities, getEntity } from './myblogs.reducer';
+import { getImages, getImag } from './image/blog-image.reducer';
 import { size } from 'lodash';
 
 export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
@@ -27,6 +28,15 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
   const loading = useAppSelector(state => state.blogPost.loading);
   const totalItems = useAppSelector(state => state.blogPost.totalItems);
   const blogPostEntity = useAppSelector(state => state.blogPost.entity);
+
+  // images
+
+  const blogImageList = useAppSelector(state => state.blogImage.entities);
+  const loadingImages = useAppSelector(state => state.blogImage.loadingImages);
+
+ 
+  
+  // ^^images
 
   const getAllEntities = () => {
     dispatch(
@@ -127,12 +137,82 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                   <p>{blogPost.dateTime ? <TextFormat type="date" value={blogPost.dateTime} format={APP_DATE_FORMAT} /> : null}</p>
                   <h3>{blogPost.title}</h3>
                   <p>{blogPost.text}</p>
+                  
 
-                  {/* <td>{blogPost.blogtext ? <Link to={`/blog-text/${blogPost.blogtext.id}`}>{blogPost.blogtext.tex}</Link> : ''}</td> */}
-                  {/* <td>{blogPost.blog ? <Link to={`/blog/${blogPost.blog.id}`}>{blogPost.blog.id}</Link> : ''}</td> */}
+
+
+      <div className="table-responsive">
+        {blogImageList && blogImageList.length > 0 ? (
+          <Table responsive>
+
+            <tbody>
+              {blogImageList.map((blogImage, j) => (
+                <div key={`entity-${j}`} data-cy="entityTable">
+
+                <div>
+                    
+         
+
+
+                  <div>
+                      {blogImage.id === 12 ? (
+
+                     
+                        <div>
+                          {blogImage.blogImageContentType ? (
+                            <a onClick={openFile(blogImage.blogImageContentType, blogImage.blogImage)}>
+                              <img
+                                src={`data:${blogImage.blogImageContentType};base64,${blogImage.blogImage}`}
+                                style={{ maxHeight: '30px' }}
+                              />
+                              <p>{blogImage.blogpost ? <Link to={`/blog-post/${blogImage.blogpost.id}`}>{blogImage.blogpost.id}</Link> : ''}</p>
+                              &nbsp;
+                            </a>
+                          ) : null}
+                        </div>
+                    ) : "No Images Found"}
+                  </div>
+          
+                </div>
+                          
+                </div>
+
+          
+              ))}
+            </tbody>
+          </Table>
+        ) : (
+          !loadingImages && (
+            <div className="alert alert-warning">
+              <Translate contentKey="diaryFibreApp.blogImage.home.notFound">No Blog Images found</Translate>
+            </div>
+          )
+        )}
+      </div>
+
+                
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
 
                     <div className="btn-group flex-btn-group-container">
-  
+                    <Button tag={Link} to={`/blog-post/${blogPost.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                        <FontAwesomeIcon icon="eye" />{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.view">View</Translate>
+                        </span>
+                      </Button>
                       <Button
                         tag={Link}
                         to={`/blog-post/${blogPost.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
@@ -183,6 +263,13 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
             </div>
           )
         )}
+
+
+
+
+
+
+        
       </div>
       {totalItems ? (
         <div className={blogPostList && blogPostList.length > 0 ? '' : 'd-none'}>
@@ -203,6 +290,7 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
         ''
       )}
     </div>
+ 
  
        
         
