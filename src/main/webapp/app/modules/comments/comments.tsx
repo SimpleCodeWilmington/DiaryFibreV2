@@ -7,8 +7,8 @@ import { Col, Row } from 'reactstrap';
 import { Button, Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import EditComment from './edit-comment';
-import DeleteComment from './delete-comment';
+import EditComment from './edit-comment-button';
+import DeleteComment from './delete-comment-button';
 
 export const Comments = () => {
   const dispatch = useAppDispatch();
@@ -24,9 +24,9 @@ export const Comments = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h3>
-            <Translate contentKey="diaryFibreApp.blogComment.home.title">Create or edit a BlogComment</Translate>
-          </h3>
+          <h1>
+            <Translate contentKey="diaryFibreApp.blogComment.home.title">Comments</Translate>
+          </h1>
         </Col>
       </Row>
       <div className="table-responsive">
@@ -39,23 +39,23 @@ export const Comments = () => {
                   <tr key={`entity-${i}`} data-cy="entityTable">
                     <li className="list-group-item pl-0" key={comments._id} >
                       <p className="text-muted mb-1" >
-                        Posted by {comments.user ? comments.user.firstName : ''} on{' '}
+                        Posted by {comments.user ? comments.user.login : ''} on{' '}
                         {comments.dateTime ? <TextFormat type="date" value={comments.dateTime} format={APP_DATE_FORMAT} /> : null}
                       </p>
                       <p className="mb-1">{comments.comment}</p>
-                    
+
                     <div className="btn-group flex-btn-group-container">
                     <Link to={`/blog-comment/${comments.id}/edit`}>
                         <EditComment/>
                         </Link>
                       </div>
-                    
+
                       <div className="btn-group flex-btn-group-container">
                     <Link to={`/blog-comment/${comments.id}/delete`}>
                         <DeleteComment/>
                         </Link>
                         </div>
-                      
+
                       </li>
                   </tr>
                 ))}
@@ -71,7 +71,7 @@ export const Comments = () => {
           </Col>
         </Row>
       </div>
-     
+
     </div>
   );
 };

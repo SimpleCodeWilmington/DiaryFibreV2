@@ -13,6 +13,7 @@ import { getEntity, updateEntity, createEntity, reset } from 'app/entities/blog-
 
 export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
+  const account = useAppSelector(state => state.authentication.account);
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
   const blogPosts = useAppSelector(state => state.blogPost.entities);
@@ -61,7 +62,7 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
 
   return (
     <div>
-      <Row className="justify-content-center" >
+      <Row className="justify-content-center">
         <Col md="8">
           <h2 id="diaryFibreApp.blogComment.home.createOrEditLabel" data-cy="BlogCommentCreateUpdateHeading">
             <Translate contentKey="diaryFibreApp.blogComment.home.createOrEditLabel">Create or edit a BlogComment</Translate>
@@ -85,6 +86,14 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
 
+              {/* {account?.login ? (
+                <ValidatedField
+                id="blog-comment-user"
+                name="user"
+                data-cy="user"
+                label={translate('diaryFibreApp.blogComment.user')} />
+              ) : null} */}
+
               <ValidatedField
                 id="blog-comment-user"
                 name="user"
@@ -96,17 +105,16 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                 {users
                   ? users.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.login}
                       </option>
                     ))
                   : null}
               </ValidatedField>
-
               <ValidatedField
                 id="blog-comment-blog"
                 name="blog"
                 data-cy="blog"
-                label={translate('diaryFibreApp.blogComment.blog')}
+                label={translate('diaryFibreApp.blogComment.blogPost')}
                 type="select"
               >
                 <option value="" key="0" />
