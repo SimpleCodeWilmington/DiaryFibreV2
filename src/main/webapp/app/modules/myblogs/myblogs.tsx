@@ -148,11 +148,8 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
             <tbody>
               {blogImageList.map((blogImage, j) => (
                 <div key={`entity-${j}`} data-cy="entityTable">
-
-                <div>
-                  <div>
+         
                       {blogImage.blogImage  ?  (
-
 
                        <div>
                       { blogImage.blogpost ? (
@@ -184,9 +181,9 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                        </div>
                        
                     ) : null}
-                  </div>
+           
           
-                </div>
+
                           
                 </div>
 
