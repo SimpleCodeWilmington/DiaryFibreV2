@@ -58,7 +58,7 @@ const Header = (props: IHeaderProps) => {
             <Comments />
             <MyBlogs />
             <SearchBar />
-
+            
             {props.isAuthenticated && <EntitiesMenu />}
             {props.isAuthenticated && props.isAdmin && (
               <AdminMenu showOpenAPI={props.isOpenAPIEnabled} showDatabase={!props.isInProduction} />
