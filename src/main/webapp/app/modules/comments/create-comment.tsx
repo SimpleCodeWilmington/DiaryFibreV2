@@ -101,7 +101,7 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
-              
+
               <ValidatedField
                 id="blog-comment-blog"
                 name="blog"
