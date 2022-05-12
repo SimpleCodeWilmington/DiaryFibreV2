@@ -51,7 +51,7 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
         <dd>
           {blogPostEntity.tags
             ? blogPostEntity.tags.map((val, i) => (
-                <span key={val.tagName}>
+                <span key={val.tagName} className="tagSpan">
                   <a className="tag">{val.tagName}</a>
                   {blogPostEntity.tags && i === blogPostEntity.tags.length - 1 ? '' : ' '}
                 </span>
