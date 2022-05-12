@@ -8,12 +8,6 @@
     -->
     <changeSet id="20220427203317-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="blogtext_id"
-                                 baseTableName="blog_post"
-                                 constraintName="fk_blog_post__blogtext_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="blog_text"/>
-
         <addForeignKeyConstraint baseColumnNames="blog_id"
                                  baseTableName="blog_post"
                                  constraintName="fk_blog_post__blog_id"

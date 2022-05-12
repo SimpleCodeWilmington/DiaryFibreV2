@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.BlogText;
 import com.mycompany.myapp.repository.BlogTextRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.BlogTextService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +52,7 @@ public class BlogTextResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/blog-texts")
-    public ResponseEntity<BlogText> createBlogText(@RequestBody BlogText blogText) throws URISyntaxException {
+    public ResponseEntity<BlogText> createBlogText(@Valid @RequestBody BlogText blogText) throws URISyntaxException {
         log.debug("REST request to save BlogText : {}", blogText);
         if (blogText.getId() != null) {
             throw new BadRequestAlertException("A new blogText cannot already have an ID", ENTITY_NAME, "idexists");
@@ -74,7 +77,7 @@ public class BlogTextResource {
     @PutMapping("/blog-texts/{id}")
     public ResponseEntity<BlogText> updateBlogText(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody BlogText blogText
+        @Valid @RequestBody BlogText blogText
     ) throws URISyntaxException {
         log.debug("REST request to update BlogText : {}, {}", id, blogText);
         if (blogText.getId() == null) {
@@ -109,7 +112,7 @@ public class BlogTextResource {
     @PatchMapping(value = "/blog-texts/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<BlogText> partialUpdateBlogText(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody BlogText blogText
+        @NotNull @RequestBody BlogText blogText
     ) throws URISyntaxException {
         log.debug("REST request to partial update BlogText partially : {}, {}", id, blogText);
         if (blogText.getId() == null) {
@@ -134,17 +137,16 @@ public class BlogTextResource {
     /**
      * {@code GET  /blog-texts} : get all the blogTexts.
      *
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of blogTexts in body.
      */
     @GetMapping("/blog-texts")
-    public List<BlogText> getAllBlogTexts(@RequestParam(required = false) String filter) {
-        if ("blogpost-is-null".equals(filter)) {
-            log.debug("REST request to get all BlogTexts where blogpost is null");
-            return blogTextService.findAllWhereBlogpostIsNull();
-        }
+    public List<BlogText> getAllBlogTexts() {
         log.debug("REST request to get all BlogTexts");
         return blogTextService.findAll();
+
+//        log.debug("REST request to get all BlogTexts associated with User");
+//        return blogTextRepository.findByBlogUserLoginOrderByDateTimeDesc(SecurityUtils.getCurrentUserLogin().orElse(null));
+
     }
 
     /**

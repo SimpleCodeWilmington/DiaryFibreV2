@@ -18,8 +18,8 @@
         "title": "Blog Text"
       },
       "id": "ID",
-      "blogText": "Blog Text",
-      "blogpost": "Blogpost"
+      "text": "Text",
+      "blogText": "Blog Text"
     }
   }
 }

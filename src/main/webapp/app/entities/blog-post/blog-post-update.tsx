@@ -8,8 +8,6 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IBlogText } from 'app/shared/model/blog-text.model';
-import { getEntities as getBlogTexts } from 'app/entities/blog-text/blog-text.reducer';
 import { IBlog } from 'app/shared/model/blog.model';
 import { getEntities as getBlogs } from 'app/entities/blog/blog.reducer';
 import { ITag } from 'app/shared/model/tag.model';
@@ -23,7 +21,6 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const blogTexts = useAppSelector(state => state.blogText.entities);
   const blogs = useAppSelector(state => state.blog.entities);
   const tags = useAppSelector(state => state.tag.entities);
   const blogPostEntity = useAppSelector(state => state.blogPost.entity);
@@ -42,7 +39,6 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getBlogTexts({}));
     dispatch(getBlogs({}));
     dispatch(getTags({}));
   }, []);
@@ -60,7 +56,6 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ...blogPostEntity,
       ...values,
       tags: mapIdList(values.tags),
-      blogtext: blogTexts.find(it => it.id.toString() === values.blogtext.toString()),
       blog: blogs.find(it => it.id.toString() === values.blog.toString()),
     };
 
@@ -80,7 +75,6 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
           template: 'THEDAVID',
           ...blogPostEntity,
           dateTime: convertDateTimeFromServer(blogPostEntity.dateTime),
-          blogtext: blogPostEntity?.blogtext?.id,
           blog: blogPostEntity?.blog?.id,
           tags: blogPostEntity?.tags?.map(e => e.id.toString()),
         };
@@ -121,6 +115,16 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 }}
               />
               <ValidatedField
+                label={translate('diaryFibreApp.blogPost.text')}
+                id="blog-post-text"
+                name="text"
+                data-cy="text"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                }}
+              />
+              <ValidatedField
                 label={translate('diaryFibreApp.blogPost.dateTime')}
                 id="blog-post-dateTime"
                 name="dateTime"
@@ -140,22 +144,6 @@ export const BlogPostUpdate = (props: RouteComponentProps<{ id: string }>) => {
                     {translate('diaryFibreApp.Template.' + template)}
                   </option>
                 ))}
-              </ValidatedField>
-              <ValidatedField
-                id="blog-post-blogtext"
-                name="blogtext"
-                data-cy="blogtext"
-                label={translate('diaryFibreApp.blogPost.blogtext')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {blogTexts
-                  ? blogTexts.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
               </ValidatedField>
               <ValidatedField id="blog-post-blog" name="blog" data-cy="blog" label={translate('diaryFibreApp.blogPost.blog')} type="select">
                 <option value="" key="0" />

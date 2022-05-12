@@ -5,10 +5,12 @@ import { Translate, Storage } from 'react-jhipster';
 import { Navbar, Nav, NavbarToggler, Collapse } from 'reactstrap';
 import LoadingBar from 'react-redux-loading-bar';
 
-import { Post, Home, BrandIcon } from './header-components';
+import { Post, Home, BrandIcon, Comments, MyBlogs } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 import { useAppDispatch } from 'app/config/store';
 import { setLocale } from 'app/shared/reducers/locale';
+
+import { SearchBar } from 'app/modules/search/search-bar';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -46,13 +48,17 @@ const Header = (props: IHeaderProps) => {
   return (
     <div id="app-header">
       <LoadingBar className="loading-bar" />
-      <Navbar data-cy="navbar" dark expand="md" fixed="top" className="bg-primary">
+      <Navbar data-cy="navbar" dark expand="md" fixed="top" className="bg-dark">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
         <BrandIcon />
         <Collapse isOpen={menuOpen} navbar>
           <Nav id="header-tabs" className="ms-auto" navbar>
-            <Post />
             <Home />
+            <Post />
+            <Comments />
+            <MyBlogs />
+            <SearchBar />
+            
             {props.isAuthenticated && <EntitiesMenu />}
             {props.isAuthenticated && props.isAdmin && (
               <AdminMenu showOpenAPI={props.isOpenAPIEnabled} showDatabase={!props.isInProduction} />

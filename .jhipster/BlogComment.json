@@ -23,16 +23,15 @@
   "relationships": [
     {
       "otherEntityField": "id",
-      "otherEntityName": "blogPost",
-      "otherEntityRelationshipName": "blogComment",
-      "relationshipName": "blog",
-      "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityField": "id",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "blogComment",
       "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "blogPost",
+      "otherEntityRelationshipName": "blogComment",
+      "relationshipName": "blogPost",
       "relationshipType": "many-to-one"
     }
   ],
