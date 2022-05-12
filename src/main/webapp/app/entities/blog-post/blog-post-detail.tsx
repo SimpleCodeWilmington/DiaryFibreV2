@@ -30,7 +30,8 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
 
 
   return (
-    <Col md="8" className="column">
+    <Row>
+    <Col md="7" className="column">
       <div className="blog-post-and-comments">
 
         <div className="date-time">
@@ -52,21 +53,31 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
             <dd>{blogPostEntity.text}</dd>
           </div>
 
-
-    <dt>
-      <Translate contentKey="diaryFibreApp.blogPost.blog">Blog</Translate>
-    </dt>
-    <dd>{blogPostEntity.blog ? blogPostEntity.blog.id : ''}</dd>
-
-        <dd>
-          {blogPostEntity.tags
-            ? blogPostEntity.tags.map((val, i) => (
+          <dd className="tagSpan">
+            {blogPostEntity.tags
+              ? blogPostEntity.tags.map((val, i) => (
                 <span key={val.tagName}>
-                  <a className="tag">{val.tagName}</a>
-                  {blogPostEntity.tags && i === blogPostEntity.tags.length - 1 ? '' : ' '}
+                  <span className="tag">{val.tagName}</span>
+                  {blogPostEntity.tags && i === blogPostEntity.tags.length - 1 ? '' : '   '}
                 </span>
               ))
             : null}
+<<<<<<< HEAD
+          </dd>
+        </dl>
+        <Comments />
+      </div>
+  </Col>
+  <Col md="5" className="column2">
+    <hr className="line"></hr>
+    <span className="blogName">{blogPostEntity.blog ? blogPostEntity.blog.blogName : ''}</span>
+    <hr className="line"></hr>
+    <div {...props} className="post-image-ad">
+      <img src="content/images/Flint.png" className="centered-ad" />
+    </div>  
+  </Col>
+  </Row>
+=======
         </dd>
   </dl>
 
@@ -144,6 +155,7 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
     </div>
   </Col>
 
+>>>>>>> 864878b895267c210d2628282817a37549af25f4
   );
 };
 
