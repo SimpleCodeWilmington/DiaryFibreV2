@@ -150,17 +150,23 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                 <div key={`entity-${j}`} data-cy="entityTable">
 
                 <div>
-                    
+              
          
 
 
                   <div>
-                      {blogImage.id === 12 ? (
+                      {blogImage.blogImage  ?  (
 
-                     
+                        
+                       <div>
+                      { blogImage.blogpost ? (
                         <div>
+
+                          
                           {blogImage.blogImageContentType ? (
                             <a onClick={openFile(blogImage.blogImageContentType, blogImage.blogImage)}>
+              
+
                               <img
                                 src={`data:${blogImage.blogImageContentType};base64,${blogImage.blogImage}`}
                                 style={{ maxHeight: '30px' }}
@@ -170,7 +176,12 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                             </a>
                           ) : null}
                         </div>
-                    ) : "No Images Found"}
+                        
+                      ) : ''}
+
+                       </div>
+                       
+                    ) : null}
                   </div>
           
                 </div>
