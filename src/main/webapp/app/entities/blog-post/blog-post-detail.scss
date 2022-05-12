@@ -1,10 +1,31 @@
-.column {
+.column2 {
+    text-align: center;
+}
+
+.table-responsive-comment {
+    margin-left: 75px;
+    width: 585px;
+}
+
+.line {
+    margin-top: 0px;
+    margin-bottom: 25px;
+    margin-left: 55px;
+    margin-right: 55px;
 }
 
 .blog-post-and-comments {
     padding: 0;
     display: inline;
     font-family: Noto Sans, Optima, sans-serif;
+}
+
+.blogName {
+    display: inline-block;
+    font-family: Noto Sans, Optima, sans-serif;
+    font-size: 50px;
+    line-height: 125%;
+    height: 150px;
 }
 
 .date-time {
@@ -17,7 +38,7 @@
     font-size: 25px;
     font-weight: bold;
     margin-left: 75px;
-    margin-right: 85px;
+    margin-right: 5px;
     margin-bottom: 5px;
     margin-bottom: 20px;
 }
@@ -29,29 +50,52 @@
       height: 390px;
       display: block;
       margin-left: 75px;
-      margin-right: 85px;
+      margin-right: 5px;
+      justify-content: center;
+    }
+}
+
+.post-image-ad {
+    height: 400px;
+    width: 100%;
+    img.centered-ad {
+      height: 325px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
       justify-content: center;
     }
 }
 
 .post-text {
+    font-size: 18px;
     margin-left: 75px;
-    margin-right: 85px;
+    margin-right: 5px;
     margin-top: 15px;
+}
+
+.tagSpan {
+    margin-left: 75px;
+    margin-bottom: 75px;
 }
 
 .tag {
     font-size: 14px;
     font-weight: 200;
     font-style: normal;
-    background-color: aquamarine;
-    opacity: 0.4;
-    // margin-left: 75px;
-    // margin-right: 85px;
+    color: black;
+    background-color: #E0FEFF;
+    margin-right: 5px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+a:active {
+    text-decoration: none;
+}
+a:link {
+    text-decoration: none;
 }
 
 
-
-
-// font-family: arial, sans-serif;
-  // font-size: 14px;
