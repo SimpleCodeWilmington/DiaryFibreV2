@@ -2,6 +2,13 @@
     text-align: center;
 }
 
+.line {
+    margin-top: 0px;
+    margin-bottom: 25px;
+    margin-left: 55px;
+    margin-right: 55px;
+}
+
 .blog-post-and-comments {
     padding: 0;
     display: inline;
@@ -9,8 +16,11 @@
 }
 
 .blogName {
+    display: inline-block;
     font-family: Noto Sans, Optima, sans-serif;
     font-size: 50px;
+    line-height: 125%;
+    height: 150px;
 }
 
 .date-time {
@@ -40,6 +50,18 @@
     }
 }
 
+.post-image-ad {
+    height: 400px;
+    width: 100%;
+    img.centered-ad {
+      height: 325px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+    }
+}
+
 .post-text {
     font-size: 18px;
     margin-left: 75px;
@@ -49,6 +71,7 @@
 
 .tagSpan {
     margin-left: 75px;
+    margin-bottom: 75px;
 }
 
 .tag {

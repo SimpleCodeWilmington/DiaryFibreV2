@@ -58,9 +58,11 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
       </div>
   </Col>
   <Col md="5" className="column2">
+    <hr className="line"></hr>
     <span className="blogName">{blogPostEntity.blog ? blogPostEntity.blog.blogName : ''}</span>
-    <div {...props} className="post-image">
-      <img src="content/images/Flint.png" className="centered" />
+    <hr className="line"></hr>
+    <div {...props} className="post-image-ad">
+      <img src="content/images/Flint.png" className="centered-ad" />
     </div>  
   </Col>
   </Row>
