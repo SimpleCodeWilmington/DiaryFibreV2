@@ -2,10 +2,10 @@ import './blog-post-detail.scss';
 
 import React, { useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col, Table } from 'reactstrap';
 import { Translate, TextFormat } from 'react-jhipster';
 
-import { POST_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, POST_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntity } from './blog-post.reducer';
@@ -20,6 +20,15 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
 
   const blogPostEntity = useAppSelector(state => state.blogPost.entity);
   
+
+
+  // logcomments
+  const blogCommentList = useAppSelector(state => state.blogComment.entities);
+  const loading = useAppSelector(state => state.blogComment.loading);
+
+  // BlogComments
+
+
   return (
     <Row>
     <Col md="7" className="column">
@@ -30,6 +39,7 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
         </div>
 
         <dl className="jh-entity-details">
+
 
           <div className="post-title">
             <dd>{blogPostEntity.title}</dd>
@@ -52,6 +62,7 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
                 </span>
               ))
             : null}
+<<<<<<< HEAD
           </dd>
         </dl>
         <Comments />
@@ -66,6 +77,85 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
     </div>  
   </Col>
   </Row>
+=======
+        </dd>
+  </dl>
+
+
+
+
+
+  <div className="table-responsive">
+        <Row className="justify-content-center">
+          <Col md="8">
+            {blogCommentList && blogCommentList.length > 0 ? (
+               <Table responsive>
+                 <tbody>
+                {(blogCommentList).map((comments, i) => (
+                  <tr key={`entity-${i}`} data-cy="entityTable">
+
+                    {comments.blogPost ?  (
+                    
+
+                    <div>
+
+                    {comments.blogPost.id === blogPostEntity.id ? (  
+
+                    <div>
+
+
+                    <li className="list-group-item pl-0" key={comments._id} >
+                      <p className="text-muted mb-1" >
+                        Posted by {comments.user ? comments.user.firstName : ''} on{' '}
+                        {comments.dateTime ? <TextFormat type="date" value={comments.dateTime} format={APP_DATE_FORMAT} /> : null}
+                      </p>
+                      <p className="mb-1">{comments.comment}</p>
+                    
+                    <div className="btn-group flex-btn-group-container">
+                      </div>
+                    
+                      <div className="btn-group flex-btn-group-container">
+                        </div>
+                      
+                      </li>
+
+                      </div>
+
+                      ): null}
+
+                      </div>
+
+                    ) : null}
+
+                  </tr>
+                ))}
+                </tbody>
+          </Table>
+            ) : (
+              !loading && (
+                <div className="alert alert-warning">
+                  <Translate contentKey="diaryFibreApp.blogComment.home.notFound">No Blog Comments found</Translate>
+                </div>
+              )
+            )}
+          </Col>
+        </Row>
+      </div>
+  
+
+
+
+
+
+
+
+
+
+  {/* <Comments /> */}
+    </div>
+  </Col>
+
+>>>>>>> 864878b895267c210d2628282817a37549af25f4
   );
 };
 
