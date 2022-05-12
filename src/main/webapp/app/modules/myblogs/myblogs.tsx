@@ -150,19 +150,17 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                 <div key={`entity-${j}`} data-cy="entityTable">
 
                 <div>
-              
-         
-
-
                   <div>
                       {blogImage.blogImage  ?  (
 
-                        
+
                        <div>
                       { blogImage.blogpost ? (
                         <div>
 
-                          
+                        {blogImage.blogpost.id === blogPost.id ?  (
+
+                        <div>
                           {blogImage.blogImageContentType ? (
                             <a onClick={openFile(blogImage.blogImageContentType, blogImage.blogImage)}>
               
@@ -177,6 +175,10 @@ export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
                           ) : null}
                         </div>
                         
+                        ) : null}
+                        </div>
+
+
                       ) : ''}
 
                        </div>
