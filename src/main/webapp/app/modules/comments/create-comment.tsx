@@ -101,12 +101,12 @@ export const CreateComment = (props: RouteComponentProps<{ id: string }>) => {
                     ))
                   : null}
               </ValidatedField>
-              
+
               <ValidatedField
                 id="blog-comment-blog"
                 name="blog"
                 data-cy="blog"
-                label={translate('diaryFibreApp.blogComment.blog')}
+                label={translate('diaryFibreApp.blogComment.blogPost')}
                 type="select"
               >
                 <option value="" key="0" />
