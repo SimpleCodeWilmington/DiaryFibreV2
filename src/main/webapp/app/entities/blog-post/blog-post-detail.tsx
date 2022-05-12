@@ -82,6 +82,17 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
                  <tbody>
                 {(blogCommentList).map((comments, i) => (
                   <tr key={`entity-${i}`} data-cy="entityTable">
+
+                    {comments.blogPost ?  (
+                    
+
+                    <div>
+
+                    {comments.blogPost.id === blogPostEntity.id ? (  
+
+                    <div>
+
+
                     <li className="list-group-item pl-0" key={comments._id} >
                       <p className="text-muted mb-1" >
                         Posted by {comments.user ? comments.user.firstName : ''} on{' '}
@@ -96,6 +107,15 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
                         </div>
                       
                       </li>
+
+                      </div>
+
+                      ): null}
+
+                      </div>
+
+                    ) : null}
+
                   </tr>
                 ))}
                 </tbody>
