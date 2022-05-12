@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IBlogPost } from 'app/shared/model/blog-post.model';
 import { getEntities, getEntity } from './myblogs.reducer';
-import { getImages, getImag } from './image/blog-image.reducer';
+// import { getImages, getImag } from './image/blog-image.reducer';
 import { size } from 'lodash';
 
 export const MyBlogs = (props: RouteComponentProps<{ url: string }>) => {
