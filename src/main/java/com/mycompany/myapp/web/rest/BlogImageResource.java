@@ -140,6 +140,7 @@ public class BlogImageResource {
     @GetMapping("/blog-images")
     public List<BlogImage> getAllBlogImages() {
         log.debug("REST request to get all BlogImages");
+
         return blogImageService.findAll();
     }
 

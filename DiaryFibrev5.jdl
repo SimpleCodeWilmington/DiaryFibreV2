@@ -52,7 +52,9 @@ relationship ManyToOne{
 
 relationship OneToMany {
    BlogPost to BlogImage{blogpost(id)}
+
    BlogPost to BlogComment
+
    //Might have to add a many to many comments and blogImages
 }
 
