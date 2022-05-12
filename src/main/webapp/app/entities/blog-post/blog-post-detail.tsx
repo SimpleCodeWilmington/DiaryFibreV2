@@ -19,7 +19,7 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
   }, []);
 
   const blogPostEntity = useAppSelector(state => state.blogPost.entity);
-  
+
 
 
   // logcomments
@@ -62,10 +62,60 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
                 </span>
               ))
             : null}
-<<<<<<< HEAD
           </dd>
         </dl>
-        <Comments />
+          <div className="table-responsive-comment">
+          {blogCommentList && blogCommentList.length > 0 ? (
+                       <Table responsive>
+                         <tbody>
+                        {(blogCommentList).map((comments, i) => (
+                          <tr key={`entity-${i}`} data-cy="entityTable">
+
+                            {comments.blogPost ?  (
+
+
+                            <div>
+
+                            {comments.blogPost.id === blogPostEntity.id ? (
+
+                            <div>
+
+
+                            <li className="list-group-item pl-0" key={comments._id} >
+                              <p className="text-muted mb-1" >
+                                Posted by {comments.user ? comments.user.firstName : ''} on{' '}
+                                {comments.dateTime ? <TextFormat type="date" value={comments.dateTime} format={APP_DATE_FORMAT} /> : null}
+                              </p>
+                              <p className="mb-1">{comments.comment}</p>
+
+                            <div className="btn-group flex-btn-group-container">
+                              </div>
+
+                              <div className="btn-group flex-btn-group-container">
+                                </div>
+
+                              </li>
+
+                              </div>
+
+                              ): null}
+
+                              </div>
+
+                            ) : null}
+
+                          </tr>
+                        ))}
+                        </tbody>
+                  </Table>
+                    ) : (
+                      !loading && (
+                        <div className="alert alert-warning">
+                          <Translate contentKey="diaryFibreApp.blogComment.home.notFound">No Blog Comments found</Translate>
+                        </div>
+                      )
+                    )}
+              </div>
       </div>
   </Col>
   <Col md="5" className="column2">
@@ -74,88 +124,9 @@ export const BlogPostDetail = (props: RouteComponentProps<{ id: string }>) => {
     <hr className="line"></hr>
     <div {...props} className="post-image-ad">
       <img src="content/images/Flint.png" className="centered-ad" />
-    </div>  
-  </Col>
-  </Row>
-=======
-        </dd>
-  </dl>
-
-
-
-
-
-  <div className="table-responsive">
-        <Row className="justify-content-center">
-          <Col md="8">
-            {blogCommentList && blogCommentList.length > 0 ? (
-               <Table responsive>
-                 <tbody>
-                {(blogCommentList).map((comments, i) => (
-                  <tr key={`entity-${i}`} data-cy="entityTable">
-
-                    {comments.blogPost ?  (
-                    
-
-                    <div>
-
-                    {comments.blogPost.id === blogPostEntity.id ? (  
-
-                    <div>
-
-
-                    <li className="list-group-item pl-0" key={comments._id} >
-                      <p className="text-muted mb-1" >
-                        Posted by {comments.user ? comments.user.firstName : ''} on{' '}
-                        {comments.dateTime ? <TextFormat type="date" value={comments.dateTime} format={APP_DATE_FORMAT} /> : null}
-                      </p>
-                      <p className="mb-1">{comments.comment}</p>
-                    
-                    <div className="btn-group flex-btn-group-container">
-                      </div>
-                    
-                      <div className="btn-group flex-btn-group-container">
-                        </div>
-                      
-                      </li>
-
-                      </div>
-
-                      ): null}
-
-                      </div>
-
-                    ) : null}
-
-                  </tr>
-                ))}
-                </tbody>
-          </Table>
-            ) : (
-              !loading && (
-                <div className="alert alert-warning">
-                  <Translate contentKey="diaryFibreApp.blogComment.home.notFound">No Blog Comments found</Translate>
-                </div>
-              )
-            )}
-          </Col>
-        </Row>
-      </div>
-  
-
-
-
-
-
-
-
-
-
-  {/* <Comments /> */}
     </div>
   </Col>
-
->>>>>>> 864878b895267c210d2628282817a37549af25f4
+  </Row>
   );
 };
 
