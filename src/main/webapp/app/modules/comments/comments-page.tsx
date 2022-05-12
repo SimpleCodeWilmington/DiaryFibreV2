@@ -2,7 +2,6 @@ import React from 'react';
 
 
 import AddComment from './comment-button';
-import { Col, Row } from 'reactstrap';
 import Comments from './comments';
 
 export const CommentsPage = () => {
@@ -12,7 +11,7 @@ export const CommentsPage = () => {
           <br></br>
           <br></br>
           <Comments />
-      
+
     </div>
   );
 };
