@@ -185,7 +185,7 @@ export const Post = (props: RouteComponentProps<{ id: string }>) => {
                 id="blog-post-text"
                 name="text"
                 data-cy="text"
-                type="text"
+                type="textarea"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}

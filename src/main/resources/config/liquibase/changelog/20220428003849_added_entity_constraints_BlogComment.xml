@@ -8,16 +8,16 @@
     -->
     <changeSet id="20220428003849-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="blog_id"
-                                 baseTableName="blog_comment"
-                                 constraintName="fk_blog_comment__blog_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="blog_post"/>
-
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="blog_comment"
                                  constraintName="fk_blog_comment__user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="blog_post_id"
+                                 baseTableName="blog_comment"
+                                 constraintName="fk_blog_comment__blog_post_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="blog_post"/>
     </changeSet>
 </databaseChangeLog>

@@ -46,12 +46,15 @@ relationship ManyToMany {
 relationship ManyToOne{
 	Blog{user(id)} to User
     BlogPost{blog(id)} to Blog
-    BlogComment to BlogPost
+   // BlogComment to BlogPost
     BlogComment{user(id)} to User
 }
 
 relationship OneToMany {
    BlogPost to BlogImage{blogpost(id)}
+
+   BlogPost to BlogComment
+
    //Might have to add a many to many comments and blogImages
 }
 

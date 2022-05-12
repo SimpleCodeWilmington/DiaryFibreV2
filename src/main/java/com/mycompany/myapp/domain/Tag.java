@@ -30,7 +30,7 @@ public class Tag implements Serializable {
 
     @ManyToMany(mappedBy = "tags")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "blogImages", "blog", "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "blogImages", "blogComments", "blog", "tags" }, allowSetters = true)
     private Set<BlogPost> blogposts = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

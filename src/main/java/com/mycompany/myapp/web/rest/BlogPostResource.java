@@ -158,13 +158,8 @@ public class BlogPostResource {
         log.debug("REST request to get a page of BlogPosts");
         Page<BlogPost> page;
 
-        //This works
+
         page = blogPostRepository.findByBlogUserLogin(SecurityUtils.getCurrentUserLogin().orElse(null), pageable);
-
-        //This was working
-//        page = blogPostRepository.findByBlogUserLoginOrderByDateTimeDesc(SecurityUtils.getCurrentUserLogin().orElse(null), pageable);
-
-        //No longer needed
 //        if (eagerload) {
 //            page = blogPostService.findAllWithEagerRelationships(pageable);
 //        } else {
